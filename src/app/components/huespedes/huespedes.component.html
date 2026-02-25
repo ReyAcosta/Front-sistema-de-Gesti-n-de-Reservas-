@@ -1,0 +1,105 @@
+<div class="container-fluid mt-4">
+    <h2>Huesped</h2>
+    <div class="d-flex justify-content-between mb-3">
+        <button (click)="toggleForm()" class="btn btn-success"><i class="fa fa-plus"></i>
+            Registrar Huesped
+        </button>
+    </div>
+    <table class="table table-striped table-bordered mt-3">
+        <thead class="table-dark">
+            <tr style="text-align: center;">
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">TipoDocumento</th>
+                <th scope="col">Nacionalidad</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="text-align: center;" *ngFor="let huesped of listaHuespedes; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ huesped.nombre }}</td>
+                <td>{{ huesped.email }}</td>
+                <td>{{ huesped.telefono }}</td>
+                <td>{{ huesped.tipoDocumento }}</td>
+                <td>{{ huesped.nacionalidad }}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm me-1 ms-1" (click)="editHuesped(huesped)">
+                        <i class="fa fa-edit"></i> Editar</button>
+                    <button class="btn btn-danger btn-sm ms-1" (click)="deleteHuesped(huesped.id)">
+                        <i class="fa fa-trash"></i> Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" #huespedModalRef tabindex="-1" aria-labelledby="huespedModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="huespedModalLabel">{{ modalText }}</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                    aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="huespedForm" (ngSubmit)="onSubmit()">
+
+                    <!-- Nombres -->
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Nombre</label>
+                            <input class="form-control" formControlName="nombre">
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Apellido Paterno</label>
+                            <input class="form-control" formControlName="apellidoPaterno">
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Apellido Materno</label>
+                            <input class="form-control" formControlName="apellidoMaterno">
+                        </div>
+                    </div>
+
+                    <!-- Contacto -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" formControlName="email">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Teléfono</label>
+                            <input class="form-control" formControlName="telefono" maxlength="10">
+                        </div>
+                    </div>
+
+                    <!-- Dirección -->
+                   <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">ID Documento</label>
+                            <input type="number" class="form-control" formControlName="idDocumento">
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">ID Nacionalidad</label>
+                            <input type="number" class="form-control" formControlName="idNacionalidad">
+                        </div>
+                        </div>
+
+                    <!-- Botón -->
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-success" [disabled]="huespedForm.invalid">
+                            Guardar
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
