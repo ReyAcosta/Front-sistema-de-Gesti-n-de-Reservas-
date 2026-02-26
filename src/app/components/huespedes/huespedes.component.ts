@@ -43,7 +43,7 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
       email: ['', [Validators.required, Validators.email, Validators.maxLength(100), Validators.minLength(1), Validators.email]],
       telefono: ['', [Validators.required, Validators.maxLength(10)]],
       idDocumento: [null, Validators.required, Validators.min(1), Validators.max(6)],
-      idNacionalidad: [null, Validators.required, Validators.min(1), Validators.max(6)]
+      idNacionalidad: [null, Validators.required, Validators.min(1), Validators.max(8)]
     });
   }
 
@@ -92,7 +92,7 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
     if (this.huespedForm.invalid) return;
 
 
-  const huespedData: HuespedRequest = this.huespedForm.value;
+  const huespedData = this.huespedForm.value;
 
   if (this.isEditMode && this.selectedHuesped) {
     //Actualizando
