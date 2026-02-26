@@ -8,13 +8,12 @@ export interface ReservacionRequest {
     idHabitacion: number,
     fechaInicio: Date,
     fechaFin: Date,
-    idEstadoReserva: number
 }
 
 export interface ReservacionResponse {
     id: number,
+    habitacionData: HabitacionData,
     huespedData: HuespedData,
-    habitacionData: HabitacionData
     nacionalidad: string,
     fechaReserva: Date,
     fechaInicio: Date,
