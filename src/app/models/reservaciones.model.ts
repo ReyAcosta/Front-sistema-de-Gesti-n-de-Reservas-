@@ -7,14 +7,13 @@ export interface ReservacionRequest {
     idHuesped: number,
     idHabitacion: number,
     fechaInicio: Date,
-    fechaFin: Date,
+    fechaFin: Date
 }
 
 export interface ReservacionResponse {
     id: number,
-    habitacionData: HabitacionData,
+    habitacionData: HabitacionData
     huespedData: HuespedData,
-    nacionalidad: string,
     fechaReserva: Date,
     fechaInicio: Date,
     fechaFin: Date,

@@ -12,6 +12,8 @@ export interface HuespedRequest{
 export interface HuespedResponse{
     id: number, 
     nombre: string, 
+    apellidoPaterno: string,
+    apellidoMaterno: string,
 	email: string,
 	telefono: string,
 	tipoDocumento:string,

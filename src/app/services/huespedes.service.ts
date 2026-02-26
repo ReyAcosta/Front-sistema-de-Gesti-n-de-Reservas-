@@ -1,61 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { HuespedRequest, HuespedResponse } from '../models/huesped.model';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../enviroment/enviroment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class HuespedesService {
+  private apiUrl: string = environment.apiUrl.concat('huespedes');
 
-  private listaHuespedes: HuespedResponse[] = []; 
+  constructor(private http: HttpClient){}
 
   getHuespedes(): Observable<HuespedResponse[]> {
-    return of(this.listaHuespedes);
+     return this.http.get<HuespedResponse[]>(this.apiUrl).pipe(
+    map(huespedes => huespedes.sort()),
+      catchError(error => {
+        console.error('Error al obtener los Huespedes: ',error);
+        return of([]);
+      })
+     );
   }
-  getHuespedById(id: number): HuespedResponse | undefined {
-  return this.listaHuespedes.find(h => h.id === id);
-}
-  postHuesped(data: HuespedRequest): Observable<HuespedResponse> {
-    const nuevo: HuespedResponse = {
-    id: new Date().getTime(),
-    nombre: data.nombre,
-    email: data.email,
-    telefono: data.telefono,
-    tipoDocumento: data.idDocumento.toString(), 
-    nacionalidad: data.idNacionalidad.toString() 
-    };
-
-    this.listaHuespedes.push(nuevo);
-
-    return of(nuevo);
-   
+  postHuesped(huesped: HuespedRequest): Observable<HuespedResponse> {
+     return this.http.post<HuespedResponse>(this.apiUrl, huesped).pipe(
+      catchError(error => {
+        console.error('Error al registrar un paciente', error);
+        throw error;
+      })
+    );
   }
 
-  putHuesped(data: HuespedRequest, id: number): Observable<HuespedResponse> {
+  putHuesped(huesped: HuespedRequest, huespedId: number): Observable<HuespedResponse> {
 
-  const index = this.listaHuespedes.findIndex(h => h.id === id);
+    return this.http.put<HuespedResponse>(`${this.apiUrl}/${huespedId}`, huesped).pipe(
+      catchError(error => {
+        console.error('Error al actualizar un huesped', error);
+        throw error;
 
-  const actualizado: HuespedResponse = {
-    id: id,
-    nombre: data.nombre,
-    email: data.email,
-    telefono: data.telefono,
-    tipoDocumento: data.idDocumento.toString(),
-    nacionalidad: data.idNacionalidad.toString()
-  };
-
-  if (index !== -1) {
-    this.listaHuespedes[index] = actualizado;
+      })
+    );
   }
 
-  return of(actualizado);
+  deleteHuesped(huespedId: number): Observable<void> {
+
+   return this.http.delete<void>(`${this.apiUrl}/${huespedId}`).pipe(
+      catchError(error => {
+        console.error('Error al eliminar un huesped', error);
+        throw error;
+      })
+    );
   }
-
-  deleteHuesped(id: number): Observable<void> {
-
-    this.listaHuespedes =
-      this.listaHuespedes.filter(h => h.id !== id);
-
-    return of();
-  }
+  
 }
