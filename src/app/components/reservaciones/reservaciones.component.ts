@@ -4,13 +4,13 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EstadoReserva } from '../../constants/EstadoReserva';
 import { DatePipe } from '@angular/common';
 import { ReservacionesService } from '../services/reservaciones.service';
+import Swal from 'sweetalert2';
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-reservaciones',
   standalone: false,
-  
   templateUrl: './reservaciones.component.html',
   styleUrls: ['./reservaciones.component.css']
 })
@@ -36,7 +36,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
   ) {
 
     this.reservacionForm = this.fb.group({
-      idHuesped: [null, Validators.required],
+      idReservacion: [null, Validators.required],
       idHabitacion: [null, Validators.required],
       fechaReserva:[null, Validators.required],
       fechaInicio: [null, Validators.required],
@@ -83,7 +83,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     this.modalText = 'Editar Reservación #' + reservacion.id;
 
     this.reservacionForm.patchValue({
-      idHuesped: null, 
+      idReservacion: null, 
       idHabitacion: null,
       fechaInicio: reservacion.fechaInicio,
       idEstadoReserva: reservacion.estadoReserva
@@ -96,35 +96,50 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
 
     if (this.reservacionForm.invalid) return;
 
-    const data: ReservacionRequest = this.reservacionForm.value;
+    const reservacionData: ReservacionRequest = this.reservacionForm.value;
 
     if (this.isEditMode && this.selectedReservacion) {
-
-      this.reservacionService
-        .putReservacion(data, this.selectedReservacion.id)
-        .subscribe(() => {
-          this.listarReservaciones();
-          this.modalInstance.hide();
-        });
+       this.reservacionService.putReservacion(reservacionData, this.selectedReservacion.id).subscribe({
+              next: registro => {
+                const index: number = this.listaReservaciones.findIndex(r => r.id == this.selectedReservacion!.id);
+                 if(index !== -1) this.listaReservaciones[index] = registro;
+                Swal.fire('Actualizado', 'Huesped actualizado correctamente', 'success');
+                this.modalInstance.hide();
+              }
+            });
+      
 
     } else {
+       this.reservacionService.postReservacion(reservacionData).subscribe({
+              next: registro => {
+                this.listaReservaciones.push(registro);
+                Swal.fire('Actualizado', 'Huesped actualizado correctamente', 'success');
+                this.modalInstance.hide();
+              }
+            });
 
-      this.reservacionService
-        .postReservacion(data)
-        .subscribe(() => {
-          this.listarReservaciones();
-          this.modalInstance.hide();
-        });
+      
     }
   }
 
  
-  deleteReservacion(id: number): void {
-
-    this.reservacionService
-      .deleteReservacion(id)
-      .subscribe(() => {
-        this.listarReservaciones();
-      });
+  deleteReservacion(idReservacion: number): void {
+  Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'El huesped será eliminado permanentemente',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if(result.isConfirmed) {
+        this.reservacionService.deleteReservacion(idReservacion).subscribe({
+          next: () => {
+            this.listaReservaciones = this.listaReservaciones.filter(r => r.id !== idReservacion);
+            Swal.fire('Eliminado', 'Huesped eliminado correctamente', 'success');
+          }
+        });
+      }
+    });
   }
 }

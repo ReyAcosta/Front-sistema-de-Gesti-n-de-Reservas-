@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import Swal from 'sweetalert2';
 import { HuespedesService } from '../services/huespedes.service';
 import { Observable, of } from 'rxjs';
 import { HuespedRequest, HuespedResponse } from '../models/huesped.model';
@@ -20,12 +20,13 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
 
   isEditMode: boolean = false;
   selectedHuesped: HuespedResponse | null = null;
+  showActions: boolean = false;
   modalText: string = 'Registrar Huesped';
 
   @ViewChild('huespedModalRef')
   huespedModalEl!: ElementRef;
-
   huespedForm: FormGroup;
+
   private modalInstance!: any;
 
   constructor(
@@ -50,7 +51,7 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.modalInstance = new bootstrap.Modal(this.huespedModalEl.nativeElement);
+    this.modalInstance = new bootstrap.Modal(this.huespedModalEl.nativeElement, {keyboard: false});
     this.huespedModalEl.nativeElement.addEventListener('hidden.bs.modal', () => {
       this.resetForm();
     });
@@ -89,39 +90,48 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
 
   if (this.huespedForm.invalid) return;
 
-  const data: HuespedRequest = this.huespedForm.value;
+  const huespedData: HuespedRequest = this.huespedForm.value;
 
   if (this.isEditMode && this.selectedHuesped) {
-     (document.activeElement as HTMLElement)?.blur();
-    this.huespedService.putHuesped(data, this.selectedHuesped.id)
-      .subscribe({
-        next: () => {
-          this.listarHuespedes(); 
+    //Actualizando
+    this.huespedService.putHuesped(huespedData, this.selectedHuesped.id).subscribe({
+        next: registro => {
+          const index: number = this.listaHuespedes.findIndex(h => h.id == this.selectedHuesped!.id);
+           if(index !== -1) this.listaHuespedes[index] = registro;
+          Swal.fire('Actualizado', 'Huesped actualizado correctamente', 'success');
           this.modalInstance.hide();
         }
       });
 
   } else {
 
-    this.huespedService.postHuesped(data)
-      .subscribe({
-        next: () => {
-          this.listarHuespedes(); 
+    this.huespedService.postHuesped(huespedData).subscribe({
+        next: registro => {
+          this.listaHuespedes.push(registro);
+          Swal.fire('Registrado', 'Huesped registrado correctamente', 'success') 
           this.modalInstance.hide();
         }
       });
   }
 }
 
-  deleteHuesped(id: number): Observable<void> {
-
-  const index = this.listaHuespedes.findIndex(h => h.id === id);
-
-  if (index !== -1) {
-    this.listaHuespedes.splice(index, 1);
+  deleteHuesped(idHuesped: number): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'El huesped será eliminado permanentemente',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if(result.isConfirmed) {
+        this.huespedService.deleteHuesped(idHuesped).subscribe({
+          next: () => {
+            this.listaHuespedes = this.listaHuespedes.filter(h => h.id !== idHuesped);
+            Swal.fire('Eliminado', 'Huesped eliminado correctamente', 'success');
+          }
+        });
+      }
+    });
   }
-
-  return of();
-  }
-
 }
