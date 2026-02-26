@@ -1,8 +1,10 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HabitacionRequest, HabitacionResponse } from '../models/habitaciones.model';
-import { HabitacionesService } from '../services/habitaciones.service';
+
+
 import { Observable, of } from 'rxjs';
+import { HabitacionRequest, HabitacionResponse } from '../../models/habitaciones.model';
+import { HabitacionesService } from '../../services/habitaciones.service';
 
 
 declare var bootstrap: any;
@@ -96,23 +98,23 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
     const data: HabitacionRequest = this.habitacionForm.value;
 
     if (this.isEditMode && this.selectedHabitacion) {
-        (document.activeElement as HTMLElement)?.blur();
+      (document.activeElement as HTMLElement)?.blur();
       this.habitacionService.putHabitacion(data, this.selectedHabitacion.id)
         .subscribe({
-            next: () =>  {
-          this.listarHabitaciones();
-          this.modalInstance.hide();
-            }
+          next: () => {
+            this.listarHabitaciones();
+            this.modalInstance.hide();
+          }
         });
 
     } else {
 
       this.habitacionService.postHabitacion(data)
         .subscribe({
-            next: () => {
-          this.listarHabitaciones();
-          this.modalInstance.hide();
-            }
+          next: () => {
+            this.listarHabitaciones();
+            this.modalInstance.hide();
+          }
         });
     }
   }
@@ -120,9 +122,9 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
   deleteHabitacion(id: number): Observable<void> {
     const index = this.listaHabitaciones.findIndex(h => h.id === id);
 
-  if (index !== -1) {
-    this.listaHabitaciones.splice(index, 1);
-  }
-  return of(); 
+    if (index !== -1) {
+      this.listaHabitaciones.splice(index, 1);
+    }
+    return of();
   }
 }

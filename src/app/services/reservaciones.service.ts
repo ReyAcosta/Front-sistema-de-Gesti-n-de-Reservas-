@@ -3,8 +3,9 @@ import { ReservacionRequest, ReservacionResponse } from "../models/reservaciones
 import { Observable, of } from "rxjs";
 import { HuespedesService } from "./huespedes.service";
 import { HabitacionesService } from "./habitaciones.service";
-import { EstadoReserva } from "../../constants/EstadoReserva";
-import { DatePipe } from "@angular/common";
+
+
+import { EstadoReserva } from "../constants/EstadoReserva";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class ReservacionesService {
   constructor(
     private huespedService: HuespedesService,
     private habitacionService: HabitacionesService
-  ) {}
+  ) { }
 
   getReservaciones(): Observable<ReservacionResponse[]> {
     return of(this.listaReservaciones);

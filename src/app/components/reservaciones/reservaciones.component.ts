@@ -1,16 +1,18 @@
-import {  AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ReservacionRequest, ReservacionResponse } from '../models/reservaciones.model';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EstadoReserva } from '../../constants/EstadoReserva';
 import { DatePipe } from '@angular/common';
-import { ReservacionesService } from '../services/reservaciones.service';
+import { ReservacionRequest, ReservacionResponse } from '../../models/reservaciones.model';
+import { ReservacionesService } from '../../services/reservaciones.service';
+
 
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-reservaciones',
   standalone: false,
-  
+
   templateUrl: './reservaciones.component.html',
   styleUrls: ['./reservaciones.component.css']
 })
@@ -22,7 +24,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
   selectedReservacion: ReservacionResponse | null = null;
   modalText = 'Registrar Reservación';
 
-  EstadoReserva = EstadoReserva; 
+  EstadoReserva = EstadoReserva;
 
   @ViewChild('reservacionModalRef')
   reservacionModalEl!: ElementRef;
@@ -38,7 +40,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     this.reservacionForm = this.fb.group({
       idHuesped: [null, Validators.required],
       idHabitacion: [null, Validators.required],
-      fechaReserva:[null, Validators.required],
+      fechaReserva: [null, Validators.required],
       fechaInicio: [null, Validators.required],
       fechaFin: [null],
       idEstadoReserva: [null, Validators.required]
@@ -83,7 +85,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     this.modalText = 'Editar Reservación #' + reservacion.id;
 
     this.reservacionForm.patchValue({
-      idHuesped: null, 
+      idHuesped: null,
       idHabitacion: null,
       fechaInicio: reservacion.fechaInicio,
       idEstadoReserva: reservacion.estadoReserva
@@ -118,7 +120,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     }
   }
 
- 
+
   deleteReservacion(id: number): void {
 
     this.reservacionService
