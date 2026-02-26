@@ -34,10 +34,10 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
 
     this.habitacionForm = this.fb.group({
       id: [null],
-      numeroHabitacion: [null, Validators.required],
-      idTipoHabitacion: [null, Validators.required],
+      numeroHabitacion: [null, [Validators.required, Validators.min(1)]],
+      idTipoHabitacion: [null, [Validators.required, Validators.min(1), Validators.max(3)]],
       precio: [null, Validators.required],
-      capacidad: [null, Validators.required],
+      capacidad: [null, [Validators.required, Validators.min(1), Validators.max(6)]],
       idEstadoHabitacion: [null, Validators.required]
     });
   }
@@ -47,7 +47,7 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.modalInstance = new bootstrap.Modal(this.habitacionModalEl.nativeElement, {keyboard: false});
+    this.modalInstance = new bootstrap.Modal(this.habitacionModalEl.nativeElement, { keyboard: false });
 
     this.habitacionModalEl.nativeElement.addEventListener('hidden.bs.modal', () => {
       this.resetForm();
@@ -97,24 +97,25 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
 
     if (this.isEditMode && this.selectedHabitacion) {
       this.habitacionService.putHabitacion(habitacionData, this.selectedHabitacion.id)
-        .subscribe({  next: registro =>  {
-          const index: number = this.listaHabitaciones.findIndex(hb => hb.id == this.selectedHabitacion!.id);
-          if(index !== -1) this.listaHabitaciones[index] = registro;
-          Swal.fire('Actualizado', 'Habitacion actualizado correctamente', 'success');
-          this.modalInstance.hide();
-            }
-        });
-      }else{
-        this.habitacionService.postHabitacion(habitacionData).subscribe({
-                next: registro => {
-                  this.listaHabitaciones.push(registro);
-                  Swal.fire('Registrado', 'Habitacio registrado correctamente', 'success') 
-                  this.modalInstance.hide();
-                }
-              });
-            }
-        
+        .subscribe({
+          next: registro => {
+            const index: number = this.listaHabitaciones.findIndex(hb => hb.id == this.selectedHabitacion!.id);
+            if (index !== -1) this.listaHabitaciones[index] = registro;
+            Swal.fire('Actualizado', 'Habitacion actualizado correctamente', 'success');
+            this.modalInstance.hide();
           }
+        });
+    } else {
+      this.habitacionService.postHabitacion(habitacionData).subscribe({
+        next: registro => {
+          this.listaHabitaciones.push(registro);
+          Swal.fire('Registrado', 'Habitacio registrado correctamente', 'success')
+          this.modalInstance.hide();
+        }
+      });
+    }
+
+  }
   deleteHabitacion(idHabitacion: number): void {
     Swal.fire({
       title: '¿Estás seguro?',
@@ -124,7 +125,7 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
     }).then(result => {
-      if(result.isConfirmed) {
+      if (result.isConfirmed) {
         this.habitacionService.deleteHabitacion(idHabitacion).subscribe({
           next: () => {
             this.listaHabitaciones = this.listaHabitaciones.filter(hb => hb.id !== idHabitacion);
