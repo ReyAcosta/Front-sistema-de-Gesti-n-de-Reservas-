@@ -1,9 +1,8 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HabitacionRequest, HabitacionResponse } from '../models/habitaciones.model';
-import { HabitacionesService } from '../services/habitaciones.service';
-import { Observable, of } from 'rxjs';
 import Swal from 'sweetalert2';
+import { HabitacionRequest, HabitacionResponse } from '../../models/habitaciones.model';
+import { HabitacionesService } from '../../services/habitaciones.service';
 
 
 declare var bootstrap: any;

@@ -1,10 +1,11 @@
-import {  AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ReservacionRequest, ReservacionResponse } from '../models/reservaciones.model';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EstadoReserva } from '../../constants/EstadoReserva';
 import { DatePipe } from '@angular/common';
-import { ReservacionesService } from '../services/reservaciones.service';
 import Swal from 'sweetalert2';
+import { ReservacionRequest, ReservacionResponse } from '../../models/reservaciones.model';
+import { ReservacionesService } from '../../services/reservaciones.service';
 
 declare var bootstrap: any;
 
@@ -22,7 +23,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
   selectedReservacion: ReservacionResponse | null = null;
   modalText = 'Registrar Reservación';
 
-  EstadoReserva = EstadoReserva; 
+  EstadoReserva = EstadoReserva;
 
   @ViewChild('reservacionModalRef')
   reservacionModalEl!: ElementRef;
@@ -38,7 +39,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     this.reservacionForm = this.fb.group({
       idReservacion: [null, Validators.required],
       idHabitacion: [null, Validators.required],
-      fechaReserva:[null, Validators.required],
+      fechaReserva: [null, Validators.required],
       fechaInicio: [null, Validators.required],
       fechaFin: [null],
       idEstadoReserva: [null, Validators.required]
@@ -122,7 +123,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     }
   }
 
- 
+
   deleteReservacion(idReservacion: number): void {
   Swal.fire({
       title: '¿Estás seguro?',

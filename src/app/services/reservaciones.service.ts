@@ -1,21 +1,18 @@
 import { Injectable } from "@angular/core";
 import { ReservacionRequest, ReservacionResponse } from "../models/reservaciones.model";
 import { catchError, map, Observable, of } from "rxjs";
-import { HuespedesService } from "./huespedes.service";
-import { HabitacionesService } from "./habitaciones.service";
-import { EstadoReserva } from "../../constants/EstadoReserva";
-import { DatePipe } from "@angular/common";
-import { environment } from "../../enviroment/enviroment";
+import { EstadoReserva } from "../constants/EstadoReserva";
 import { HttpClient } from "@angular/common/http";
+import { environment } from "../enviroment/enviroment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReservacionesService {
-
- private apiUrl: string = environment.apiUrl.concat('huespedes');
+  private apiUrl: string = environment.apiUrl.concat('huespedes');
 
   constructor(private http: HttpClient){}
+  
 
   getReservaciones(): Observable<ReservacionResponse[]> {
      return this.http.get<ReservacionResponse[]>(this.apiUrl).pipe(
@@ -50,6 +47,6 @@ putReservacion(reservacion: ReservacionRequest, reservacionId: number): Observab
             console.error('Error al eliminar una reservacion', error);
             throw error;
           })
-        );
+      );
   }
 }

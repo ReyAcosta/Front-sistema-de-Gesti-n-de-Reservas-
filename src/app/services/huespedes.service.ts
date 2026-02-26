@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { HuespedRequest, HuespedResponse } from '../models/huesped.model';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../enviroment/enviroment';
+import { environment } from '../enviroment/enviroment';
 
 @Injectable({
   providedIn: 'root'

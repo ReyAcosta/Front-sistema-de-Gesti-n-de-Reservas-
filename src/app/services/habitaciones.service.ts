@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
-import { HabitacionRequest, HabitacionResponse } from '../models/habitaciones.model';
-import { environment } from '../../enviroment/enviroment';
 import { HttpClient } from '@angular/common/http';
+import { HabitacionRequest, HabitacionResponse } from '../models/habitaciones.model';
+import { environment } from '../enviroment/enviroment';
 
 @Injectable({
   providedIn: 'root'
