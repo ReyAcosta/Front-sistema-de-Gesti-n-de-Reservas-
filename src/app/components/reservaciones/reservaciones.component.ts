@@ -27,8 +27,8 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
 
   @ViewChild('reservacionModalRef')
   reservacionModalEl!: ElementRef;
-
   reservacionForm: FormGroup;
+
   private modalInstance!: any;
 
   constructor(
