@@ -22,24 +22,21 @@
         </thead>
 
         <tbody>
-            <tr style="text-align: center;"
-                *ngFor="let habitacion of listaHabitaciones; let i = index">
+            <tr style="text-align: center;" *ngFor="let habitacion of listaHabitaciones; let i = index">
 
                 <td>{{ i + 1 }}</td>
-                <td>{{ habitacion.numeroHabitacion }}</td>
-                <td>{{ habitacion.tipoHabitacion }}</td>
-                <td>{{ habitacion.precio }}</td>
-                <td>{{ habitacion.capacidad }}</td>
+                <td>{{ habitacion.numeroHabitacion | number}}</td>
+                <td>{{ habitacion.tipoHabitacion}}</td>
+                <td>${{ habitacion.precio| number:'1.2-2' }}</td>
+                <td>{{ habitacion.capacidad | number}}</td>
                 <td>{{ habitacion.estadoHabitacion }}</td>
 
                 <td>
-                    <button class="btn btn-primary btn-sm me-1"
-                        (click)="editHabitacion(habitacion)">
+                    <button class="btn btn-primary btn-sm me-1" (click)="editHabitacion(habitacion)">
                         <i class="fa fa-edit"></i> Editar
                     </button>
 
-                    <button class="btn btn-danger btn-sm"
-                        (click)="deleteHabitacion(habitacion.id)">
+                    <button class="btn btn-danger btn-sm" (click)="deleteHabitacion(habitacion.id)">
                         <i class="fa fa-trash"></i> Eliminar
                     </button>
                 </td>
@@ -51,8 +48,7 @@
 
 <!-- MODAL -->
 
-    <div class="modal fade" #habitacionModalRef tabindex="-1"
-     aria-labelledby="habitacionModalLabel" aria-hidden="true">
+<div class="modal fade" #habitacionModalRef tabindex="-1" aria-labelledby="habitacionModalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -62,10 +58,7 @@
                     {{ modalText }}
                 </h5>
 
-                <button type="button"
-                        class="btn-close btn-close-white"
-                        data-bs-dismiss="modal"
-                        aria-label="Cerrar">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar">
                 </button>
             </div>
 
@@ -78,12 +71,17 @@
 
                         <div class="col-md-4 mb-3">
                             <label class="form-label"> Número Habitación </label>
-                            <input class="form-control" formControlName="numeroHabitacion">
+                            <input class="form-control" formControlName="numeroHabitacion" type="number">
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">  Tipo Habitación (ID) </label>
-                            <input  class="form-control"  formControlName="idTipoHabitacion">
+                            <label class="form-label"> Tipo Habitación (ID) </label>
+                            <select class="form-select" formControlName="idTipoHabitacion">
+                                <option value="">Seleccione...</option>
+                                <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">
+                                    {{ tipo.descripcion }}
+                                </option>
+                            </select>
                         </div>
 
                     </div>
@@ -92,11 +90,16 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Precio</label>
-                            <input class="form-control" formControlName="precio">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" placeholder="0.00" aria-label="Precio"
+                                    aria-describedby="precio-addon" formControlName="precio">
+                                <span class="input-group-text">MXN</span>
+                            </div>
                         </div>
-                         
+
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">  Capacidad </label>
+                            <label class="form-label"> Capacidad </label>
                             <input type="number" class="form-control" formControlName="capacidad">
                         </div>
 
@@ -104,9 +107,15 @@
 
                     <!-- Estado -->
                     <div class="col-md-4 mb-3">
-                        <label class="form-label"> Estado Habitación (ID) </label>
-                        <input class="form-control" formControlName="idEstadoHabitacion">
+                        <label class="form-label"> Estado Habitación </label>
+                        <select class="form-select" formControlName="idEstadoHabitacion">
+                            <option value="">Seleccione...</option>
+                            <option *ngFor="let estado of EstadosHabitacion" [value]="estado.id">
+                                {{ estado.descripcion }}
+                            </option>
+                        </select>
                     </div>
+
 
                     <div class="text-end">
                         <button type="submit" class="btn btn-success" [disabled]="habitacionForm.invalid">
