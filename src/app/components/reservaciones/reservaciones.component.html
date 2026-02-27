@@ -12,9 +12,9 @@
         <thead class="table-dark">
             <tr style="text-align: center;">
                 <th>#</th>
-                <th>ID</th>
                 <th>Huésped</th>
                 <th>Habitación</th>
+                <th>Fecha Reserva</th>
                 <th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
                 <th>Estado</th>
@@ -23,26 +23,22 @@
         </thead>
 
         <tbody>
-            <tr style="text-align: center;"
-                *ngFor="let reservacion of listaReservaciones; let i = index">
+            <tr style="text-align: center;" *ngFor="let reservacion of listaReservaciones; let i = index">
 
                 <td>{{ i + 1 }}</td>
-                <td>{{ reservacion.id }}</td>
-                <td>{{ reservacion.huespedData.nombre }}</td>
-                <td>{{ reservacion.habitacionData.numeroHabitacion }}</td>
-                <td>{{ reservacion.fechaReserva | date:'yyyy-MM-dd' }}</td>
-                <td>{{ reservacion.fechaInicio | date:'yyyy-MM-dd' }}</td>
-                <td>{{ reservacion.fechaFin | date:'yyyy-MM-dd' }}</td>
+                <td>{{ reservacion.huesped.nombre }}</td>
+                <td>{{ reservacion.habitacion.numeroHabitacion }}</td>
+                <td>{{ reservacion.fechaReserva | date:'dd-MM-yyyy' }}</td>
+                <td>{{ reservacion.fechaInicio | date:'dd-MM-yyyy' }}</td>
+                <td>{{ reservacion.fechaFin | date:'dd-MM-yyyy' }}</td>
                 <td>{{ reservacion.estadoReserva }}</td>
 
                 <td>
-                    <button class="btn btn-primary btn-sm me-1"
-                        (click)="editReservacion(reservacion)">
+                    <button class="btn btn-primary btn-sm me-1" (click)="editReservacion(reservacion)">
                         <i class="fa fa-edit"></i> Editar
                     </button>
 
-                    <button class="btn btn-danger btn-sm"
-                        (click)="deleteReservacion(reservacion.id)">
+                    <button class="btn btn-danger btn-sm" (click)="deleteReservacion(reservacion.id)">
                         <i class="fa fa-trash"></i> Eliminar
                     </button>
                 </td>
@@ -54,8 +50,7 @@
 
 <!-- MODAL -->
 
-<div class="modal fade" #reservacionModalRef tabindex="-1"
-     aria-labelledby="reservacionModalLabel" aria-hidden="true">
+<div class="modal fade" #reservacionModalRef tabindex="-1" aria-labelledby="reservacionModalLabel" aria-hidden="true">
 
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -65,10 +60,7 @@
                     {{ modalText }}
                 </h5>
 
-                <button type="button"
-                        class="btn-close btn-close-white"
-                        data-bs-dismiss="modal"
-                        aria-label="Cerrar">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar">
                 </button>
             </div>
 
@@ -81,56 +73,34 @@
 
                         <div class="col-md-4 mb-3">
                             <label class="form-label">ID Huésped</label>
-                            <input type="number"
-                                   class="form-control"
-                                   formControlName="idHuesped">
+                            <input type="number" class="form-control" formControlName="idHuesped">
                         </div>
 
                         <div class="col-md-4 mb-3">
                             <label class="form-label">ID Habitación</label>
-                            <input type="number"
-                                   class="form-control"
-                                   formControlName="idHabitacion">
+                            <input type="number" class="form-control" formControlName="idHabitacion">
                         </div>
 
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label">Estado Reserva (ID)</label>
-                            <input type="number"
-                                   class="form-control"
-                                   formControlName="idEstadoReserva">
-                        </div>
 
                     </div>
 
                     <!-- Fila 2 -->
                     <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label">Fecha Reserva</label>
-                            <input type="date"
-                                   class="form-control"
-                                   formControlName="fechaReserva">
-                        </div>
 
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Fecha Inicio</label>
-                            <input type="date"
-                                   class="form-control"
-                                   formControlName="fechaInicio">
+                            <input type="datetime-local" class="form-control" formControlName="fechaInicio">
                         </div>
 
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Fecha Fin</label>
-                            <input type="date"
-                                   class="form-control"
-                                   formControlName="fechaFin">
+                            <input type="datetime-local" class="form-control" formControlName="fechaFin">
                         </div>
 
                     </div>
 
                     <div class="text-end">
-                        <button type="submit"
-                                class="btn btn-success"
-                                [disabled]="reservacionForm.invalid">
+                        <button type="submit" class="btn btn-success" [disabled]="reservacionForm.invalid">
                             Guardar
                         </button>
                     </div>

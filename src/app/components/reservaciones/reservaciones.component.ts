@@ -23,123 +23,111 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
   isEditMode: boolean = false;
   selectedReservacion: ReservacionResponse | null = null;
   showActions: boolean = false;
-  modalText: string = 'Registrar Paciente';
+  modalText: string = "Generar Reservacion"
 
   @ViewChild('reservacionModalRef')
   reservacionModalEl!: ElementRef;
   reservacionForm: FormGroup;
 
-  private modalInstance!: any;
+  private modalIntance!: any;
 
-  constructor(
-    private fb: FormBuilder,
-    private reservacionService: ReservacionesService
-  ) {
-
+  constructor(private fb: FormBuilder, private reservacionService: ReservacionesService) {
     this.reservacionForm = this.fb.group({
-      idReservacion: [null, Validators.required],
-      idHabitacion: [null, Validators.required],
-      fechaReserva: [null, Validators.required],
-      fechaInicio: [null, Validators.required],
-      fechaFin: [null],
-
-    });
+      id: [null],
+      idHuesped: [null, [Validators.required, Validators.min(1)]],
+      idHabitacion: [null, [Validators.required, Validators.min(1)]],
+      fechaInicio: [null, [Validators.required]],
+      fechaFin: [null, [Validators.required]],
+    })
   }
+
 
   ngOnInit(): void {
-
+    this.listarReservaciones();
   }
-
   ngAfterViewInit(): void {
-
+    this.modalIntance = new bootstrap.Modal(this.reservacionModalEl.nativeElement, { keyboard: false });
     this.reservacionModalEl.nativeElement.addEventListener('hidden.bs.modal', () => {
       this.resetForm();
-    });
+    })
   }
+
+
   listarReservaciones(): void {
     this.reservacionService.getReservaciones().subscribe({
-      next: resp => this.listaReservaciones = resp
-    });
-  }
-
-
-  resetForm(): void {
-    this.isEditMode = false;
-    this.selectedReservacion = null;
-    this.reservacionForm.reset();
-  }
-
-  toggleForm(): void {
-    this.resetForm();
-    this.modalText = 'Registrar Reservación';
-    this.modalInstance.show();
-  }
-
-
-  editReservacion(reservacion: ReservacionResponse): void {
-
-    this.isEditMode = true;
-    this.selectedReservacion = reservacion;
-    this.modalText = 'Editar Reservación #' + reservacion.id;
-
-    this.reservacionForm.patchValue({
-      idReservacion: null,
-      idHabitacion: null,
-      fechaInicio: reservacion.fechaInicio,
-      idEstadoReserva: reservacion.estadoReserva
-    });
-
-    this.modalInstance.show();
+      next: resp => {
+        console.info("Lista de pacientes ", resp)
+        this.listaReservaciones = resp;
+      }
+    })
   }
 
   onSubmit(): void {
-
+    //validamos que objeto del form venga valido
     if (this.reservacionForm.invalid) return;
-
-    const reservacionData: ReservacionRequest = this.reservacionForm.value;
-
+    //pasamos a una constante la informacion del objeto del form
+    const reservacioData: ReservacionRequest = this.reservacionForm.value;
+    //si edit mode is true y eciste una reservacion seleccionada es actualizar si no es registrar
     if (this.isEditMode && this.selectedReservacion) {
-      this.reservacionService.putReservacion(reservacionData, this.selectedReservacion.id).subscribe({
+      this.reservacionService.putReservacion(reservacioData, this.selectedReservacion.id).subscribe({
         next: registro => {
-          const index: number = this.listaReservaciones.findIndex(r => r.id == this.selectedReservacion!.id);
+          const index: number = this.listaReservaciones.findIndex(r => r.id === this.selectedReservacion!.id);
           if (index !== -1) this.listaReservaciones[index] = registro;
-          Swal.fire('Actualizado', 'Huesped actualizado correctamente', 'success');
-          this.modalInstance.hide();
+          Swal.fire('Actualizado', 'Reservacion actualizado correctamente', 'success')
+          this.modalIntance.hide();
         }
-      });
-
-
+      })
     } else {
-      this.reservacionService.postReservacion(reservacionData).subscribe({
+      this.reservacionService.postReservacion(reservacioData).subscribe({
         next: registro => {
           this.listaReservaciones.push(registro);
-          Swal.fire('Actualizado', 'Huesped agregado correctamente', 'success');
-          this.modalInstance.hide();
+          Swal.fire('Registrada', 'La reservacion ha sido registrada', 'success')
+          this.modalIntance.hide();
         }
-      });
-
-
+      })
     }
   }
 
 
-  deleteReservacion(idReservacion: number): void {
+  deleteReservacion(idPaciente: number): void {
     Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'El huesped será eliminado permanentemente',
+      title: 'Esta seguro?',
+      text: 'La reservacion se eliminara permanentemente',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
+      confirmButtonText: 'Si, eliminar',
       cancelButtonText: 'Cancelar'
     }).then(result => {
       if (result.isConfirmed) {
-        this.reservacionService.deleteReservacion(idReservacion).subscribe({
+        this.reservacionService.deleteReservacion(idPaciente).subscribe({
           next: () => {
-            this.listaReservaciones = this.listaReservaciones.filter(r => r.id !== idReservacion);
-            Swal.fire('Eliminado', 'Huesped eliminado correctamente', 'success');
+            this.listaReservaciones = this.listaReservaciones.filter(r => r.id !== idPaciente);
+            Swal.fire('Eliminada', 'Reservacion eliminada correctamente', "success");
           }
-        });
+        })
       }
-    });
+    })
+  }
+
+  resetForm(): void {
+    this.isEditMode = false;
+    this.selectedReservacion = null;
+    this.reservacionForm.reset()
+  }
+
+  toggleForm(): void {
+    this.reservacionForm.reset();
+    this.modalText = 'Agregar Reservacion';
+    this.modalIntance.show();
+  }
+
+  editReservacion(reservacion: ReservacionResponse): void {
+    this.isEditMode = true;
+    this.selectedReservacion = reservacion;
+    this.modalText = 'Editando Reservacion: ' + reservacion.id
+
+    this.reservacionForm.patchValue({ ...reservacion })
+    this.modalIntance.show();
   }
 }
+

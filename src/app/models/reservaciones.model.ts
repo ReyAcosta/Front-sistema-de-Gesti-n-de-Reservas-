@@ -12,10 +12,10 @@ export interface ReservacionRequest {
 
 export interface ReservacionResponse {
     id: number,
-    habitacionData: HabitacionData
-    huespedData: HuespedData,
+    habitacion: HabitacionData
+    huesped: HuespedData,
     fechaReserva: Date,
     fechaInicio: Date,
     fechaFin: Date,
-    estadoReserva: EstadoReserva
+    estadoReserva: string
 }
