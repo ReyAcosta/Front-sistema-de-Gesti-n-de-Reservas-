@@ -39,7 +39,7 @@
                     <button class="btn btn-danger btn-sm" (click)="deleteReservacion(reservacion.id)">
                         <i class="fa fa-trash"></i> Eliminar
                     </button>
-                    <button class="btn btn-danger btn-sm me-1" (click)="editEstadoReserva(reservacion.id)">
+                    <button class="btn btn-danger btn-sm me-1" (click)="editEstadoReserva(reservacion)">
                         <i class="fa fa-edit"></i> Estado
                     </button>
                 </td>
@@ -128,11 +128,22 @@
 
             <div class="modal-header bg-dark text-white">
                 <h5 class="modal-title">
-                    Esitar estado reservacion
+                    Editar estado reservacion
                 </h5>
 
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar">
                 </button>
+                <div class="modal-body">
+                    <select class="form-select">
+                        <option *ngFor="let estado of estadosReserva" [value]="estado[1]">
+                            {{estado[0]}}
+                        </option>
+                    </select>
+
+                    <button class="btn btn-success btn-sm" (click)=" updateEstado()">
+                        Confirmar
+                    </button>
+                </div>
             </div>
         </div>
     </div>

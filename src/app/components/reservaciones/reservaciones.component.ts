@@ -25,7 +25,8 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     listaReservaciones: ReservacionResponse[] = [];
     listaHuespedes: HuespedResponse[] = [];
     listaHabitaciones: HabitacionResponse[] = [];
-    estadosReserva = Object.entries(EstadoReserva);
+    estadosReserva = Object.entries(EstadoReserva).
+        filter(([key, value]) => isNaN(Number(key)));
 
     isEditMode: boolean = false;
     selectedReservacion: ReservacionResponse | null = null;
@@ -131,6 +132,10 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         })
     }
 
+    updateEstado(): void {
+
+    }
+
     listarHuespedes(): void {
         this.huespedService.getHuespedes().subscribe({
             next: resp => {
@@ -174,8 +179,10 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         this.modalIntance.show();
     }
 
-    editEstadoReserva(id: number): void {
+    editEstadoReserva(reservacion: ReservacionResponse): void {
+        this.selectedReservacion = reservacion;
         this.modalIntanceEditar.show();
+        console.log(this.estadosReserva)
     }
 }
 

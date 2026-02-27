@@ -52,4 +52,14 @@ export class ReservacionesService {
             })
         )
     };
+
+    updateEstado(idReservacion: number, idEstado: number): Observable<ReservacionResponse> {
+        return this.http.patch<ReservacionResponse>(`${this.apiUrl}/${idReservacion}/estado/${idEstado}`, {})
+            .pipe(
+                catchError(error => {
+                    console.error("No se pudo eliminar la reservacion con id: " + idReservacion);
+                    throw error;
+                })
+            )
+    };
 }
