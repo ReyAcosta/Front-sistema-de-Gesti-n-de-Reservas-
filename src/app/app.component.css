@@ -1,0 +1,28 @@
+/* Color del texto cuando el link está activo */
+.active-link {
+    color: #0d6efd !important; /* Azul primario */
+    font-weight: 600;
+    position: relative;
+}
+
+/* Línea estética debajo del link activo */
+.active-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #0d6efd;
+    border-radius: 2px;
+}
+
+/* Efecto hover suave para el resto de links */
+.nav-link {
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #0d6efd !important;
+    transform: translateY(-2px);
+}

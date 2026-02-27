@@ -1,36 +1,53 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" routerLink="/dashboard">Hotel App</a>
-        <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-2">
+    <div class="container">
+        <a class="navbar-brand d-flex align-items-center fw-bold" routerLink="/dashboard">
+            <i class="fas fa-hotel me-2 text-primary"></i>
+            <span>HOTEL<span class="text-primary">APP</span></span>
+        </a>
+
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+
+        <div class="collapse navbar-collapse" id="mainNav">
+            <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/dashboard/huespedes" routerLinkActive="active">Huespedes</a>
+                    <a class="nav-link px-3" routerLink="/dashboard/huespedes" routerLinkActive="active-link">
+                        <i class="fas fa-users-cog me-1 small"></i> Huéspedes
+                    </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/dashboard/habitaciones" routerLinkActive="active">Habitaciones</a>
+                    <a class="nav-link px-3" routerLink="/dashboard/habitaciones" routerLinkActive="active-link">
+                        <i class="fas fa-bed me-1 small"></i> Habitaciones
+                    </a>
                 </li>
-                
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="/dashboard/reservaciones" routerLinkActive="active">Reservaciones</a>
+                    <a class="nav-link px-3" routerLink="/dashboard/reservaciones" routerLinkActive="active-link">
+                        <i class="fas fa-calendar-check me-1 small"></i> Reservaciones
+                    </a>
                 </li>
-                <!-- 
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/dashboard/usuarios" routerLinkActive="active">Usuarios</a>
-                </li> -->
             </ul>
+            <!---
+            <div class="navbar-nav ms-auto align-items-center">
+                <div class="nav-item dropdown" *ngIf="username">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center user-dropdown" 
+                       id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://ui-avatars.com/api/?name={{username}}&background=0D6EFD&color=fff" 
+                             class="rounded-circle me-2" width="32" height="32" alt="Avatar">
+                        <span>{{ username }}</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow border-0 mt-2" aria-labelledby="userMenu">
+                        <li><a class="dropdown-item" routerLink="/dashboard/perfil"><i class="fas fa-user-circle me-2"></i> Mi Perfil</a></li>
+                        <li><a class="dropdown-item" routerLink="/dashboard/usuarios"><i class="fas fa-users me-2"></i> Gestión de Usuarios</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <button class="dropdown-item text-danger" (click)="logout()">
+                                <i class="fas fa-sign-out-alt me-2"></i> Cerrar sesión
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>-->
         </div>
-        <!-- <div class="d-flex align-items-center">
-            <span class="text-light me-2 d-flex align-items-center">
-                <i class="fas fa-user me-2"></i>
-                <span *ngIf="username">Hola, {{ username }}!</span>
-            </span>
-            <button class="btn btn-outline-light btn-sm d-flex align-items-center" (click)="logout()">
-                <i class="fas fa-sign-out-alt me-2"></i>
-                Cerrar sesión
-            </button>
-        </div> -->
     </div>
 </nav>
