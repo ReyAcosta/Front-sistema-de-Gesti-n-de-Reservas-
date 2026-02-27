@@ -39,10 +39,8 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     this.reservacionForm = this.fb.group({
       idReservacion: [null, Validators.required],
       idHabitacion: [null, Validators.required],
-      fechaReserva: [null, Validators.required],
       fechaInicio: [null, Validators.required],
       fechaFin: [null],
-      idEstadoReserva: [null, Validators.required]
     });
   }
 
@@ -83,12 +81,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     this.selectedReservacion = reservacion;
     this.modalText = 'Editar Reservación #' + reservacion.id;
 
-    this.reservacionForm.patchValue({
-      idReservacion: null, 
-      idHabitacion: null,
-      fechaInicio: reservacion.fechaInicio,
-      idEstadoReserva: reservacion.estadoReserva
-    });
+    this.reservacionForm.patchValue({ reservacion });
 
     this.modalInstance.show();
   }
@@ -100,32 +93,32 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     const reservacionData: ReservacionRequest = this.reservacionForm.value;
 
     if (this.isEditMode && this.selectedReservacion) {
-       this.reservacionService.putReservacion(reservacionData, this.selectedReservacion.id).subscribe({
-              next: registro => {
-                const index: number = this.listaReservaciones.findIndex(r => r.id == this.selectedReservacion!.id);
-                 if(index !== -1) this.listaReservaciones[index] = registro;
-                Swal.fire('Actualizado', 'Huesped actualizado correctamente', 'success');
-                this.modalInstance.hide();
-              }
-            });
-      
+      this.reservacionService.putReservacion(reservacionData, this.selectedReservacion.id).subscribe({
+        next: registro => {
+          const index: number = this.listaReservaciones.findIndex(r => r.id == this.selectedReservacion!.id);
+          if (index !== -1) this.listaReservaciones[index] = registro;
+          Swal.fire('Actualizado', 'Huesped actualizado correctamente', 'success');
+          this.modalInstance.hide();
+        }
+      });
+
 
     } else {
-       this.reservacionService.postReservacion(reservacionData).subscribe({
-              next: registro => {
-                this.listaReservaciones.push(registro);
-                Swal.fire('Actualizado', 'Huesped actualizado correctamente', 'success');
-                this.modalInstance.hide();
-              }
-            });
+      this.reservacionService.postReservacion(reservacionData).subscribe({
+        next: registro => {
+          this.listaReservaciones.push(registro);
+          Swal.fire('Actualizado', 'Huesped actualizado correctamente', 'success');
+          this.modalInstance.hide();
+        }
+      });
 
-      
+
     }
   }
 
 
   deleteReservacion(idReservacion: number): void {
-  Swal.fire({
+    Swal.fire({
       title: '¿Estás seguro?',
       text: 'El huesped será eliminado permanentemente',
       icon: 'warning',
@@ -133,7 +126,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
     }).then(result => {
-      if(result.isConfirmed) {
+      if (result.isConfirmed) {
         this.reservacionService.deleteReservacion(idReservacion).subscribe({
           next: () => {
             this.listaReservaciones = this.listaReservaciones.filter(r => r.id !== idReservacion);

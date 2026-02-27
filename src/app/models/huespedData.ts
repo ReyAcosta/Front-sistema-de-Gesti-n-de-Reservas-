@@ -1,4 +1,4 @@
-export interface HuespedData{
+export interface HuespedData {
     nombre: string,
     email: string,
     telefono: string,

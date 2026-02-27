@@ -1,8 +1,8 @@
-export interface HabitacionData{
-     
+export interface HabitacionData {
+
     numeroHabitacion: number,
-	tipoHabitacion: string,
-	precio: number,
+    tipoHabitacion: string,
+    precio: number,
     capacidad: number,
     estadoHabitacion: string
 }
