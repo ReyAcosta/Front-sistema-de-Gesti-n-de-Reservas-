@@ -13,11 +13,10 @@ import { AppComponent } from "./app.component";
 import { HabitacionesComponent } from "./components/habitaciones/habitaciones.component";
 import { FormsModule } from "@angular/forms";
 import { ReservacionesComponent } from "./components/reservaciones/reservaciones.component";
+import { ErrorInterceptor } from "./shared/error.interceptor";
 /*import { UsuariosComponent } from "./components/usuarios/usuarios.component";
 import { LoginComponent } from "./components/login/login.component";
-import { AuthInterceptor } from "./shared/auth.interceptor";
-import { ErrorInterceptor } from "./shared/error.interceptor";*/
-
+import { AuthInterceptor } from "./shared/auth.interceptor";*/
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,8 +26,8 @@ import { ErrorInterceptor } from "./shared/error.interceptor";*/
     FooterComponent,
     DashboardComponent,
     ReservacionesComponent
-   // LoginComponent,
-   // UsuariosComponent
+    // LoginComponent,
+    // UsuariosComponent
   ],
   imports: [
     BrowserModule,
@@ -37,11 +36,11 @@ import { ErrorInterceptor } from "./shared/error.interceptor";*/
     HttpClientModule,
     AppRoutingModule
   ],
-  /* providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  providers: [
+    // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
-  ],*/
+  ],
 
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
