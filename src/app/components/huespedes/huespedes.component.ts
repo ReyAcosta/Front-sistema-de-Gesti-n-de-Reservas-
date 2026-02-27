@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { Observable, of } from 'rxjs';
 import { HuespedRequest, HuespedResponse } from '../../models/huesped.model';
 import { HuespedesService } from '../../services/huespedes.service';
+import { TipoDocumento, TipoDocumentoDescripcion } from '../../constants/TipoDocumento';
+import { Nacionalidad, NacionalidadDescripcion } from '../../constants/Nacionalidad';
 
 
 
@@ -18,6 +20,13 @@ declare var bootstrap: any;
 export class HuespedesComponent implements OnInit, AfterViewInit {
 
   listaHuespedes: HuespedResponse[] = [];
+
+  tiposDocumento = Object.values(TipoDocumento).filter
+  (v => typeof v === 'number') as TipoDocumento[];
+  TipoDocumentoDescripcion = TipoDocumentoDescripcion;
+
+  nacionalidades=Object.values(Nacionalidad).filter(v => typeof v === 'number') as Nacionalidad[];
+  NacionalidadDescripcion = NacionalidadDescripcion;
 
   isEditMode: boolean = false;
   selectedHuesped: HuespedResponse | null = null;
@@ -37,13 +46,13 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
 
     this.huespedForm = this.fb.group({
       id: [null],
-      nombre: ['', Validators.required, Validators.maxLength(50), Validators.minLength(1)],
-      apellidoPaterno: ['', Validators.required, Validators.maxLength(50), Validators.minLength(1)],
-      apellidoMaterno: ['', Validators.required, Validators.maxLength(50), Validators.minLength(1)],
-      email: ['', [Validators.required, Validators.email, Validators.maxLength(100), Validators.minLength(1), Validators.email]],
-      telefono: ['', [Validators.required, Validators.maxLength(10)]],
-      idDocumento: [null, Validators.required, Validators.min(1), Validators.max(6)],
-      idNacionalidad: [null, Validators.required, Validators.min(1), Validators.max(8)]
+      nombre: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(1), Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
+      apellidoPaterno: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(1), Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
+      apellidoMaterno: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(1), Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
+      email: ['', [Validators.required, Validators.email, Validators.maxLength(100), Validators.minLength(1)]],
+      telefono: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[0-9]+$/)]],
+      idDocumento: [null, [Validators.required, Validators.min(1), Validators.max(6)]],
+      idNacionalidad:[null, [Validators.required, Validators.min(1), Validators.max(8)]]
     });
   }
 
@@ -82,11 +91,22 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
     this.isEditMode = true;
     this.selectedHuesped = huesped;
     this.modalText = 'Editando Huesped: ' + huesped.nombre;
+    console.log("Documento recibido:", huesped.tipoDocumento);
+    console.log("Nacionalidad recibida:", huesped.nacionalidad);
 
-    this.huespedForm.patchValue({ ...huesped });
+    this.huespedForm.patchValue({ id: huesped.id,
+    nombre: huesped.nombre,
+    apellidoPaterno: huesped.apellidoPaterno,
+    apellidoMaterno: huesped.apellidoMaterno,
+    email: huesped.email,
+    telefono: huesped.telefono,
+
+    idDocumento: this.getDocumentoId(huesped.tipoDocumento),
+    idNacionalidad: this.getNacionalidadId(huesped.nacionalidad) 
+  });
     this.modalInstance.show();
   }
-
+  
   onSubmit(): void {
 
     if (this.huespedForm.invalid) return;
@@ -136,4 +156,22 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  
+  private getDocumentoId(descripcion: string): number | null {
+  const entry = Object.entries(this.TipoDocumentoDescripcion)
+    .find(([_, value]) =>
+      value.trim().toLowerCase() === descripcion.trim().toLowerCase()
+    );
+
+  return entry ? Number(entry[0]) : null;
+}
+
+private getNacionalidadId(descripcion: string): number | null {
+  const entry = Object.entries(this.NacionalidadDescripcion)
+    .find(([_, value]) =>
+      value.trim().toLowerCase() === descripcion.trim().toLowerCase()
+    );
+
+  return entry ? Number(entry[0]) : null;
+}
 }
