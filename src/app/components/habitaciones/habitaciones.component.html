@@ -76,7 +76,12 @@
 
                         <div class="col-md-4 mb-3">
                             <label class="form-label"> Tipo Habitación (ID) </label>
-                            <input class="form-control" formControlName="idTipoHabitacion" type="number">
+                            <select class="form-select" formControlName="idTipoHabitacion">
+                                <option value="">Seleccione...</option>
+                                <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">
+                                    {{ tipo.descripcion }}
+                                </option>
+                            </select>
                         </div>
 
                     </div>
@@ -102,10 +107,15 @@
 
                     <!-- Estado -->
                     <div class="col-md-4 mb-3">
-                        <label class="form-label"> Estado Habitación (ID) </label>
-                        <input class="form-control" formControlName="idEstadoHabitacion">
-
+                        <label class="form-label"> Estado Habitación </label>
+                        <select class="form-select" formControlName="idEstadoHabitacion">
+                            <option value="">Seleccione...</option>
+                            <option *ngFor="let estado of EstadosHabitacion" [value]="estado.id">
+                                {{ estado.descripcion }}
+                            </option>
+                        </select>
                     </div>
+
 
                     <div class="text-end">
                         <button type="submit" class="btn btn-success" [disabled]="habitacionForm.invalid">

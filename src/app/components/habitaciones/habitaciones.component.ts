@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { HabitacionRequest, HabitacionResponse } from '../../models/habitaciones.model';
 import { HabitacionesService } from '../../services/habitaciones.service';
-
+import { TipoHabitacion, TipoHabitacionDescripcion } from '../../constants/TipoHabitacion';
+import { EstadoHabitacion, EstadoHabitacionDescripcion } from '../../constants/EstadoHabitacion';
 
 declare var bootstrap: any;
 
@@ -26,6 +27,10 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
   habitacionForm: FormGroup;
 
   private modalInstance!: any;
+  tiposHabitacion: { id: number; descripcion: string }[] = [];
+  EstadosHabitacion: { id: number; descripcion: string }[] = [];
+
+
 
   constructor(
     private fb: FormBuilder,
@@ -44,6 +49,25 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.listarHabitaciones();
+    this.cargarTiposHabitacion();
+    this.cargarEstadosHabitacion();
+  }
+
+  cargarTiposHabitacion() {
+    this.tiposHabitacion = Object.values(TipoHabitacion)
+      .filter(value => typeof value === 'number')
+      .map((value) => ({
+        id: value,
+        descripcion: TipoHabitacionDescripcion[value]
+      }));
+  }
+  cargarEstadosHabitacion() {
+    this.EstadosHabitacion = Object.values(EstadoHabitacion)
+      .filter(value => typeof value === 'number')
+      .map((value) => ({
+        id: value,
+        descripcion: EstadoHabitacionDescripcion[value]
+      }));
   }
 
   ngAfterViewInit(): void {
@@ -83,7 +107,11 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
       id: habitacion.id,
       numeroHabitacion: habitacion.numeroHabitacion,
       precio: habitacion.precio,
-      capacidad: habitacion.capacidad
+      capacidad: habitacion.capacidad,
+      idEstadoHabitacion: this.convertirDesdeDescripcion(habitacion.estadoHabitacion, EstadoHabitacionDescripcion),
+      idTipoHabitacion: this.convertirDesdeDescripcion(habitacion.tipoHabitacion, TipoHabitacionDescripcion),
+
+
     });
 
     this.modalInstance.show();
@@ -134,5 +162,16 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
         });
       }
     });
+  }
+
+  private convertirDesdeDescripcion(
+    descripcion: string,
+    mapaDescripcion: { [key: number]: string }
+  ): number | null {
+
+    const entry = Object.entries(mapaDescripcion)
+      .find(([_, desc]) => desc === descripcion);
+
+    return entry ? Number(entry[0]) : null;
   }
 }
