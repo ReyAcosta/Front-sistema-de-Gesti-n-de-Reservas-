@@ -32,17 +32,17 @@
                 <td>{{ reservacion.fechaInicio | date:'dd-MM-yyyy' }}</td>
                 <td>{{ reservacion.fechaFin | date:'dd-MM-yyyy' }}</td>
                 <td>{{ reservacion.estadoReserva }}</td>
-
                 <td>
                     <button class="btn btn-primary btn-sm me-1" (click)="editReservacion(reservacion)">
                         <i class="fa fa-edit"></i> Editar
                     </button>
-
                     <button class="btn btn-danger btn-sm" (click)="deleteReservacion(reservacion.id)">
                         <i class="fa fa-trash"></i> Eliminar
                     </button>
+                    <button class="btn btn-danger btn-sm me-1" (click)="editEstadoReserva(reservacion.id)">
+                        <i class="fa fa-edit"></i> Estado
+                    </button>
                 </td>
-
             </tr>
         </tbody>
     </table>
@@ -72,13 +72,23 @@
                     <div class="row">
 
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">ID Huésped</label>
-                            <input type="number" class="form-control" formControlName="idHuesped">
+                            <label class="form-label">Huésped</label>
+                            <select formControlName="idHuesped" class="form-select">
+                                <option [value]="null">Selecciona un opcion</option>
+                                <option *ngFor="let huesped of listaHuespedes" [value]=huesped.id>
+                                    {{huesped.nombre}} {{huesped.apellidoPaterno}}
+                                </option>
+                            </select>
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            <label class="form-label">ID Habitación</label>
-                            <input type="number" class="form-control" formControlName="idHabitacion">
+                            <label for="form-label">Habitacion</label>
+                            <select formControlName="idHabitacion" class="form-select">
+                                <option [value]="null">Selecciona un opcion</option>
+                                <option *ngFor="let habitacion of listaHabitaciones" [value]="habitacion.id">
+                                    {{habitacion.numeroHabitacion}} | {{habitacion.estadoHabitacion}}
+                                </option>
+                            </select>
                         </div>
 
                     </div>
@@ -106,6 +116,23 @@
 
                 </form>
 
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal cambiar estado-->
+<div class="modal fade" #editarEstadoModalRef tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title">
+                    Esitar estado reservacion
+                </h5>
+
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar">
+                </button>
             </div>
         </div>
     </div>

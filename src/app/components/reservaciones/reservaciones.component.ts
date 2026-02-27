@@ -6,6 +6,10 @@ import { DatePipe } from '@angular/common';
 import { ReservacionRequest, ReservacionResponse } from '../../models/reservaciones.model';
 import Swal from 'sweetalert2';
 import { ReservacionesService } from '../../services/reservaciones.service';
+import { HuespedesService } from '../../services/huespedes.service';
+import { HabitacionesService } from '../../services/habitaciones.service';
+import { HuespedResponse } from '../../models/huesped.model';
+import { HabitacionResponse } from '../../models/habitaciones.model';
 
 
 declare var bootstrap: any;
@@ -19,6 +23,9 @@ declare var bootstrap: any;
 export class ReservacionesComponent implements OnInit, AfterViewInit {
 
     listaReservaciones: ReservacionResponse[] = [];
+    listaHuespedes: HuespedResponse[] = [];
+    listaHabitaciones: HabitacionResponse[] = [];
+    estadosReserva = Object.entries(EstadoReserva);
 
     isEditMode: boolean = false;
     selectedReservacion: ReservacionResponse | null = null;
@@ -31,7 +38,15 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
 
     private modalIntance!: any;
 
-    constructor(private fb: FormBuilder, private reservacionService: ReservacionesService) {
+    @ViewChild('editarEstadoModalRef')
+    editarEstadoModalEl!: ElementRef;
+
+    private modalIntanceEditar!: any;
+
+
+    constructor(private fb: FormBuilder, private reservacionService: ReservacionesService,
+        private huespedService: HuespedesService, private habitacionService: HabitacionesService
+    ) {
         this.reservacionForm = this.fb.group({
             id: [null],
             idHuesped: [null, [Validators.required, Validators.min(1)]],
@@ -44,10 +59,17 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
 
     ngOnInit(): void {
         this.listarReservaciones();
+        this.listarHabitaciones();
+        this.listarHuespedes();
     }
     ngAfterViewInit(): void {
         this.modalIntance = new bootstrap.Modal(this.reservacionModalEl.nativeElement, { keyboard: false });
         this.reservacionModalEl.nativeElement.addEventListener('hidden.bs.modal', () => {
+            this.resetForm();
+        })
+
+        this.modalIntanceEditar = new bootstrap.Modal(this.editarEstadoModalEl.nativeElement, { keyboard: false });
+        this.editarEstadoModalEl.nativeElement.addEventListener('hidden.bs.modal', () => {
             this.resetForm();
         })
     }
@@ -56,7 +78,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     listarReservaciones(): void {
         this.reservacionService.getReservaciones().subscribe({
             next: resp => {
-                console.info("Lista de pacientes ", resp)
+                console.info("Lista de Reservaciones: ", resp)
                 this.listaReservaciones = resp;
             }
         })
@@ -109,6 +131,22 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         })
     }
 
+    listarHuespedes(): void {
+        this.huespedService.getHuespedes().subscribe({
+            next: resp => {
+                this.listaHuespedes = resp;
+            }
+        })
+    }
+
+    listarHabitaciones(): void {
+        this.habitacionService.getHabitaciones().subscribe({
+            next: resp => {
+                this.listaHabitaciones = resp;
+            }
+        })
+    }
+
     resetForm(): void {
         this.isEditMode = false;
         this.selectedReservacion = null;
@@ -126,8 +164,18 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         this.selectedReservacion = reservacion;
         this.modalText = 'Editando Reservacion: ' + reservacion.id
 
-        this.reservacionForm.patchValue({ ...reservacion })
+
+
+        this.reservacionForm.patchValue({
+            ...reservacion,
+            idHuesped: reservacion.huesped.id,
+            idHabitacion: reservacion.habitacion.id
+        })
         this.modalIntance.show();
+    }
+
+    editEstadoReserva(id: number): void {
+        this.modalIntanceEditar.show();
     }
 }
 

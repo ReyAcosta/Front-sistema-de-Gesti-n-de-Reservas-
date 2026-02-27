@@ -1,8 +1,5 @@
 export interface HabitacionData {
-
+    id: number
     numeroHabitacion: number,
-    tipoHabitacion: string,
-    precio: number,
-    capacidad: number,
-    estadoHabitacion: string
+    tipoHabitacion: string
 }
