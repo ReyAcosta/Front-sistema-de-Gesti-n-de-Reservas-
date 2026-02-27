@@ -12,9 +12,9 @@
         <thead class="table-dark">
             <tr style="text-align: center;">
                 <th>#</th>
-                <th>ID</th>
                 <th>Huésped</th>
                 <th>Habitación</th>
+                <th>Fecha Reserva</th>
                 <th>Fecha Inicio</th>
                 <th>Fecha Fin</th>
                 <th>Estado</th>
@@ -26,12 +26,11 @@
             <tr style="text-align: center;" *ngFor="let reservacion of listaReservaciones; let i = index">
 
                 <td>{{ i + 1 }}</td>
-                <td>{{ reservacion.id }}</td>
                 <td>{{ reservacion.huesped.nombre }}</td>
                 <td>{{ reservacion.habitacion.numeroHabitacion }}</td>
-                <td>{{ reservacion.fechaReserva | date:'yyyy-MM-dd' }}</td>
-                <td>{{ reservacion.fechaInicio | date:'yyyy-MM-dd' }}</td>
-                <td>{{ reservacion.fechaFin | date:'yyyy-MM-dd' }}</td>
+                <td>{{ reservacion.fechaReserva | date:'dd-MM-yyyy' }}</td>
+                <td>{{ reservacion.fechaInicio | date:'dd-MM-yyyy' }}</td>
+                <td>{{ reservacion.fechaFin | date:'dd-MM-yyyy' }}</td>
                 <td>{{ reservacion.estadoReserva }}</td>
 
                 <td>
@@ -87,15 +86,14 @@
                     <!-- Fila 2 -->
                     <div class="row">
 
-
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Fecha Inicio</label>
-                            <input type="date" class="form-control" formControlName="fechaInicio">
+                            <input type="datetime-local" class="form-control" formControlName="fechaInicio">
                         </div>
 
                         <div class="col-md-4 mb-3">
                             <label class="form-label">Fecha Fin</label>
-                            <input type="date" class="form-control" formControlName="fechaFin">
+                            <input type="datetime-local" class="form-control" formControlName="fechaFin">
                         </div>
 
                     </div>
