@@ -87,3 +87,29 @@
         font-size: 40px;
     }
 }
+
+.btn-login {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    background: transparent;
+    border: 2px solid #d4af37;
+    color: #d4af37;
+    padding: 12px 32px;      /* Más grande */
+    border-radius: 40px;
+    font-size: 16px;         /* Letra más grande */
+    font-weight: 700;        /* Negrita */
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    backdrop-filter: blur(6px);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+/* Hover elegante */
+.btn-login:hover {
+    background: #d4af37;
+    color: #0f172a;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.7);
+    transform: translateY(-3px);
+}
