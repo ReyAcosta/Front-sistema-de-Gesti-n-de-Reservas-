@@ -133,18 +133,21 @@
 
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar">
                 </button>
-                <div class="modal-body">
-                    <select class="form-select">
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="estadoForm" (ngSubmit)="updateEstado()">
+                    <select class="form-select" formControlName="idEstado">
                         <option *ngFor="let estado of estadosReserva" [value]="estado[1]">
                             {{estado[0]}}
                         </option>
                     </select>
 
-                    <button class="btn btn-success btn-sm" (click)=" updateEstado()">
+                    <button type="submit" class="btn btn-success btn-sm">
                         Confirmar
                     </button>
-                </div>
+                </form>
             </div>
+
         </div>
     </div>
 </div>

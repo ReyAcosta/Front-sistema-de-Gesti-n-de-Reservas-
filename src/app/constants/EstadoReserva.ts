@@ -10,3 +10,14 @@ export const EstadoReservaDescripcion = {
     [EstadoReserva.FINALIZADA]: 'Check-out realizado',
     [EstadoReserva.CANCELADA]: 'Reserva cancelada',
 }
+
+export function obtenerIdPorDescripcion(descripcion: string): number {
+    const entry = Object.entries(EstadoReservaDescripcion)
+        .find(([id, desc]) => desc === descripcion);
+
+    if (!entry) {
+        throw new Error(`Descripción de estado inválida: ${descripcion}`);
+    }
+
+    return Number(entry[0]);
+}
