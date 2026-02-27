@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from "./app-routing.module";
 
@@ -13,6 +13,10 @@ import { AppComponent } from "./app.component";
 import { HabitacionesComponent } from "./components/habitaciones/habitaciones.component";
 import { FormsModule } from "@angular/forms";
 import { ReservacionesComponent } from "./components/reservaciones/reservaciones.component";
+/*import { UsuariosComponent } from "./components/usuarios/usuarios.component";
+import { LoginComponent } from "./components/login/login.component";
+import { AuthInterceptor } from "./shared/auth.interceptor";
+import { ErrorInterceptor } from "./shared/error.interceptor";*/
 
 @NgModule({
   declarations: [
@@ -23,6 +27,8 @@ import { ReservacionesComponent } from "./components/reservaciones/reservaciones
     FooterComponent,
     DashboardComponent,
     ReservacionesComponent
+   // LoginComponent,
+   // UsuariosComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +37,11 @@ import { ReservacionesComponent } from "./components/reservaciones/reservaciones
     HttpClientModule,
     AppRoutingModule
   ],
+  /* providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+  ],*/
+
   bootstrap: [AppComponent]
 })
 export class AppModule {}

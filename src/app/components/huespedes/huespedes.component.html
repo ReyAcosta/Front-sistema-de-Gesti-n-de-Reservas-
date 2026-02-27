@@ -82,28 +82,20 @@
                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Tipo Documento</label>
-                            <select class="form-select" formControlName="idDocumento">
-                                <option [ngValue]="null">Seleccione...</option>
-                                <option [ngValue]=1>Credencial Electoral</option>
-                                <option [ngValue]=2>Pasaporte</option>
-                                <option [ngValue]=3>Licencia de conducir</option>
-                                <option [ngValue]=4>Cédula Profesional</option>
-                                <option [ngValue]=5>Cartilla del Servicio Militar Nacional</option>
-                                <option [ngValue]=6>Credencial para personas adultas mayores</option>
-                            </select>
+                            <select formControlName="idDocumento" class="form-select">
+                                <option [ngValue]="null">Seleccione un documento</option>
+                                <option *ngFor="let tipo of tiposDocumento" [ngValue]="tipo">
+                                    {{ TipoDocumentoDescripcion[tipo] }}
+                                </option>
+                                </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label">Nacionalidad</label>
-                            <select class="form-select" formControlName="idNacionalidad">
-                                <option [ngValue]="null">Seleccione...</option>
-                                <option [ngValue]=1>Mexicana</option>
-                                <option [ngValue]=2>Estadunidense</option>
-                                <option [ngValue]=3>Colombiana</option>
-                                <option [ngValue]="4">Japonesa</option>
-                                <option [ngValue]="5">Cubana</option>
-                                <option [ngValue]="6">Brasileira</option>
-                                <option [ngValue]="7">Chilena</option>
-                                <option [ngValue]="8">Argentina</option>
+                        <select formControlName="idNacionalidad" class="form-select">
+                            <option [ngValue]="null">Seleccione una Nacionalidad</option>
+                            <option *ngFor="let nac of nacionalidades" [ngValue]="nac">
+                                {{ NacionalidadDescripcion[nac] }}
+                            </option>
                             </select>
                         </div>
                     </div>

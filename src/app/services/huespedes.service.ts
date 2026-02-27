@@ -24,7 +24,7 @@ export class HuespedesService {
   postHuesped(huesped: HuespedRequest): Observable<HuespedResponse> {
      return this.http.post<HuespedResponse>(this.apiUrl, huesped).pipe(
       catchError(error => {
-        console.error('Error al registrar un paciente', error);
+        console.error('Error al registrar un huesped', error);
         throw error;
       })
     );

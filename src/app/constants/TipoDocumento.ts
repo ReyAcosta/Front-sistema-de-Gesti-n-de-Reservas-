@@ -9,7 +9,7 @@ export enum TipoDocumento{
 }
 export const TipoDocumentoDescripcion ={
     [TipoDocumento.INE]: 'Credencial Electoral',
-    [TipoDocumento.PASAPORTE]: 'Licencia de conducir',
+    [TipoDocumento.PASAPORTE]: 'Pasaporte',
     [TipoDocumento.LICENCIA_CONDUCIR]: 'Licencia de conducir',
     [TipoDocumento.CEDULA_PROFESIONAL]: 'Cédula Profesional',
     [TipoDocumento.CARTILLA_MILITAR]: 'Cartilla del Servicio Militar Nacional',
