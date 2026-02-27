@@ -1,8 +1,8 @@
 export enum EstadoHabitacion {
     DISPONIBLE = 1,
     OCUPADA = 2,
-    MANTENIMIENTO = 3,
-    LIMPIEZA = 4
+    LIMPIEZA = 3,
+    MANTENIMIENTO = 4
 }
 export const EstadoHabitacionDescripcion = {
     [EstadoHabitacion.DISPONIBLE]: 'Lista para asignarse',

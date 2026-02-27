@@ -1,15 +1,19 @@
-export interface HabitacionRequest{
+export interface HabitacionRequest {
     numeroHabitacion: number,
     idTipoHabitacion: number,
     precio: number,
     capacidad: number
 }
 
-export interface HabitacionResponse{
+export interface HabitacionResponse {
     id: number,
     numeroHabitacion: number,
-	tipoHabitacion: string,
-	precio: number,
-	capacidad: number,
-	estadoHabitacion: string
+    tipoHabitacion: string,
+    precio: number,
+    capacidad: number,
+    estadoHabitacion: string
+}
+export interface habitacionCambioEstado {
+    id: number,
+    idEstadoHabitacion: number
 }
