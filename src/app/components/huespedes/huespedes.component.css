@@ -1,0 +1,111 @@
+.btn {
+  border: none; 
+  color: rgb(123, 224, 237); 
+  padding: 5px 10px; 
+  cursor: pointer; 
+  border-radius: 5px; 
+  display: inline-flex;
+}
+
+.btn i {
+  margin-right: 4px;
+}
+
+:root {
+  --hotel-dark: #1c1c1c;
+  --hotel-gold: #a57419;
+  --hotel-gold-light: #e09f26;
+  --hotel-gray: #3a8cde;
+  --hotel-border: #337dc7;
+}
+
+.section-title {
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: var(--hotel-dark);
+  
+}
+
+.text-gold { color: var(--hotel-gold); }
+.ls-1 { letter-spacing: 1px; font-size: 0.75rem; font-weight: 700; }
+
+.hotel-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  overflow: hidden;
+  background: rgb(7, 7, 7);
+}
+
+.table thead {
+  background-color: var(--hotel-gray);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+}
+
+.table th { padding: 1.2rem; border-bottom: 2px solid var(--hotel-border); }
+.table td { padding: 1.2rem; color: #444; }
+
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  background: var(--hotel-gold);
+  color: rgb(32, 170, 234);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.btn-hotel-primary {
+  background-color: var(--hotel-dark);
+  color: rgb(239, 36, 161);
+  border-radius: 8px;
+  padding: 10px 24px;
+  transition: all 0.3s;
+  border: none;
+}
+
+.btn-hotel-primary:hover {
+  background-color: var(--hotel-gold);
+  color: rgb(12, 111, 109);
+  transform: translateY(-2px);
+}
+
+.btn-action {
+  width: 35px;
+  height: 35px;
+  padding: 0;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--hotel-border);
+  background: rgb(28, 26, 27);
+  transition: 0.2s;
+}
+
+.btn-edit:hover { color: var(--hotel-gold); border-color: var(--hotel-gold); }
+.btn-delete:hover { color: #dc3545; border-color: #dc3545; }
+
+.hotel-input {
+  border: 1px solid var(--hotel-border);
+  padding: 12px;
+  border-radius: 8px;
+  background-color: #a84db999;
+}
+
+.hotel-input:focus {
+  border-color: var(--hotel-gold);
+  box-shadow: 0 0 0 0.2rem rgba(197, 160, 89, 0.1);
+}
+
+.form-label-hotel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6ac557;
+}
+
+.bg-hotel-dark { background-color: var(--hotel-gold-light); }

@@ -1,7 +1,14 @@
-<div class="app-container">
-    <app-navbar></app-navbar>
-    <main>
-        <router-outlet/>
-    </main>
-    <app-footer></app-footer>
+<div class="container py-4">
+
+  <section class="hero" *ngIf="!hayRutaHija">
+      <div class="hero-overlay">
+          <div class="hero-content">
+              <h1>Vive una Experiencia Inolvidable</h1>
+              <p>Lujo, confort y exclusividad en el corazón de la ciudad</p>
+          </div>
+      </div>
+  </section>
+
+  <router-outlet></router-outlet>
+
 </div>
