@@ -1,11 +1,11 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { HabitacionRequest, HabitacionResponse } from '../../models/habitaciones.model';
+import { habitacionCambioEstado, HabitacionRequest, HabitacionResponse } from '../../models/habitaciones.model';
 import { HabitacionesService } from '../../services/habitaciones.service';
 import { TipoHabitacion, TipoHabitacionDescripcion } from '../../constants/TipoHabitacion';
 import { EstadoHabitacion, EstadoHabitacionDescripcion } from '../../constants/EstadoHabitacion';
-
+import { registerLocaleData } from '@angular/common';
 declare var bootstrap: any;
 
 @Component({
@@ -25,8 +25,16 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
   @ViewChild('habitacionModalRef')
   habitacionModalEl!: ElementRef;
   habitacionForm: FormGroup;
-
   private modalInstance!: any;
+
+
+  @ViewChild("EstadoHabitacionModalRef")
+  EstadoHabitacionModalRef!: ElementRef;
+  EstadoHabitacionForm: FormGroup;
+  private estadoHabitacionModal!: any;
+
+  // private habitacionModal!: any;
+
   tiposHabitacion: { id: number; descripcion: string }[] = [];
   EstadosHabitacion: { id: number; descripcion: string }[] = [];
 
@@ -43,8 +51,14 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
       idTipoHabitacion: [null, [Validators.required, Validators.min(1), Validators.max(3)]],
       precio: [null, Validators.required],
       capacidad: [null, [Validators.required, Validators.min(1), Validators.max(6)]],
-      idEstadoHabitacion: [null, Validators.required]
+      // idEstadoHabitacion: [null, Validators.required]
     });
+
+    this.EstadoHabitacionForm = this.fb.group({
+      id: [null],
+      idEstadoHabitacion: [null, Validators.required]
+
+    })
   }
 
   ngOnInit(): void {
@@ -72,10 +86,17 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.modalInstance = new bootstrap.Modal(this.habitacionModalEl.nativeElement, { keyboard: false });
+    this.estadoHabitacionModal = new bootstrap.Modal(this.EstadoHabitacionModalRef.nativeElement, { keyboard: false });
 
     this.habitacionModalEl.nativeElement.addEventListener('hidden.bs.modal', () => {
       this.resetForm();
     });
+
+    this.EstadoHabitacionModalRef.nativeElement.addEventListener('hidden.bs.modal', () => {
+      this.resetForm();
+    });
+
+
   }
 
   listarHabitaciones(): void {
@@ -101,6 +122,7 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
   editHabitacion(habitacion: HabitacionResponse): void {
     this.isEditMode = true;
     this.selectedHabitacion = habitacion;
+
     this.modalText = 'Editando Habitación: ' + habitacion.numeroHabitacion;
 
     this.habitacionForm.patchValue({
@@ -108,7 +130,7 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
       numeroHabitacion: habitacion.numeroHabitacion,
       precio: habitacion.precio,
       capacidad: habitacion.capacidad,
-      idEstadoHabitacion: this.convertirDesdeDescripcion(habitacion.estadoHabitacion, EstadoHabitacionDescripcion),
+      // idEstadoHabitacion: this.convertirDesdeDescripcion(habitacion.estadoHabitacion, EstadoHabitacionDescripcion),
       idTipoHabitacion: this.convertirDesdeDescripcion(habitacion.tipoHabitacion, TipoHabitacionDescripcion),
 
 
@@ -116,6 +138,7 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
 
     this.modalInstance.show();
   }
+
 
   onSubmit(): void {
 
@@ -144,6 +167,38 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
     }
 
   }
+  /*==========================================================================================*/
+  editEstadoHabitacion(habitacion: HabitacionResponse): void {
+    this.isEditMode = true;
+    this.selectedHabitacion = habitacion;
+
+    this.EstadoHabitacionForm.patchValue({
+      id: habitacion.id,
+      idEstadoHabitacion: this.convertirDesdeDescripcion(habitacion.estadoHabitacion, EstadoHabitacionDescripcion),
+
+    })
+    this.estadoHabitacionModal.show();
+
+
+  }
+  onSubmitEstado(): void {
+    const habitacionDatos: habitacionCambioEstado = this.EstadoHabitacionForm.value;
+
+    if (this.isEditMode && this.selectedHabitacion) {
+      this.habitacionService.patchHabitacion(habitacionDatos, habitacionDatos.id, habitacionDatos.idEstadoHabitacion)
+        .subscribe({
+          next:
+            registro => {
+              const index: number = this.listaHabitaciones.findIndex(hb => hb.id == this.selectedHabitacion!.id);
+              if (index !== -1) this.listaHabitaciones[index] = registro;
+              Swal.fire('Actualizado', 'Habitacion actualizado correctamente', 'success');
+              this.estadoHabitacionModal.hide();
+            }
+        }
+        );
+    }
+  }
+
   deleteHabitacion(idHabitacion: number): void {
     Swal.fire({
       title: '¿Estás seguro?',
