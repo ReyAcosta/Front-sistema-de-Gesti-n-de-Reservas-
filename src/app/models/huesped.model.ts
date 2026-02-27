@@ -1,3 +1,7 @@
+
+import { TipoDocumento } from "../constants/TipoDocumento"
+import { Nacionalidad } from "../constants/Nacionalidad"
+
 export interface HuespedRequest{
     nombre: string,
     apellidoPaterno: string,
