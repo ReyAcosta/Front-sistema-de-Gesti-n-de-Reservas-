@@ -1,142 +1,167 @@
+<div class="main-content p-4 hotel-luxury-bg">
 
-<div class="main-content p-4">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="section-title text-uppercase">Gestión de Habitaciones</h2>
-            <p class="text-muted ls-1">Administra el inventario y estado de habitaciones</p>
-        </div>
-        <button (click)="toggleForm()" class="btn btn-hotel-primary shadow-sm">
-            <i class="fa fa-plus-circle"></i> Nueva Habitación
-        </button>
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="section-title text-uppercase">Gestión de Habitaciones</h2>
+      <p class="ls-1">Administra el inventario y estado de habitaciones</p>
     </div>
 
-    <div class="card hotel-card">
-        <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-                <thead>
-                    <tr>
-                        <th class="text-white">#</th>
-                        <th class="text-white">Número</th>
-                        <th class="text-white">Tipo</th>
-                        <th class="text-white">Precio</th>
-                        <th class="text-white">Capacidad</th>
-                        <th class="text-white">Estado</th>
-                        <th class="text-center text-white">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let habitacion of listaHabitaciones; let i = index">
-                        <td class="fw-bold">{{ i + 1 }}</td>
-                        <td>
-                            <span class="badge bg-light text-dark border p-2">
-                                <i class="fa fa-door-open me-1 text-gold"></i> {{ habitacion.numeroHabitacion }}
-                            </span>
-                        </td>
-                        <td>{{ habitacion.tipoHabitacion }}</td>
-                        <td class="fw-bold text-gold">${{ habitacion.precio | number:'1.2-2' }}</td>
-                        <td>
-                            <i class="fa fa-users me-1 opacity-50"></i> {{ habitacion.capacidad }}
-                        </td>
-                        <td>
-                            <span class="badge" [ngClass]="{
-                                'bg-success': habitacion.estadoHabitacion === 'Disponible',
-                                'bg-danger': habitacion.estadoHabitacion === 'Ocupada',
-                                'bg-warning': habitacion.estadoHabitacion === 'Mantenimiento'
-                            }">
-                                {{ habitacion.estadoHabitacion }}
-                            </span>
-                        </td>
-                        <td class="text-center">
-                            <div class="d-flex justify-content-center gap-2">
-                                <button class="btn-action btn-edit" title="Editar" (click)="editHabitacion(habitacion)">
-                                    <i class="fa fa-edit"></i>
-                                </button>
-                                <button class="btn-action" style="color: var(--hotel-gray);" title="Cambiar Estado" (click)="editEstadoHabitacion(habitacion)">
-                                    <i class="fa fa-sync-alt"></i>
-                                </button>
-                                <button class="btn-action btn-delete" title="Eliminar" (click)="deleteHabitacion(habitacion.id)">
-                                    <i class="fa fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+    <button (click)="toggleForm()" class="btn btn-hotel-primary shadow-sm">
+      <i class="fa fa-plus-circle me-2"></i>
+      Nueva Habitación
+    </button>
+  </div>
+
+  <!-- Tabla -->
+  <div class="card hotel-card">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Número</th>
+            <th>Tipo</th>
+            <th>Precio</th>
+            <th>Capacidad</th>
+            <th>Estado</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let habitacion of listaHabitaciones; let i = index">
+
+            <td class="fw-semibold">{{ i + 1 }}</td>
+
+            <td>
+              <span class="badge border hotel-room-badge">
+                <i class="fa fa-door-open me-2 text-gold"></i>
+                {{ habitacion.numeroHabitacion }}
+              </span>
+            </td>
+
+            <td>{{ habitacion.tipoHabitacion }}</td>
+
+            <td class="fw-semibold">
+              ${{ habitacion.precio | number:'1.2-2' }}
+            </td>
+
+            <td>
+              <i class="fa fa-users me-2 opacity-75"></i>
+              {{ habitacion.capacidad }}
+            </td>
+
+            <td>
+              <span class="badge"
+                [ngClass]="{
+                  'bg-success': habitacion.estadoHabitacion === 'Disponible',
+                  'bg-danger': habitacion.estadoHabitacion === 'Ocupada',
+                  'bg-warning': habitacion.estadoHabitacion === 'Mantenimiento'
+                }">
+                {{ habitacion.estadoHabitacion }}
+              </span>
+            </td>
+
+            <td class="text-center">
+              <div class="d-flex justify-content-center gap-2">
+
+                <button class="btn-action btn-edit"
+                        title="Editar"
+                        (click)="editHabitacion(habitacion)">
+                  <i class="fa fa-edit"></i>
+                </button>
+
+                <button class="btn-action"
+                        title="Cambiar Estado"
+                        (click)="editEstadoHabitacion(habitacion)">
+                  <i class="fa fa-sync-alt"></i>
+                </button>
+
+                <button class="btn-action btn-delete"
+                        title="Eliminar"
+                        (click)="deleteHabitacion(habitacion.id)">
+                  <i class="fa fa-trash"></i>
+                </button>
+
+              </div>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
     </div>
+  </div>
 </div>
 
 <div class="modal fade" #habitacionModalRef tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 15px; overflow: hidden;">
-            <div class="modal-header bg-hotel-dark text-white p-4">
-                <h5 class="modal-title ls-1 text-uppercase">
-                    <i class="fa fa-bed me-2 text-gold"></i> {{ modalText }}
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body p-4">
-                <form [formGroup]="habitacionForm" (ngSubmit)="onSubmit()">
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label-hotel">Número Habitación</label>
-                            <input class="form-control hotel-input" formControlName="numeroHabitacion" type="number" placeholder="Ej: 101">
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label-hotel">Tipo de Habitación</label>
-                            <select class="form-select hotel-input" formControlName="idTipoHabitacion">
-                                <option value="">Seleccione un tipo...</option>
-                                <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">{{ tipo.descripcion }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label-hotel">Precio por Noche</label>
-                            <div class="input-group">
-                                <span class="input-group-text bg-white border-end-0 text-gold">$</span>
-                                <input type="number" class="form-control hotel-input border-start-0" formControlName="precio">
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label-hotel">Capacidad Máxima</label>
-                            <input type="number" class="form-control hotel-input" formControlName="capacidad">
-                        </div>
-                    </div>
-                    <div class="text-end mt-4">
-                        <button type="submit" class="btn btn-hotel-primary" [disabled]="habitacionForm.invalid">
-                            Confirmar Registro
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
 
-<div class="modal fade" #EstadoHabitacionModalRef tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 15px; overflow: hidden;">
-            <div class="modal-header bg-hotel-dark text-white">
-                <h5 class="modal-title ls-1">ACTUALIZAR ESTADO</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      <div class="modal-header bg-hotel-dark text p-4">
+        <h5 class="modal-title text-uppercase">
+          <i class="fa fa-bed me-2 text-gold"></i>
+          {{ modalText }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body p-4">
+
+        <form [formGroup]="habitacionForm" (ngSubmit)="onSubmit()">
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label-hotel">Número Habitación</label>
+              <input class="form-control hotel-input"
+                     formControlName="numeroHabitacion"
+                     type="number"
+                     placeholder="Ej: 101">
             </div>
-            <div class="modal-body p-4">
-                <form [formGroup]="EstadoHabitacionForm" (ngSubmit)="onSubmitEstado()">
-                    <div class="mb-4">
-                        <label class="form-label-hotel d-block mb-2 text-center">Seleccione el nuevo estado de la unidad</label>
-                        <select class="form-select hotel-input" formControlName="idEstadoHabitacion">
-                            <option value="">Seleccione...</option>
-                            <option *ngFor="let estado of EstadosHabitacion" [value]="estado.id">{{ estado.descripcion }}</option>
-                        </select>
-                    </div>
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-hotel-primary" [disabled]="EstadoHabitacionForm.invalid">
-                            Actualizar Estado
-                        </button>
-                    </div>
-                </form>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label-hotel">Tipo de Habitación</label>
+              <select class="form-select hotel-input"
+                      formControlName="idTipoHabitacion">
+                <option value="">Seleccione un tipo...</option>
+                <option *ngFor="let tipo of tiposHabitacion"
+                        [value]="tipo.id">
+                  {{ tipo.descripcion }}
+                </option>
+              </select>
             </div>
-        </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label-hotel">Precio por Noche</label>
+              <div class="input-group">
+                <span class="input-group-text hotel-input">$</span>
+                <input type="number"
+                       class="form-control hotel-input"
+                       formControlName="precio">
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label class="form-label-hotel">Capacidad Máxima</label>
+              <input type="number"
+                     class="form-control hotel-input"
+                     formControlName="capacidad">
+            </div>
+          </div>
+
+          <div class="text-end mt-4">
+            <button type="submit"
+                    class="btn btn-hotel-primary"
+                    [disabled]="habitacionForm.invalid">
+              Confirmar Registro
+            </button>
+          </div>
+
+        </form>
+
+      </div>
     </div>
+  </div>
 </div>
