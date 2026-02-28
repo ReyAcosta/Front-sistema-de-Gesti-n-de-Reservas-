@@ -57,16 +57,16 @@
 
                         <td class="d-flex justify-content-center gap-2">
 
-                            <button class="btn btn-primary btn-sm" (click)="editReservacion(reservacion)">
+                            <button class="btn-action btn-edit" title="Editar" (click)="editReservacion(reservacion)">
                                 <i class="fa fa-edit"></i>
                             </button>
 
-                            <button class="btn btn-danger btn-sm"  (click)="deleteReservacion(reservacion.id)">
+                            <button class="btn-action btn-delete" title="Eliminar" (click)="deleteReservacion(reservacion.id)">
                                 <i class="fa fa-trash"></i>
                             </button>
 
-                            <button class="btn btn-sm" (click)="editEstadoReserva(reservacion.id)">
-                                <i class="fa fa-refresh"></i>
+                            <button class="btn-action" title="Cambiar Reserva" (click)="editEstadoReserva(reservacion.id)">
+                                <i class="fa fa-sync-alt"></i>
                             </button>
 
                         </td>
