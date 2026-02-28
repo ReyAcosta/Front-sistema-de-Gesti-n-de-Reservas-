@@ -12,6 +12,7 @@ import { HuespedResponse } from '../../models/huesped.model';
 import { HabitacionResponse } from '../../models/habitaciones.model';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { Roles } from '../../constants/Roles';
 
 
 declare var bootstrap: any;
@@ -69,6 +70,9 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         this.listarReservaciones();
         this.listarHabitaciones();
         this.listarHuespedes();
+        if(this.authService.hasRole(Roles.ADMIN)) {
+        this.showActions = true;
+    }
     }
     ngAfterViewInit(): void {
         this.modalIntance = new bootstrap.Modal(this.reservacionModalEl.nativeElement, { keyboard: false });

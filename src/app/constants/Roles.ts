@@ -1,9 +1,9 @@
 export enum Roles {
-    ADMIN = 'ROLE_ADMIN',
-    USER = 'ROLE_USER'
+    ADMIN = 'ADMIN',
+    USER = 'USER'
 }
 
 export const RoleDescriptions = {
-    [Roles.ADMIN]: 'Administrador',
-    [Roles.USER]: 'Usuario'
+    [Roles.ADMIN]: 'Gerente',
+    [Roles.USER]: 'Recepsionista'
 };

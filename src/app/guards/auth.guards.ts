@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate{
             Swal.fire('Acceso denegado',
                 `¡Hola ${this.authService.getUsername()} no tienes acceso a este recurso!`, "warning")
                 .then(() => {
-                    this.router.navigate(['/dashboard']);
+                    this.router.navigate(['/login']);
                 });
                 return false;
         }
