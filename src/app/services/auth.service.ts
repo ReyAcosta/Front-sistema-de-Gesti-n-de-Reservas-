@@ -1,4 +1,4 @@
-/*import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
@@ -77,4 +77,4 @@ export class AuthService {
   hasAnyRole(roles: string[]): boolean {
     return roles.some(role => this.hasRole(role));
   }
-}*/
+}

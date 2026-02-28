@@ -1,4 +1,4 @@
-/*import { Injectable } from '@angular/core';;
+import { Injectable } from '@angular/core';;
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { environment } from '../enviroment/enviroment';
 import { HttpClient } from '@angular/common/http';
@@ -49,4 +49,4 @@ export class UsuariosService {
       })
     );
   }
-}*/
+}

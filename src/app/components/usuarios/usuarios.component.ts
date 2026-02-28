@@ -1,4 +1,4 @@
-/*import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { UsuarioRequest, UsuarioResponse } from '../../models/Usuarios.model';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from '../../services/usuarios.service';
@@ -120,4 +120,4 @@ export class UsuariosComponent {
     });
   }
 
-}*/
+}

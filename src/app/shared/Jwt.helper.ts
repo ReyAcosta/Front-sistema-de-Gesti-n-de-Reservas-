@@ -1,4 +1,4 @@
-/*import { JwtPayload } from "../models/Auth.model";
+import { JwtPayload } from "../models/Auth.model";
 
 export class JwtHelper {
 
@@ -17,4 +17,4 @@ export class JwtHelper {
         const now = Math.floor(Date.now() / 1000);
         return payload.exp < now;
     }
-}*/
+}

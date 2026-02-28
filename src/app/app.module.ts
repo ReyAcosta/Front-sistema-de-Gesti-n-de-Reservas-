@@ -14,9 +14,9 @@ import { HabitacionesComponent } from "./components/habitaciones/habitaciones.co
 import { FormsModule } from "@angular/forms";
 import { ReservacionesComponent } from "./components/reservaciones/reservaciones.component";
 import { ErrorInterceptor } from "./shared/error.interceptor";
-/*import { UsuariosComponent } from "./components/usuarios/usuarios.component";
+import { UsuariosComponent } from "./components/usuarios/usuarios.component";
 import { LoginComponent } from "./components/login/login.component";
-import { AuthInterceptor } from "./shared/auth.interceptor";*/
+import { AuthInterceptor } from "./shared/auth.interceptor";
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,9 +25,9 @@ import { AuthInterceptor } from "./shared/auth.interceptor";*/
     NavbarComponent,
     FooterComponent,
     DashboardComponent,
-    ReservacionesComponent
-    // LoginComponent,
-    // UsuariosComponent
+    ReservacionesComponent,
+    LoginComponent,
+    UsuariosComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +37,7 @@ import { AuthInterceptor } from "./shared/auth.interceptor";*/
     AppRoutingModule
   ],
   providers: [
-    // { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
 
