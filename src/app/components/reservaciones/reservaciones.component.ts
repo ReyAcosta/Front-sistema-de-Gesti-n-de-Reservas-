@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { EstadoReserva } from '../../constants/EstadoReserva';
+import { EstadoReserva, obtenerIdPorDescripcion } from '../../constants/EstadoReserva';
 import { DatePipe } from '@angular/common';
 import { ReservacionRequest, ReservacionResponse } from '../../models/reservaciones.model';
 import Swal from 'sweetalert2';
@@ -25,7 +25,8 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     listaReservaciones: ReservacionResponse[] = [];
     listaHuespedes: HuespedResponse[] = [];
     listaHabitaciones: HabitacionResponse[] = [];
-    estadosReserva = Object.entries(EstadoReserva);
+    estadosReserva = Object.entries(EstadoReserva).
+        filter(([key, value]) => isNaN(Number(key)));
 
     isEditMode: boolean = false;
     selectedReservacion: ReservacionResponse | null = null;
@@ -40,6 +41,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
 
     @ViewChild('editarEstadoModalRef')
     editarEstadoModalEl!: ElementRef;
+    estadoForm: FormGroup;
 
     private modalIntanceEditar!: any;
 
@@ -53,7 +55,10 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
             idHabitacion: [null, [Validators.required, Validators.min(1)]],
             fechaInicio: [null, [Validators.required]],
             fechaFin: [null, [Validators.required]],
-        })
+        }),
+            this.estadoForm = this.fb.group({
+                idEstado: [null]
+            })
     }
 
 
@@ -131,6 +136,18 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         })
     }
 
+    updateEstado(): void {
+        this.reservacionService.updateEstado(this.selectedReservacion!.id, this.estadoForm.value.idEstado)
+            .subscribe({
+                next: resgitro => {
+                    const index: number = this.listaReservaciones.findIndex(r => r.id === this.selectedReservacion!.id);
+                    if (index !== -1) this.listaReservaciones[index] = resgitro;
+                    Swal.fire('Actualizado', 'Estado de reservacion actualizado correctamente', 'success')
+                    this.modalIntanceEditar.hide();
+                }
+            })
+    }
+
     listarHuespedes(): void {
         this.huespedService.getHuespedes().subscribe({
             next: resp => {
@@ -174,8 +191,15 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         this.modalIntance.show();
     }
 
-    editEstadoReserva(id: number): void {
+    editEstadoReserva(reservacion: ReservacionResponse): void {
+        this.selectedReservacion = reservacion;
+        this.estadoForm.patchValue({
+            idEstado: obtenerIdPorDescripcion(reservacion.estadoReserva)
+        })
+
+
         this.modalIntanceEditar.show();
+        console.log(this.estadosReserva)
     }
 }
 

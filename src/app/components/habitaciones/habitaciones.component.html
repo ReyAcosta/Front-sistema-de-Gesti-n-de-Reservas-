@@ -53,8 +53,7 @@
             </td>
 
             <td>
-              <span class="badge"
-                [ngClass]="{
+              <span class="badge" [ngClass]="{
                   'bg-success': habitacion.estadoHabitacion === 'Disponible',
                   'bg-danger': habitacion.estadoHabitacion === 'Ocupada',
                   'bg-warning': habitacion.estadoHabitacion === 'Mantenimiento'
@@ -66,9 +65,7 @@
             <td class="text-center">
               <div class="d-flex justify-content-center gap-2">
 
-                <button class="btn-action btn-edit"
-                        title="Editar"
-                        (click)="editHabitacion(habitacion)">
+                <button class="btn-action btn-edit" title="Editar" (click)="editHabitacion(habitacion)">
                   <i class="fa fa-edit"></i>
                 </button>
 
@@ -76,9 +73,7 @@
                   <i class="fa fa-sync-alt"></i>
                 </button>
 
-                <button class="btn-action btn-delete"
-                        title="Eliminar"
-                        (click)="deleteHabitacion(habitacion.id)">
+                <button class="btn-action btn-delete" title="Eliminar" (click)="deleteHabitacion(habitacion.id)">
                   <i class="fa fa-trash"></i>
                 </button>
 
@@ -96,7 +91,8 @@
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
 
-      <div class="modal-header bg-hotel-dark text p-4"> <h5 class="modal-title text-uppercase">
+      <div class="modal-header bg-hotel-dark text p-4">
+        <h5 class="modal-title text-uppercase">
           <i class="fa fa-bed me-2 text-gold"></i>
           {{ modalText }}
         </h5>
@@ -110,19 +106,15 @@
           <div class="row">
             <div class="col-md-6 mb-3">
               <label class="form-label-hotel">Número Habitación</label>
-              <input class="form-control hotel-input"
-                     formControlName="numeroHabitacion"
-                     type="number"
-                     placeholder="Ej: 101">
+              <input class="form-control hotel-input" formControlName="numeroHabitacion" type="number"
+                placeholder="Ej: 101">
             </div>
 
             <div class="col-md-6 mb-3">
               <label class="form-label-hotel">Tipo de Habitación</label>
-              <select class="form-select hotel-input"
-                      formControlName="idTipoHabitacion">
+              <select class="form-select hotel-input" formControlName="idTipoHabitacion">
                 <option value="">Seleccione un tipo...</option>
-                <option *ngFor="let tipo of tiposHabitacion"
-                        [value]="tipo.id">
+                <option *ngFor="let tipo of tiposHabitacion" [value]="tipo.id">
                   {{ tipo.descripcion }}
                 </option>
               </select>
@@ -134,24 +126,18 @@
               <label class="form-label-hotel">Precio</label>
               <div class="input-group">
                 <span class="input-group-text hotel-input">$</span>
-                <input type="number"
-                       class="form-control hotel-input"
-                       formControlName="precio">
+                <input type="number" class="form-control hotel-input" formControlName="precio">
               </div>
             </div>
 
             <div class="col-md-6 mb-3">
               <label class="form-label-hotel">Capacidad Máxima</label>
-              <input type="number"
-                     class="form-control hotel-input"
-                     formControlName="capacidad">
+              <input type="number" class="form-control hotel-input" formControlName="capacidad">
             </div>
           </div>
 
           <div class="text-end mt-4">
-            <button type="submit"
-                    class="btn btn-hotel-primary"
-                    [disabled]="habitacionForm.invalid">
+            <button type="submit" class="btn btn-hotel-primary" [disabled]="habitacionForm.invalid">
               Confirmar Registro
             </button>
           </div>
@@ -159,6 +145,44 @@
         </form>
 
       </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade" #EstadoHabitacionModalRef tabindex="-1" aria-hidden="true">
+
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title"> Editar estado habitacion </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"> </button>
+      </div>
+
+      <div class="modal-body">
+
+        <form action="" [formGroup]="EstadoHabitacionForm" (ngSubmit)="onSubmitEstado()">
+
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Nuevo Estado </label>
+
+            <select class="form-select hotel-input" formControlName="idEstadoHabitacion">
+              <option value="">Seleccione un tipo...</option>
+              <option *ngFor="let tipo of EstadosHabitacion" [value]="tipo.id">
+                {{ tipo.descripcion }}
+              </option>
+            </select>
+          </div>
+
+          <div class="text-end mt-3">
+            <button class="btn btn-hotel-primary" type="submit"> Actualizar </button>
+          </div>
+        </form>
+
+      </div>
+
     </div>
   </div>
 </div>

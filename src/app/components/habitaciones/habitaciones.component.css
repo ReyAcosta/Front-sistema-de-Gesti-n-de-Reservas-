@@ -5,7 +5,7 @@
 }
 
 .hotel-card {
- border-radius: 18px;
+  border-radius: 18px;
   backdrop-filter: blur(15px);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -46,30 +46,32 @@
   border: 1px solid var(--hotel-border);
   background: rgb(192, 226, 148);
 }
+
 .btn {
-  border: none; 
-  color: rgb(121, 123, 249); 
-  padding: 5px 10px; 
-  cursor: pointer; 
-  border-radius: 5px; 
+  border: none;
+  color: rgb(121, 123, 249);
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
   display: inline-flex;
 }
 
-.badge{
-  color:rgb(78, 102, 142);
-   font-size: 16px
+.badge {
+  color: rgb(78, 102, 142);
+  font-size: 16px
+}
 
-}
 .main-content {
-    min-height: 100vh;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.342), rgba(161, 107, 107, 0.726)),
-  url("https://images.unsplash.com/photo-1551882547-ff40c63fe5fa");
-    background-size: cover;
-    background-position: center;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.342), rgba(161, 107, 107, 0.726)),
+    url("https://images.unsplash.com/photo-1551882547-ff40c63fe5fa");
+  background-size: cover;
+  background-position: center;
 }
+
 .table tbody tr:hover {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   transition: 0.3s ease;
 }
 

@@ -1,4 +1,4 @@
-/*import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import Swal from 'sweetalert2';
@@ -10,7 +10,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(req).pipe(
             catchError((err: HttpErrorResponse) => {
 
-                const mensaje = err.error?.mensaje || 'Ocurrió un error inesperado';
+                const mensaje = err.error?.message || 'Ocurrió un error inesperado';
                 const estatus = err.status;
 
                 if (req.url.includes("login")) {
@@ -83,4 +83,4 @@ export class ErrorInterceptor implements HttpInterceptor {
             })
         );
     }
-}*/
+}
