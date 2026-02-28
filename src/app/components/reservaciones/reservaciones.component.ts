@@ -10,6 +10,8 @@ import { HuespedesService } from '../../services/huespedes.service';
 import { HabitacionesService } from '../../services/habitaciones.service';
 import { HuespedResponse } from '../../models/huesped.model';
 import { HabitacionResponse } from '../../models/habitaciones.model';
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 
 declare var bootstrap: any;
@@ -47,7 +49,8 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
 
 
     constructor(private fb: FormBuilder, private reservacionService: ReservacionesService,
-        private huespedService: HuespedesService, private habitacionService: HabitacionesService
+        private huespedService: HuespedesService, private habitacionService: HabitacionesService,
+        public authService:AuthService, private router: Router
     ) {
         this.reservacionForm = this.fb.group({
             id: [null],
@@ -201,5 +204,8 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         this.modalIntanceEditar.show();
         console.log(this.estadosReserva)
     }
+    irAEliminadas(): void {
+    this.router.navigate(['/admin/eliminadas']);
+}
 }
 

@@ -15,6 +15,10 @@
             <i class="fa fa-plus-circle me-2"></i>
             Nueva Reservación
         </button>
+        <button *ngIf="authService.isAdmin()" (click)="irAEliminadas()" class="btn btn-outline-dark shadow-sm ms-2">
+                <i class="fa fa-eye me-2"></i>
+                Ver Eliminadas
+        </button>
     </div>
 
 
