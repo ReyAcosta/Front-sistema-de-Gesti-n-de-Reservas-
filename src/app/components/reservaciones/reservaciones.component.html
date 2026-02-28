@@ -79,19 +79,21 @@
 
                     <td> <span class="badge px-3 py-2"> {{ reservacion.estadoReserva }} </span> </td>
 
-                    <td class="d-flex justify-content-center gap-2">
+                    <td class="text-center">
+                        <div class="d-flex justify-content-center gap-2">
 
-                        <button class="btn btn-primary btn-sm" (click)="editReservacion(reservacion)">
-                            <i class="fa fa-edit"></i>
-                        </button>
+                            <button class="btn btn-primary btn-sm" (click)="editReservacion(reservacion)">
+                                <i class="fa fa-edit"></i>
+                            </button>
 
-                        <button class="btn btn-danger btn-sm" (click)="deleteReservacion(reservacion.id)">
-                            <i class="fa fa-trash"></i>
-                        </button>
+                            <button class="btn btn-danger btn-sm" (click)="deleteReservacion(reservacion.id)">
+                                <i class="fa fa-trash"></i>
+                            </button>
 
-                        <button class="btn btn-sm" (click)="editEstadoReserva(reservacion)">
-                            <i class="fa fa-refresh"></i>
-                        </button>
+                            <button class="btn btn-sm" (click)="editEstadoReserva(reservacion)">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+                        </div>
 
                     </td>
                 </tr>
