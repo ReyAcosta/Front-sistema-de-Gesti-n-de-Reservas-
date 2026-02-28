@@ -1,7 +1,7 @@
 <div class="main-content p-4 hotel-luxury-bg">
 
   <!-- Header -->
-  <div class="d-flex justify-content-between align-items-center mb-4">
+  <div class="d-flex justify-content-between mb-4">
     <div>
       <h2 class="section-title text-uppercase">Gestión de Habitaciones</h2>
       <p class="ls-1">Administra el inventario y estado de habitaciones</p>
@@ -14,9 +14,9 @@
   </div>
 
   <!-- Tabla -->
-  <div class="card hotel-card">
+  <div class="card hotel-card p-3">
     <div class="table-responsive">
-      <table class="table table-hover align-middle mb-0">
+      <table class="table table-hover align-middle mb-0 text-center">
         <thead>
           <tr>
             <th>#</th>
@@ -95,15 +95,14 @@
 </div>
 
 <div class="modal fade" #habitacionModalRef tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
 
-      <div class="modal-header bg-hotel-dark text p-4">
-        <h5 class="modal-title text-uppercase">
+      <div class="modal-header bg-hotel-dark text p-4"> <h5 class="modal-title text-uppercase">
           <i class="fa fa-bed me-2 text-gold"></i>
           {{ modalText }}
         </h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"></button>
       </div>
 
       <div class="modal-body p-4">
@@ -134,7 +133,7 @@
 
           <div class="row">
             <div class="col-md-6 mb-3">
-              <label class="form-label-hotel">Precio por Noche</label>
+              <label class="form-label-hotel">Precio</label>
               <div class="input-group">
                 <span class="input-group-text hotel-input">$</span>
                 <input type="number"
