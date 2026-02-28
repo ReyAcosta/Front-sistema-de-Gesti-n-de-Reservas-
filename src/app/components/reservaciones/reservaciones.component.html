@@ -1,139 +1,188 @@
-<div class="container-fluid mt-4">
-    <h2>Reservaciones</h2>
+<div class="main-content p-4 hotel-luxury-bg">
 
-    <div class="d-flex justify-content-between mb-3">
-        <button (click)="toggleForm()" class="btn btn-success">
-            <i class="fa fa-plus"></i>
-            Registrar Reservación
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="section-title text-uppercase mb-1">
+                Gestión de Reservaciones
+            </h2>
+            <p class="ls-1 mb-0">
+                Administra las reservaciones entre huéspedes y habitaciones
+            </p>
+        </div>
+
+        <button (click)="toggleForm()" class="btn btn-hotel-primary shadow-sm">
+            <i class="fa fa-plus-circle me-2"></i>
+            Nueva Reservación
         </button>
     </div>
 
-    <table class="table table-striped table-bordered mt-3">
-        <thead class="table-dark">
-            <tr style="text-align: center;">
-                <th>#</th>
-                <th>Huésped</th>
-                <th>Habitación</th>
-                <th>Fecha Reserva</th>
-                <th>Fecha Inicio</th>
-                <th>Fecha Fin</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
 
-        <tbody>
-            <tr style="text-align: center;" *ngFor="let reservacion of listaReservaciones; let i = index">
+    <div class="card hotel-card">
 
-                <td>{{ i + 1 }}</td>
-                <td>{{ reservacion.huesped.nombre }}</td>
-                <td>{{ reservacion.habitacion.numeroHabitacion }}</td>
-                <td>{{ reservacion.fechaReserva | date:'dd-MM-yyyy' }}</td>
-                <td>{{ reservacion.fechaInicio | date:'dd-MM-yyyy' }}</td>
-                <td>{{ reservacion.fechaFin | date:'dd-MM-yyyy' }}</td>
-                <td>{{ reservacion.estadoReserva }}</td>
-                <td>
-                    <button class="btn btn-primary btn-sm me-1" (click)="editReservacion(reservacion)">
-                        <i class="fa fa-edit"></i> Editar
-                    </button>
-                    <button class="btn btn-danger btn-sm" (click)="deleteReservacion(reservacion.id)">
-                        <i class="fa fa-trash"></i> Eliminar
-                    </button>
-                    <button class="btn btn-danger btn-sm me-1" (click)="editEstadoReserva(reservacion.id)">
-                        <i class="fa fa-edit"></i> Estado
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+        <div class="table-responsive">
 
-<!-- MODAL -->
+            <table class="table table-hover align-middle mb-0 text-center">
 
-<div class="modal fade" #reservacionModalRef tabindex="-1" aria-labelledby="reservacionModalLabel" aria-hidden="true">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Huésped</th>
+                        <th>Habitación</th>
+                        <th>Fecha Reserva</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
 
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
+                <tbody>
+                    <tr *ngFor="let reservacion of listaReservaciones; let i = index">
 
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title" id="reservacionModalLabel">
-                    {{ modalText }}
-                </h5>
+                        <td>{{ i + 1 }}</td>
 
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar">
-                </button>
+                        <td> <span class="fw-semibold"> {{ reservacion.huesped.nombre }} </span>
+                        </td>
+
+                        <td> {{ reservacion.habitacion.numeroHabitacion }} </td>
+
+                        <td> {{ reservacion.fechaReserva | date:'dd-MM-yyyy' }}</td>
+
+                        <td>{{ reservacion.fechaInicio | date:'dd-MM-yyyy' }} </td>
+
+                        <td>{{ reservacion.fechaFin | date:'dd-MM-yyyy' }} </td>
+
+                        <td> <span class="badge px-3 py-2"> {{ reservacion.estadoReserva }} </span> </td>
+
+                        <td class="d-flex justify-content-center gap-2">
+
+                            <button class="btn btn-primary btn-sm" (click)="editReservacion(reservacion)">
+                                <i class="fa fa-edit"></i>
+                            </button>
+
+                            <button class="btn btn-danger btn-sm"  (click)="deleteReservacion(reservacion.id)">
+                                <i class="fa fa-trash"></i>
+                            </button>
+
+                            <button class="btn btn-sm" (click)="editEstadoReserva(reservacion.id)">
+                                <i class="fa fa-refresh"></i>
+                            </button>
+
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+
+    <!-- MODAL RESERVACIÓN -->
+
+    <div class="modal fade" #reservacionModalRef tabindex="-1"aria-hidden="true">
+
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content ">
+
+                <div class="modal-header bg-hotel-dark text p-4 ">
+                    <h5 class="modal-title text-uppercase" id="reservacionModalLabel"> 
+                        <i class="fa-solid fa-calendar"></i> {{ modalText }} </h5>
+                    <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"> </button>
+                </div>
+
+                <div class="modal-body">
+                    <form [formGroup]="reservacionForm" (ngSubmit)="onSubmit()">
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold">   Huésped </label>
+
+                                <select formControlName="idHuesped" class="form-select"> 
+                                  <option [value]="null"> Selecciona una opción </option>
+
+                                    <option *ngFor="let huesped of listaHuespedes"  [value]="huesped.id">
+                                        {{ huesped.nombre }}
+                                        {{ huesped.apellidoPaterno }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold"> Habitación </label>
+
+                                <select formControlName="idHabitacion" class="form-select">
+                                    <option [value]="null"> Selecciona una opción </option>
+
+                                    <option *ngFor="let habitacion of listaHabitaciones"
+                                            [value]="habitacion.id">
+                                        {{ habitacion.numeroHabitacion }}
+                                        | {{ habitacion.estadoHabitacion }}
+                                    </option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold"> Fecha Inicio </label>
+                                <input type="datetime-local" class="form-control" formControlName="fechaInicio">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-semibold"> Fecha Fin </label>
+                                <input type="datetime-local" class="form-control" formControlName="fechaFin">
+                            </div>
+
+                        </div>
+
+                        <div class="text-end mt-3">
+                            <button type="submit" class="btn btn-success" [disabled]="reservacionForm.invalid">
+                                Guardar
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
+        </div>
+    </div>
 
-            <div class="modal-body">
+<!---CAMBIO DE ESTADO-->
 
-                <form [formGroup]="reservacionForm" (ngSubmit)="onSubmit()">
+    <div class="modal fade" #editarEstadoModalRef tabindex="-1" aria-hidden="true">
 
-                    <!-- Fila 1 -->
-                    <div class="row">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content hotel-card">
 
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label">Huésped</label>
-                            <select formControlName="idHuesped" class="form-select">
-                                <option [value]="null">Selecciona un opcion</option>
-                                <option *ngFor="let huesped of listaHuespedes" [value]=huesped.id>
-                                    {{huesped.nombre}} {{huesped.apellidoPaterno}}
-                                </option>
-                            </select>
-                        </div>
+                <div class="modal-header bg-dark text-white">
+                    <h5 class="modal-title"> Editar estado reservación </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"> </button>
+                </div>
 
-                        <div class="col-md-4 mb-3">
-                            <label for="form-label">Habitacion</label>
-                            <select formControlName="idHabitacion" class="form-select">
-                                <option [value]="null">Selecciona un opcion</option>
-                                <option *ngFor="let habitacion of listaHabitaciones" [value]="habitacion.id">
-                                    {{habitacion.numeroHabitacion}} | {{habitacion.estadoHabitacion}}
-                                </option>
-                            </select>
-                        </div>
+                <div class="modal-body">
 
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Nuevo Estado </label>
+
+                        <select class="form-select">
+                            <option>CONFIRMADA</option>
+                            <option>CANCELADA</option>
+                            <option>FINALIZADA</option>
+                        </select>
                     </div>
 
-                    <!-- Fila 2 -->
-                    <div class="row">
-
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label">Fecha Inicio</label>
-                            <input type="datetime-local" class="form-control" formControlName="fechaInicio">
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label class="form-label">Fecha Fin</label>
-                            <input type="datetime-local" class="form-control" formControlName="fechaFin">
-                        </div>
-
+                    <div class="text-end mt-3">
+                        <button class="btn btn-hotel-primary"> Actualizar </button>
                     </div>
 
-                    <div class="text-end">
-                        <button type="submit" class="btn btn-success" [disabled]="reservacionForm.invalid">
-                            Guardar
-                        </button>
-                    </div>
-
-                </form>
+                </div>
 
             </div>
         </div>
     </div>
-</div>
 
-<!-- modal cambiar estado-->
-<div class="modal fade" #editarEstadoModalRef tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title">
-                    Esitar estado reservacion
-                </h5>
-
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar">
-                </button>
-            </div>
-        </div>
-    </div>
 </div>

@@ -1,7 +1,7 @@
 
 .btn {
   border: none; 
-  color: rgb(123, 224, 237); 
+  color: rgb(36, 100, 227); 
   padding: 5px 10px; 
   cursor: pointer; 
   border-radius: 5px; 
@@ -62,7 +62,7 @@
   width: 40px;
   height: 40px;
   background: var(--hotel-gold);
-  color: rgb(32, 170, 234);
+  color: rgb(72, 47, 255);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +72,7 @@
 
 .btn-hotel-primary {
   background-color: var(--hotel-dark);
-  color: rgb(239, 36, 161);
+  color: rgb(28, 136, 152);
   border-radius: 8px;
   padding: 10px 24px;
   transition: all 0.3s;
@@ -105,7 +105,7 @@
   border: 1px solid var(--hotel-border);
   padding: 12px;
   border-radius: 8px;
-  background-color: #a84db999;
+  background-color: #e8e0e9;
 }
 
 .hotel-input:focus {
@@ -116,7 +116,7 @@
 .form-label-hotel {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #6ac557;
+  color: #164b5e;
 }
 
 .bg-hotel-dark { background-color: var(--hotel-gold-light); }

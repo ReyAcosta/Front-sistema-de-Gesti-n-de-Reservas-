@@ -11,7 +11,7 @@
 
   <div class="card hotel-card">
     <div class="table-responsive">
-      <table class="table table-hover align-middle mb-0">
+      <table class="table table-hover align-middle mb-0 text-center">
         <thead>
           <tr>
             <th>#</th>
@@ -57,10 +57,12 @@
 
 <div class="modal fade" #huespedModalRef id="huespedModal" tabindex="-1">
   <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content border-0 shadow-lg">
-      <div class="modal-header border-0 bg-hotel-dark text-white p-4">
-        <h5 class="modal-title fw-light">{{ modalText }}</h5>
-        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+
+    <div class="modal-content">
+      <div class="modal-header bg-hotel-dark text-dark p-4">
+        <h5 class="modal-title text-uppercase fw-light">
+          <i class="fa-solid fa-person"></i>{{ modalText }}</h5>
+        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body p-4">
         <form [formGroup]="huespedForm" (ngSubmit)="onSubmit()">
