@@ -1,12 +1,22 @@
+
 .btn {
   border: none; 
-  color: rgb(123, 224, 237); 
+  color: rgb(36, 100, 227); 
   padding: 5px 10px; 
   cursor: pointer; 
   border-radius: 5px; 
   display: inline-flex;
 }
+.main-content {
+    background-image:
+        url("https://images.alphacoders.com/396/396799.jpg");
 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 2rem;
+}
 .btn i {
   margin-right: 4px;
 }
@@ -30,11 +40,12 @@
 .ls-1 { letter-spacing: 1px; font-size: 0.75rem; font-weight: 700; }
 
 .hotel-card {
-  border: none;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+ border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  background: rgb(7, 7, 7);
 }
 
 .table thead {
@@ -51,7 +62,7 @@
   width: 40px;
   height: 40px;
   background: var(--hotel-gold);
-  color: rgb(32, 170, 234);
+  color: rgb(72, 47, 255);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -61,7 +72,7 @@
 
 .btn-hotel-primary {
   background-color: var(--hotel-dark);
-  color: rgb(239, 36, 161);
+  color: rgb(28, 136, 152);
   border-radius: 8px;
   padding: 10px 24px;
   transition: all 0.3s;
@@ -94,7 +105,7 @@
   border: 1px solid var(--hotel-border);
   padding: 12px;
   border-radius: 8px;
-  background-color: #a84db999;
+  background-color: #e8e0e9;
 }
 
 .hotel-input:focus {
@@ -105,7 +116,15 @@
 .form-label-hotel {
   font-size: 0.85rem;
   font-weight: 600;
-  color: #6ac557;
+  color: #164b5e;
 }
 
 .bg-hotel-dark { background-color: var(--hotel-gold-light); }
+.main-content {
+    min-height: 100vh;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.342), rgba(161, 107, 107, 0.726)),
+  url("https://images.unsplash.com/photo-1551882547-ff40c63fe5fa");
+    background-size: cover;
+    background-position: center;
+}
