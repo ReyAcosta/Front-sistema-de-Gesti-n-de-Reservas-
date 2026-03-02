@@ -62,14 +62,19 @@
             </td>
             <td>{{ huesped.tipoDocumento }}</td>
             <td>{{ huesped.nacionalidad }}</td>
+
             <td *ngIf="!areDeleted" class="text-center">
-              <button class="btn btn-action btn-edit me-2" (click)="editHuesped(huesped)" title="Editar">
-                <i class="fas fa-pen"></i>
+              <div class="d-flex justify-content-center gap-2">
+             
+                <button class="btn btn-action btn-edit" (click)="editHuesped(huesped)" title="Editar">
+                <i class="fas fa-edit"></i>
               </button>
               <button class="btn btn-action btn-delete" (click)="deleteHuesped(huesped.id)" title="Eliminar">
-                <i class="fas fa-trash-alt"></i>
+                <i class="fas fa-trash"></i>
               </button>
+            </div>
             </td>
+         
           </tr>
         </tbody>
       </table>
