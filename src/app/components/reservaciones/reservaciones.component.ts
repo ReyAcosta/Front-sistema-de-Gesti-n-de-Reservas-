@@ -51,7 +51,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
 
     constructor(private fb: FormBuilder, private reservacionService: ReservacionesService,
         private huespedService: HuespedesService, private habitacionService: HabitacionesService,
-        public authService:AuthService, private router: Router
+        public authService: AuthService, private router: Router
     ) {
         this.reservacionForm = this.fb.group({
             id: [null],
@@ -70,9 +70,9 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         this.listarReservaciones();
         this.listarHabitaciones();
         this.listarHuespedes();
-        if(this.authService.hasRole(Roles.ADMIN)) {
-        this.showActions = true;
-    }
+        if (this.authService.hasRole(Roles.ADMIN)) {
+            this.showActions = true;
+        }
     }
     ngAfterViewInit(): void {
         this.modalIntance = new bootstrap.Modal(this.reservacionModalEl.nativeElement, { keyboard: false });
@@ -89,6 +89,14 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
 
     listarReservaciones(): void {
         this.reservacionService.getReservaciones().subscribe({
+            next: resp => {
+                console.info("Lista de Reservaciones: ", resp)
+                this.listaReservaciones = resp;
+            }
+        })
+    }
+    listarReservacionesEliminadas(): void {
+        this.reservacionService.getReservacionesEliminadas().subscribe({
             next: resp => {
                 console.info("Lista de Reservaciones: ", resp)
                 this.listaReservaciones = resp;
@@ -209,7 +217,9 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         console.log(this.estadosReserva)
     }
     irAEliminadas(): void {
-    this.router.navigate(['/admin/eliminadas']);
-}
+
+        // this.router.navigate(['/dashboard/reservaciones/eliminadas']);
+        this.listarReservacionesEliminadas();
+    }
 }
 
