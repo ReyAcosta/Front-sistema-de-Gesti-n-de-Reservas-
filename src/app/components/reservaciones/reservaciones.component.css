@@ -32,8 +32,8 @@
 }
 
 .btn-hotel-primary {
-  background-color: var(--hotel-dark);
-  color: rgb(239, 36, 161);
+  background-color: var(--hotel-ligth);
+  color: rgb(29, 75, 224);
   border-radius: 8px;
   padding: 10px 24px;
   transition: all 0.3s;
@@ -86,4 +86,33 @@
 .section-title {
   font-weight: 300;
   letter-spacing: 2px;
+}
+.btn-elegant-primary {
+  background: linear-gradient(135deg, #7593df, #e7c944);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-elegant-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.btn-elegant-secondary {
+  background: linear-gradient(135deg, #f1f1f1, #ece3e3);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-elegant-secondary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(228, 209, 209, 0.25);
 }

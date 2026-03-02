@@ -11,12 +11,11 @@
             </p>
         </div>
 
-        <button (click)="toggleForm()" class="btn btn-hotel-primary shadow-sm">
-            <i class="fa fa-plus-circle me-2"></i>
+        <button (click)="toggleForm()" class="btn btn-lg btn-primary px-4 fw-semibold shadow rounded-3"> <i class="fa-solid fa-calendar-plus me-2"></i>
             Nueva Reservación
         </button>
-        <button *ngIf="showActions" (click)="irAEliminadas()" class="btn btn-hotel-primary shadow-sm">
-                <i class="fa fa-eye me-2"></i>
+        <button *ngIf="authService.isAdmin()" (click)="irAEliminadas()" class="btn btn-lg btn-dark px-4 fw-semibold shadow rounded-3">
+          <i class="fa-solid fa-clock-rotate-left me-2"></i>
                 Ver Eliminadas
         </button>
     </div>
