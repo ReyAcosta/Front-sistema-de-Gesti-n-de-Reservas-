@@ -1,5 +1,5 @@
 <div class="container-fluid mt-4 main-content">
-    <div class="header-section d-flex justify-content-between align-items-center mb-4 p-4">
+    <div class="header-section d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
      <div>
         <h2 class="section-title text-uppercase"> Usuarios</h2>
         </div>
@@ -40,20 +40,18 @@
             <div class="modal-dialog">
                 <div class="modal-content hotel-modal">
                     
-                    <div class="modal-header hotel-modal-header">
+                    <div class="modal-header bg-hotel-dark text p-4">
                         <h5 class="modal-title" id="usuarioModalLabel">{{ textoModal }}</h5>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"
                             aria-label="Cerrar"></button>
                     </div>
 
-                    <div class="modal-body">
+                    <div class="modal-body p-4">
                         <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
 
                             <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input id="username"
-                                    class="form-control"
-                                    formControlName="username"
+                                <label for="username" class="form-label-hotel">Username</label>
+                                <input id="username" class="form-control hotel-input" formControlName="username"
                                     minlength="5"
                                     maxlength="20"
                                     placeholder="Ingrese el nombre de usuario" />
@@ -72,10 +70,10 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="password" class="form-label">Contraseña</label>
+                                <label for="password" class="form-label-hotel">Contraseña</label>
                                 <input id="password"
                                     type="password"
-                                    class="form-control"
+                                    class="form-control hotel-input"
                                     formControlName="password"
                                     minlength="8"
                                     placeholder="Ingrese la contraseña" />
@@ -91,9 +89,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="roles" class="form-label">Roles</label>
+                                <label for="roles" class="form-label-hotel">Roles</label>
                                 <select id="roles"
-                                    class="form-select"
+                                    class="form-select hotel-input"
                                     formControlName="roles"
                                     multiple
                                     size="3">
@@ -102,9 +100,6 @@
                                     </option>
                                 </select>
 
-                                <div class="form-text">
-                                    Mantén presionada la tecla Ctrl (Cmd en Mac) para seleccionar múltiples roles
-                                </div>
 
                                 <div *ngIf="usuarioForm.get('roles')?.invalid && usuarioForm.get('roles')?.touched"
                                     class="text-danger small mt-1">
