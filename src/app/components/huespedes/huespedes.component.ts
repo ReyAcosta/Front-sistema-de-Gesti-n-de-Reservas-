@@ -6,6 +6,8 @@ import { HuespedRequest, HuespedResponse } from '../../models/huesped.model';
 import { HuespedesService } from '../../services/huespedes.service';
 import { TipoDocumento, TipoDocumentoDescripcion } from '../../constants/TipoDocumento';
 import { Nacionalidad, NacionalidadDescripcion } from '../../constants/Nacionalidad';
+import { AuthService } from '../../services/auth.service';
+import { Roles } from '../../constants/Roles';
 
 
 
@@ -41,7 +43,8 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
 
   constructor(
     private fb: FormBuilder,
-    private huespedService: HuespedesService
+    private huespedService: HuespedesService, 
+    private authService: AuthService
   ) {
 
     this.huespedForm = this.fb.group({
@@ -58,6 +61,10 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.listarHuespedes();
+    if(this.authService.hasRole(Roles.ADMIN)) {
+      this.showActions = true;
+    }
+
   }
 
   ngAfterViewInit(): void {

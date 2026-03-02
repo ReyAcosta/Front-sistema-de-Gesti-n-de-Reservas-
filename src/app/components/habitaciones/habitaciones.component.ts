@@ -6,6 +6,8 @@ import { HabitacionesService } from '../../services/habitaciones.service';
 import { TipoHabitacion, TipoHabitacionDescripcion } from '../../constants/TipoHabitacion';
 import { EstadoHabitacion, EstadoHabitacionDescripcion } from '../../constants/EstadoHabitacion';
 import { registerLocaleData } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { Roles } from '../../constants/Roles';
 declare var bootstrap: any;
 
 @Component({
@@ -42,7 +44,8 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
 
   constructor(
     private fb: FormBuilder,
-    private habitacionService: HabitacionesService
+    private habitacionService: HabitacionesService,
+    private authService: AuthService
   ) {
 
     this.habitacionForm = this.fb.group({
@@ -65,6 +68,9 @@ export class HabitacionesComponent implements OnInit, AfterViewInit {
     this.listarHabitaciones();
     this.cargarTiposHabitacion();
     this.cargarEstadosHabitacion();
+    if(this.authService.hasRole(Roles.ADMIN)) {
+      this.showActions = true;
+    }
   }
 
   cargarTiposHabitacion() {
