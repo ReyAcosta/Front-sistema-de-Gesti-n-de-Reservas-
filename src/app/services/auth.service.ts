@@ -68,8 +68,7 @@ export class AuthService {
   }
 
   getRoles(): string[] {
-    return (this.payload?.roles || []).map(role =>
-      role.replace('ROLE_', '')
+    return (this.payload?.roles || []
     );
   }
 

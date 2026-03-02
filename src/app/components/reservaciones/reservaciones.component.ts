@@ -30,6 +30,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     listaHabitaciones: HabitacionResponse[] = [];
     estadosReserva = Object.entries(EstadoReserva).
         filter(([key, value]) => isNaN(Number(key)));
+    areDeleted: boolean = false;
 
     isEditMode: boolean = false;
     selectedReservacion: ReservacionResponse | null = null;
@@ -92,6 +93,14 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         console.log("Roles usuario:", this.authService.getRoles());
         console.log("Rol requerido:", Roles.ADMIN);
         this.reservacionService.getReservaciones().subscribe({
+            next: resp => {
+                console.info("Lista de Reservaciones: ", resp)
+                this.listaReservaciones = resp;
+            }
+        })
+    }
+    listarReservacionesEliminadas(): void {
+        this.reservacionService.getReservacionesEliminadas().subscribe({
             next: resp => {
                 console.info("Lista de Reservaciones: ", resp)
                 this.listaReservaciones = resp;
@@ -211,8 +220,35 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         this.modalIntanceEditar.show();
         console.log(this.estadosReserva)
     }
-    irAEliminadas(): void {
 
+    irAEliminadas(): void {
+        this.listarReservacionesEliminadas();
+        this.areDeleted = true;
     }
+
+    irANormales(): void {
+        this.listarReservaciones();
+        this.areDeleted = false;
+    }
+
+    idBusqueda: string = '';
+    buscarPorId(): void {
+        if (!this.idBusqueda.trim()) return;
+        this.listaReservaciones = this.listaReservaciones.filter(r =>
+            r.id === Number(this.idBusqueda)
+        );
+    }
+
+    verificarCampoBusqueda(valor: string): void {
+        if (!valor?.trim()) {
+            if (this.areDeleted) {
+                this.listarReservacionesEliminadas();
+            }
+            else {
+                this.listarReservaciones();
+            }
+        }
+    }
+
 }
 

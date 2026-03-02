@@ -24,16 +24,17 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
   listaHuespedes: HuespedResponse[] = [];
 
   tiposDocumento = Object.values(TipoDocumento).filter
-  (v => typeof v === 'number') as TipoDocumento[];
+    (v => typeof v === 'number') as TipoDocumento[];
   TipoDocumentoDescripcion = TipoDocumentoDescripcion;
 
-  nacionalidades=Object.values(Nacionalidad).filter(v => typeof v === 'number') as Nacionalidad[];
+  nacionalidades = Object.values(Nacionalidad).filter(v => typeof v === 'number') as Nacionalidad[];
   NacionalidadDescripcion = NacionalidadDescripcion;
 
   isEditMode: boolean = false;
   selectedHuesped: HuespedResponse | null = null;
   showActions: boolean = false;
   modalText: string = 'Registrar Huesped';
+  areDeleted: boolean = false;
 
   @ViewChild('huespedModalRef')
   huespedModalEl!: ElementRef;
@@ -43,7 +44,7 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
 
   constructor(
     private fb: FormBuilder,
-    private huespedService: HuespedesService, 
+    private huespedService: HuespedesService,
     private authService: AuthService
   ) {
 
@@ -55,20 +56,20 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
       email: ['', [Validators.required, Validators.email, Validators.maxLength(100), Validators.minLength(1)]],
       telefono: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[0-9]+$/)]],
       idDocumento: [null, [Validators.required, Validators.min(1), Validators.max(6)]],
-      idNacionalidad:[null, [Validators.required, Validators.min(1), Validators.max(8)]]
+      idNacionalidad: [null, [Validators.required, Validators.min(1), Validators.max(8)]]
     });
   }
 
   ngOnInit(): void {
     this.listarHuespedes();
-    if(this.authService.hasRole(Roles.ADMIN)) {
+    if (this.authService.hasRole(Roles.ADMIN)) {
       this.showActions = true;
     }
 
   }
 
   ngAfterViewInit(): void {
-    this.modalInstance = new bootstrap.Modal(this.huespedModalEl.nativeElement, {keyboard: false});
+    this.modalInstance = new bootstrap.Modal(this.huespedModalEl.nativeElement, { keyboard: false });
     this.huespedModalEl.nativeElement.addEventListener('hidden.bs.modal', () => {
       this.resetForm();
     });
@@ -76,6 +77,14 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
 
   listarHuespedes(): void {
     this.huespedService.getHuespedes().subscribe({
+      next: resp => {
+        this.listaHuespedes = resp;
+      }
+    });
+  }
+
+  listarHuespedesEliminados(): void {
+    this.huespedService.getHuespedesEliminados().subscribe({
       next: resp => {
         this.listaHuespedes = resp;
       }
@@ -101,48 +110,49 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
     console.log("Documento recibido:", huesped.tipoDocumento);
     console.log("Nacionalidad recibida:", huesped.nacionalidad);
 
-    this.huespedForm.patchValue({ id: huesped.id,
-    nombre: huesped.nombre,
-    apellidoPaterno: huesped.apellidoPaterno,
-    apellidoMaterno: huesped.apellidoMaterno,
-    email: huesped.email,
-    telefono: huesped.telefono,
+    this.huespedForm.patchValue({
+      id: huesped.id,
+      nombre: huesped.nombre,
+      apellidoPaterno: huesped.apellidoPaterno,
+      apellidoMaterno: huesped.apellidoMaterno,
+      email: huesped.email,
+      telefono: huesped.telefono,
 
-    idDocumento: this.getDocumentoId(huesped.tipoDocumento),
-    idNacionalidad: this.getNacionalidadId(huesped.nacionalidad) 
-  });
+      idDocumento: this.getDocumentoId(huesped.tipoDocumento),
+      idNacionalidad: this.getNacionalidadId(huesped.nacionalidad)
+    });
     this.modalInstance.show();
   }
-  
+
   onSubmit(): void {
 
     if (this.huespedForm.invalid) return;
 
 
-  const huespedData = this.huespedForm.value;
+    const huespedData = this.huespedForm.value;
 
-  if (this.isEditMode && this.selectedHuesped) {
-    //Actualizando
-    this.huespedService.putHuesped(huespedData, this.selectedHuesped.id).subscribe({
+    if (this.isEditMode && this.selectedHuesped) {
+      //Actualizando
+      this.huespedService.putHuesped(huespedData, this.selectedHuesped.id).subscribe({
         next: registro => {
           const index: number = this.listaHuespedes.findIndex(h => h.id == this.selectedHuesped!.id);
-           if(index !== -1) this.listaHuespedes[index] = registro;
+          if (index !== -1) this.listaHuespedes[index] = registro;
           Swal.fire('Actualizado', 'Huesped actualizado correctamente', 'success');
           this.modalInstance.hide();
         }
       });
     } else {
 
-    this.huespedService.postHuesped(huespedData).subscribe({
+      this.huespedService.postHuesped(huespedData).subscribe({
         next: registro => {
           this.listaHuespedes.push(registro);
-          Swal.fire('Registrado', 'Huesped registrado correctamente', 'success') 
+          Swal.fire('Registrado', 'Huesped registrado correctamente', 'success')
           this.modalInstance.hide();
         }
       });
     }
-    
-    }
+
+  }
 
   deleteHuesped(idHuesped: number): void {
     Swal.fire({
@@ -153,7 +163,7 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
     }).then(result => {
-      if(result.isConfirmed) {
+      if (result.isConfirmed) {
         this.huespedService.deleteHuesped(idHuesped).subscribe({
           next: () => {
             this.listaHuespedes = this.listaHuespedes.filter(h => h.id !== idHuesped);
@@ -163,22 +173,50 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
       }
     });
   }
-  
+
   private getDocumentoId(descripcion: string): number | null {
-  const entry = Object.entries(this.TipoDocumentoDescripcion)
-    .find(([_, value]) =>
-      value.trim().toLowerCase() === descripcion.trim().toLowerCase()
+    const entry = Object.entries(this.TipoDocumentoDescripcion)
+      .find(([_, value]) =>
+        value.trim().toLowerCase() === descripcion.trim().toLowerCase()
+      );
+
+    return entry ? Number(entry[0]) : null;
+  }
+
+  private getNacionalidadId(descripcion: string): number | null {
+    const entry = Object.entries(this.NacionalidadDescripcion)
+      .find(([_, value]) =>
+        value.trim().toLowerCase() === descripcion.trim().toLowerCase()
+      );
+
+    return entry ? Number(entry[0]) : null;
+  }
+
+  irEliminadas(): void {
+    this.areDeleted = true;
+    this.listarHuespedesEliminados();
+  }
+
+  irNormales(): void {
+    this.areDeleted = false;
+    this.listarHuespedes();
+  }
+
+  idBusqueda: string = '';
+  buscarPorId(): void {
+    if (!this.idBusqueda.trim()) return;
+    this.listaHuespedes = this.listaHuespedes.filter(
+      h => h.id === Number(this.idBusqueda)
     );
+  }
 
-  return entry ? Number(entry[0]) : null;
-}
-
-private getNacionalidadId(descripcion: string): number | null {
-  const entry = Object.entries(this.NacionalidadDescripcion)
-    .find(([_, value]) =>
-      value.trim().toLowerCase() === descripcion.trim().toLowerCase()
-    );
-
-  return entry ? Number(entry[0]) : null;
-}
+  verificarBusqueda(idBusqueda: string): void {
+    if (!idBusqueda.trim()) {
+      if (this.areDeleted) {
+        this.listarHuespedesEliminados();
+      } else {
+        this.listarHuespedes();
+      }
+    }
+  }
 }

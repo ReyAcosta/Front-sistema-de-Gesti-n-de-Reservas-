@@ -21,10 +21,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'huespedes', pathMatch: 'full' },
       { path: 'huespedes', component: HuespedesComponent },
       { path: 'habitaciones', component: HabitacionesComponent },
-      {
-        path: 'reservaciones', component: ReservacionesComponent, children: [
-          { path: 'reservaeliminado', component: ReservaeliminadoComponent }]
-      },
+      { path: 'reservaciones', component: ReservacionesComponent },
       {
         path: 'usuarios', component: UsuariosComponent, canActivate: [AuthGuard], data: { roles: [Roles.ADMIN] }
       }

@@ -10,19 +10,30 @@ import { environment } from '../enviroment/enviroment';
 export class HuespedesService {
   private apiUrl: string = environment.apiUrl.concat('huespedes');
 
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient) { }
 
   getHuespedes(): Observable<HuespedResponse[]> {
-     return this.http.get<HuespedResponse[]>(this.apiUrl).pipe(
-    map(huespedes => huespedes.sort()),
+    return this.http.get<HuespedResponse[]>(this.apiUrl).pipe(
+      map(huespedes => huespedes.sort()),
       catchError(error => {
-        console.error('Error al obtener los Huespedes: ',error);
+        console.error('Error al obtener los Huespedes: ', error);
         return of([]);
       })
-     );
+    );
   }
+
+  getHuespedesEliminados(): Observable<HuespedResponse[]> {
+    return this.http.get<HuespedResponse[]>(`${this.apiUrl}/eliminados`).pipe(
+      map(huespedes => huespedes.sort()),
+      catchError(error => {
+        console.error('Error al obtener los Huespedes: ', error);
+        return of([]);
+      })
+    );
+  }
+
   postHuesped(huesped: HuespedRequest): Observable<HuespedResponse> {
-     return this.http.post<HuespedResponse>(this.apiUrl, huesped).pipe(
+    return this.http.post<HuespedResponse>(this.apiUrl, huesped).pipe(
       catchError(error => {
         console.error('Error al registrar un huesped', error);
         throw error;
@@ -43,12 +54,12 @@ export class HuespedesService {
 
   deleteHuesped(huespedId: number): Observable<void> {
 
-   return this.http.delete<void>(`${this.apiUrl}/${huespedId}`).pipe(
+    return this.http.delete<void>(`${this.apiUrl}/${huespedId}`).pipe(
       catchError(error => {
         console.error('Error al eliminar un huesped', error);
         throw error;
       })
     );
   }
-  
+
 }
