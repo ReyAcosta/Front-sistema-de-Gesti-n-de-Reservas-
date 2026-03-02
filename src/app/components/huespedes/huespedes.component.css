@@ -1,22 +1,23 @@
-
 .btn {
-  border: none; 
-  color: rgb(36, 100, 227); 
-  padding: 5px 10px; 
-  cursor: pointer; 
-  border-radius: 5px; 
+  border: none;
+  color: rgb(36, 100, 227);
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
   display: inline-flex;
 }
-.main-content {
-    background-image:
-        url("https://images.alphacoders.com/396/396799.jpg");
 
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    min-height: 100vh;
-    padding: 2rem;
+.main-content {
+  background-image:
+    url("https://images.alphacoders.com/396/396799.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 2rem;
 }
+
 .btn i {
   margin-right: 4px;
 }
@@ -33,14 +34,21 @@
   font-weight: 300;
   letter-spacing: 1px;
   color: var(--hotel-dark);
-  
+
 }
 
-.text-gold { color: var(--hotel-gold); }
-.ls-1 { letter-spacing: 1px; font-size: 0.75rem; font-weight: 700; }
+.text-gold {
+  color: var(--hotel-gold);
+}
+
+.ls-1 {
+  letter-spacing: 1px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
 
 .hotel-card {
- border-radius: 18px;
+  border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.7);
@@ -55,8 +63,15 @@
   letter-spacing: 1px;
 }
 
-.table th { padding: 1.2rem; border-bottom: 2px solid var(--hotel-border); }
-.table td { padding: 1.2rem; color: #444; }
+.table th {
+  padding: 1.2rem;
+  border-bottom: 2px solid var(--hotel-border);
+}
+
+.table td {
+  padding: 1.2rem;
+  color: #444;
+}
 
 .avatar-circle {
   width: 40px;
@@ -98,8 +113,15 @@
   transition: 0.2s;
 }
 
-.btn-edit:hover { color: var(--hotel-gold); border-color: var(--hotel-gold); }
-.btn-delete:hover { color: #dc3545; border-color: #dc3545; }
+.btn-edit:hover {
+  color: var(--hotel-gold);
+  border-color: var(--hotel-gold);
+}
+
+.btn-delete:hover {
+  color: #dc3545;
+  border-color: #dc3545;
+}
 
 .hotel-input {
   border: 1px solid var(--hotel-border);
@@ -119,12 +141,15 @@
   color: #164b5e;
 }
 
-.bg-hotel-dark { background-color: var(--hotel-gold-light); }
+.bg-hotel-dark {
+  background-color: var(--hotel-gold-light);
+}
+
 .main-content {
-    min-height: 100vh;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.342), rgba(161, 107, 107, 0.726)),
-  url("https://images.unsplash.com/photo-1551882547-ff40c63fe5fa");
-    background-size: cover;
-    background-position: center;
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.342), rgba(161, 107, 107, 0.726)),
+    url("https://images.unsplash.com/photo-1551882547-ff40c63fe5fa");
+  background-size: cover;
+  background-position: center;
 }
