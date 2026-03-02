@@ -35,6 +35,8 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     showActions: boolean = false;
     modalText: string = "Generar Reservacion"
 
+    isAdmin: boolean = false;
+
     @ViewChild('reservacionModalRef')
     reservacionModalEl!: ElementRef;
     reservacionForm: FormGroup;
@@ -50,7 +52,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
 
     constructor(private fb: FormBuilder, private reservacionService: ReservacionesService,
         private huespedService: HuespedesService, private habitacionService: HabitacionesService,
-        public authService:AuthService, private router: Router
+        public authService: AuthService, private router: Router
     ) {
         this.reservacionForm = this.fb.group({
             id: [null],
@@ -64,11 +66,11 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
             })
     }
 
-
     ngOnInit(): void {
         this.listarReservaciones();
         this.listarHabitaciones();
         this.listarHuespedes();
+
     }
     ngAfterViewInit(): void {
         this.modalIntance = new bootstrap.Modal(this.reservacionModalEl.nativeElement, { keyboard: false });
@@ -205,7 +207,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         console.log(this.estadosReserva)
     }
     irAEliminadas(): void {
-    this.router.navigate(['/admin/eliminadas']);
-}
+        this.router.navigate(['/admin/eliminadas']);
+    }
 }
 

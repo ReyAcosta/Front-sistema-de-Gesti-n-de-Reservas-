@@ -15,7 +15,7 @@ export class AuthService {
   private authUrl: string = environment.authUrl;
 
   private tokenKey: string = 'auth-token';
-  
+
   private payload: JwtPayload | null = null;
 
   constructor(private http: HttpClient, private router: Router) {
@@ -78,6 +78,6 @@ export class AuthService {
     return roles.some(role => this.hasRole(role));
   }
   isAdmin(): boolean {
-  return this.hasRole('ADMIN');
-}
+    return this.hasRole('ADMIN');
+  }
 }
