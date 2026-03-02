@@ -8,15 +8,15 @@ import { Roles } from '../../../constants/Roles';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit {
   username: string | null = null;
   showMenuAdmin: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
     this.username = this.authService.getUsername();
-    if(this.authService.hasRole(Roles.ADMIN)) {
+    if (this.authService.hasRole(Roles.ADMIN)) {
       this.showMenuAdmin = true;
     }
   }

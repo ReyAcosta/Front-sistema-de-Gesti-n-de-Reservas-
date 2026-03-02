@@ -12,11 +12,7 @@ import { Roles } from './constants/Roles';
 const routes: Routes = [
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  {
-  path: 'dashboard',
-  component: DashboardComponent,
-  canActivate: [AuthGuard],
-  children: [
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children: [
     { path: '', redirectTo: 'huespedes', pathMatch: 'full' }, 
     { path: 'huespedes', component: HuespedesComponent , data: { eliminados: false }},
     { path: 'huespedes/eliminados', component: HuespedesComponent, data: { eliminados: true }},
@@ -26,7 +22,6 @@ const routes: Routes = [
       path: 'usuarios', component: UsuariosComponent,canActivate: [AuthGuard], data: { roles: [Roles.ADMIN] }
     }
   ]
-} ,
 
   { path: '**', redirectTo: 'dashboard' }
 

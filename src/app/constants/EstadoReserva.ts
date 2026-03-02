@@ -1,8 +1,8 @@
 export enum EstadoReserva {
     CONFIRMADA = 1,
     EN_CURSO = 2,
-    CANCELADA = 3,
-    FINALIZADA = 4
+    FINALIZADA = 3,
+    CANCELADA = 4
 }
 export const EstadoReservaDescripcion = {
     [EstadoReserva.CONFIRMADA]: 'Reserva creada',

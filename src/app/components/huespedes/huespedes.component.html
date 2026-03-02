@@ -4,13 +4,28 @@
       <h2 class="section-title">Gestión de Huéspedes</h2>
       <p class="text-muted">Administra el registro y perfiles de los clientes</p>
     </div>
-    <button (click)="toggleForm()" class="btn btn-hotel-primary">
+    <button *ngIf="!areDeleted" (click)=" toggleForm()" class="btn btn-hotel-primary">
       <i class="fa fa-plus-circle me-2"></i> Nuevo Registro
     </button>
-    <button *ngIf="showActions" (click)="irAEliminadas()" class="btn btn-hotel-primary shadow-sm">
-      <i class="fa fa-eye me-2"></i>
+
+    <div *ngIf="showActions">
+      <button *ngIf="!areDeleted; else botonAlterno" (click)="irEliminadas()" class="btn btn-hotel-primary shadow-sm">
+        <i class="fa fa-eye me-2"></i>
         Ver Eliminadas
-     </button>
+      </button>
+      <ng-template #botonAlterno>
+        <button (click)="irNormales()" class="btn btn-secondary shadow-sm">
+          <i class="fa fa-list me-2"></i>
+          Ver Activas
+        </button>
+      </ng-template>
+    </div>
+
+
+    <label for="">Buscar por id</label>
+    <input type="text" name="" [(ngModel)]="idBusqueda" (ngModelChange)="verificarBusqueda($event)">
+    <button (click)="buscarPorId()"> Buscar</button>
+
   </div>
 
   <div class="card hotel-card">
@@ -23,7 +38,7 @@
             <th>Contacto</th>
             <th>Identificación</th>
             <th>Nacionalidad</th>
-            <th class="text-center">Acciones</th>
+            <th *ngIf="!areDeleted" class="text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -44,7 +59,7 @@
             </td>
             <td>{{ huesped.tipoDocumento }}</td>
             <td>{{ huesped.nacionalidad }}</td>
-            <td class="text-center">
+            <td *ngIf="!areDeleted" class="text-center">
               <button class="btn btn-action btn-edit me-2" (click)="editHuesped(huesped)" title="Editar">
                 <i class="fas fa-pen"></i>
               </button>
@@ -65,7 +80,8 @@
     <div class="modal-content">
       <div class="modal-header bg-hotel-dark text-dark p-4">
         <h5 class="modal-title text-uppercase fw-light">
-          <i class="fa-solid fa-person"></i>{{ modalText }}</h5>
+          <i class="fa-solid fa-person"></i>{{ modalText }}
+        </h5>
         <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"></button>
       </div>
       <div class="modal-body p-4">
@@ -100,7 +116,8 @@
               <label class="form-label-hotel">Tipo de Documento</label>
               <select formControlName="idDocumento" class="form-select hotel-input">
                 <option [ngValue]="null">Seleccione...</option>
-                <option *ngFor="let tipo of tiposDocumento" [ngValue]="tipo">{{ TipoDocumentoDescripcion[tipo] }}</option>
+                <option *ngFor="let tipo of tiposDocumento" [ngValue]="tipo">{{ TipoDocumentoDescripcion[tipo] }}
+                </option>
               </select>
             </div>
             <div class="col-md-6 mb-3">

@@ -30,11 +30,14 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     listaHabitaciones: HabitacionResponse[] = [];
     estadosReserva = Object.entries(EstadoReserva).
         filter(([key, value]) => isNaN(Number(key)));
+    areDeleted: boolean = false;
 
     isEditMode: boolean = false;
     selectedReservacion: ReservacionResponse | null = null;
     showActions: boolean = false;
     modalText: string = "Generar Reservacion"
+
+    isAdmin: boolean = false;
 
     @ViewChild('reservacionModalRef')
     reservacionModalEl!: ElementRef;
@@ -65,7 +68,6 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
             })
     }
 
-
     ngOnInit(): void {
         this.listarReservaciones();
         this.listarHabitaciones();
@@ -88,6 +90,8 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
 
 
     listarReservaciones(): void {
+        console.log("Roles usuario:", this.authService.getRoles());
+        console.log("Rol requerido:", Roles.ADMIN);
         this.reservacionService.getReservaciones().subscribe({
             next: resp => {
                 console.info("Lista de Reservaciones: ", resp)
@@ -216,9 +220,35 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         this.modalIntanceEditar.show();
         console.log(this.estadosReserva)
     }
+
     irAEliminadas(): void {
-        // this.router.navigate(['/dashboard/reservaciones/eliminadas']);
         this.listarReservacionesEliminadas();
+        this.areDeleted = true;
     }
+
+    irANormales(): void {
+        this.listarReservaciones();
+        this.areDeleted = false;
+    }
+
+    idBusqueda: string = '';
+    buscarPorId(): void {
+        if (!this.idBusqueda.trim()) return;
+        this.listaReservaciones = this.listaReservaciones.filter(r =>
+            r.id === Number(this.idBusqueda)
+        );
+    }
+
+    verificarCampoBusqueda(valor: string): void {
+        if (!valor?.trim()) {
+            if (this.areDeleted) {
+                this.listarReservacionesEliminadas();
+            }
+            else {
+                this.listarReservaciones();
+            }
+        }
+    }
+
 }
 
