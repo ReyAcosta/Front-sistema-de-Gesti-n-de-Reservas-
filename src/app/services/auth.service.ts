@@ -6,6 +6,7 @@ import { environment } from '../enviroment/enviroment';
 
 import { AuthRequest, AuthResponse, JwtPayload } from '../models/Auth.model';
 import { JwtHelper } from '../shared/Jwt.helper';
+import { Roles } from '../constants/Roles';
 
 @Injectable({
   providedIn: 'root'
@@ -67,7 +68,9 @@ export class AuthService {
   }
 
   getRoles(): string[] {
-    return this.payload?.roles || [];
+    return (this.payload?.roles || []).map(role =>
+      role.replace('ROLE_', '')
+    );
   }
 
   hasRole(role: string): boolean {
@@ -78,6 +81,6 @@ export class AuthService {
     return roles.some(role => this.hasRole(role));
   }
   isAdmin(): boolean {
-    return this.hasRole('ADMIN');
+    return this.hasRole(Roles.ADMIN);
   }
 }

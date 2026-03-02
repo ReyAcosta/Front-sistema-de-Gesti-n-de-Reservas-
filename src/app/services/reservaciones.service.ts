@@ -32,7 +32,7 @@ export class ReservacionesService {
             throw error;
         })
     );
-}
+    }
 
     postReservacion(reservacionRequest: ReservacionRequest): Observable<ReservacionResponse> {
         return this.http.post<ReservacionResponse>((this.apiUrl), reservacionRequest).pipe(

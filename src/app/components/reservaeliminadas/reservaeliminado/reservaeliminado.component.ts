@@ -4,7 +4,7 @@ import { ReservacionesService } from '../../../services/reservaciones.service';
 
 @Component({
   selector: 'app-reservaeliminado',
-  standalone:false, 
+  standalone: false,
   templateUrl: './reservaeliminado.component.html',
   styleUrl: './reservaeliminado.component.css'
 })
@@ -12,7 +12,7 @@ export class ReservaeliminadoComponent {
 
   listaReservaciones: ReservacionResponse[] = [];
 
-  constructor(private reservacionService: ReservacionesService) {}
+  constructor(private reservacionService: ReservacionesService) { }
 
   ngOnInit(): void {
     this.cargarEliminadas();
