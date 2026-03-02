@@ -209,7 +209,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         console.log(this.estadosReserva)
     }
     irAEliminadas(): void {
-    this.router.navigate(['/admin/eliminadas']);
+    this.router.navigate(['/dashboard/reservaciones/eliminadas']);
 }
 }
 
