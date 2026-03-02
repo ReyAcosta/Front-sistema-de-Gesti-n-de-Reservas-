@@ -74,16 +74,16 @@
                     <td class="text-center" *ngIf="!areDeleted">
                         <div class="d-flex justify-content-center gap-2">
 
-                            <button class="btn btn-primary btn-sm" (click)="editReservacion(reservacion)">
+                            <button class="btn-action btn-edit" (click)="editReservacion(reservacion)">
                                 <i class="fa fa-edit"></i>
                             </button>
 
-                            <button class="btn btn-danger btn-sm" (click)="deleteReservacion(reservacion.id)">
+                            <button class="btn-action btn-delete" (click)="deleteReservacion(reservacion.id)">
                                 <i class="fa fa-trash"></i>
                             </button>
 
-                            <button class="btn btn-sm" (click)="editEstadoReserva(reservacion)">
-                                <i class="fa fa-refresh"></i>
+                            <button class="btn-action" (click)="editEstadoReserva(reservacion)">
+                                <i class="fa fa-sync-alt"></i>
                             </button>
                         </div>
 
