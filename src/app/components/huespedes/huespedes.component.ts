@@ -8,6 +8,7 @@ import { TipoDocumento, TipoDocumentoDescripcion } from '../../constants/TipoDoc
 import { Nacionalidad, NacionalidadDescripcion } from '../../constants/Nacionalidad';
 import { AuthService } from '../../services/auth.service';
 import { Roles } from '../../constants/Roles';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 
@@ -44,7 +45,9 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
   constructor(
     private fb: FormBuilder,
     private huespedService: HuespedesService, 
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {
 
     this.huespedForm = this.fb.group({
@@ -60,12 +63,18 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.listarHuespedes();
-    if(this.authService.hasRole(Roles.ADMIN)) {
-      this.showActions = true;
+   this.route.data.subscribe(data => {
+    if (data['eliminados']) {
+      this.listarHuespedesEliminados();
+    } else {
+      this.listarHuespedes();
     }
+  });
 
+  if (this.authService.hasRole(Roles.ADMIN)) {
+    this.showActions = true;
   }
+}
 
   ngAfterViewInit(): void {
     this.modalInstance = new bootstrap.Modal(this.huespedModalEl.nativeElement, {keyboard: false});
@@ -77,9 +86,18 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
   listarHuespedes(): void {
     this.huespedService.getHuespedes().subscribe({
       next: resp => {
+        console.info("Lista de huespedes: ", resp)
         this.listaHuespedes = resp;
       }
     });
+  }
+  listarHuespedesEliminados(): void{
+    this.huespedService.getHuespedesEliminados().subscribe({
+      next: resp => {
+        console.info("Lista de huespedes: ", resp)
+        this.listaHuespedes = resp;
+      }
+    })
   }
 
   resetForm(): void {
@@ -180,5 +198,8 @@ private getNacionalidadId(descripcion: string): number | null {
     );
 
   return entry ? Number(entry[0]) : null;
+}
+irAEliminadas():void{
+  this.listarHuespedesEliminados();
 }
 }

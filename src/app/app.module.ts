@@ -17,7 +17,6 @@ import { ErrorInterceptor } from "./shared/error.interceptor";
 import { UsuariosComponent } from "./components/usuarios/usuarios.component";
 import { LoginComponent } from "./components/login/login.component";
 import { AuthInterceptor } from "./shared/auth.interceptor";
-import { ReservaeliminadoComponent } from "./components/reservaeliminadas/reservaeliminado/reservaeliminado.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +25,6 @@ import { ReservaeliminadoComponent } from "./components/reservaeliminadas/reserv
     NavbarComponent,
     FooterComponent,
     DashboardComponent,
-    ReservaeliminadoComponent,
     ReservacionesComponent,
     LoginComponent,
     UsuariosComponent
