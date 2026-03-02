@@ -65,7 +65,8 @@
             <td class="text-center">
               <div class="d-flex justify-content-center gap-2">
 
-                <button class="btn-action btn-edit" title="Editar" (click)="editHabitacion(habitacion)">
+                <button class="btn-action btn-edit" *ngIf="showActions" title="Editar"
+                  (click)="editHabitacion(habitacion)">
                   <i class="fa fa-edit"></i>
                 </button>
 
@@ -73,7 +74,8 @@
                   <i class="fa fa-sync-alt"></i>
                 </button>
 
-                <button class="btn-action btn-delete" title="Eliminar" (click)="deleteHabitacion(habitacion.id)">
+                <button class="btn-action btn-delete" *ngIf="showActions" title="Eliminar"
+                  (click)="deleteHabitacion(habitacion.id)">
                   <i class="fa fa-trash"></i>
                 </button>
 
