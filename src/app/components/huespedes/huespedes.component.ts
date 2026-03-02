@@ -65,16 +65,19 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
    this.route.data.subscribe(data => {
+
     if (data['eliminados']) {
       this.listarHuespedesEliminados();
     } else {
       this.listarHuespedes();
-    this.listarHuespedes();
-    if (this.authService.hasRole(Roles.ADMIN)) {
-      this.showActions = true;
     }
+
   });
-  
+
+  if (this.authService.hasRole(Roles.ADMIN)) {
+    this.showActions = true;
+  }
+
 }
 
   ngAfterViewInit(): void {

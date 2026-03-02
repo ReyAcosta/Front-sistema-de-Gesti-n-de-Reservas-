@@ -1,24 +1,54 @@
-.section-title {
-  font-weight: 300;
+.main-content {
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.45), rgba(240,255,240,0.35)),
+   url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb");
+   
+  background-size: cover;
+  background-position: center;
+}
+.header-section {
+  background: rgba(178, 206, 237, 0);
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 2rem;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  color: #000; 
+}
+
+.header-section .section-title {
+  font-weight: 800;
   letter-spacing: 1px;
-  color: var(--hotel-dark);
+  color: #000 !important; 
+  font-size: 2rem;
 }
 
+.header-section p {
+  color: #0e027c !important;
+  font-weight: 600;
+}
 .hotel-card {
- border-radius: 18px;
-  backdrop-filter: blur(15px);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+  backdrop-filter: blur(18px);
+  background: var(--hotel-glass);
+  border: 1px solid var(--hotel-border);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
   overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.hotel-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.25);
+}
 
 .table thead {
-  background-color: var(--hotel-gray);
+  background: linear-gradient(to right, #F4B400, #ffd95c);
   text-transform: uppercase;
-  font-size: 0.75rem;
-  letter-spacing: 1px;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  color: #000;
+  font-weight: 700;
 }
 
 .table th {
@@ -28,91 +58,104 @@
 
 .table td {
   padding: 1.2rem;
-  color: #46766d;
-}
-
-.btn-hotel-primary {
-  background-color: var(--hotel-ligth);
-  color: rgb(166, 183, 240);
-  border-radius: 8px;
-  padding: 10px 24px;
-  transition: all 0.3s;
-}
-
-.btn-action {
-  width: 35px;
-  height: 35px;
-  border-radius: 8px;
-  border: 1px solid var(--hotel-border);
-  background: rgb(192, 226, 148);
-}
-.btn {
-  border: none; 
-  color: rgb(121, 123, 249); 
-  padding: 5px 10px; 
-  cursor: pointer; 
-  border-radius: 5px; 
-  display: inline-flex;
-}
-
-.badge{
-  color:rgb(78, 102, 142);
-   font-size: 16px
-
-}
-.main-content {
-    min-height: 100vh;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.342), rgba(161, 107, 107, 0.726)),
-  url("https://images.unsplash.com/photo-1551882547-ff40c63fe5fa");
-    background-size: cover;
-    background-position: center;
-}
-.hotel-card {
-  padding: 1.5rem;
+  color: #000;
+  font-weight: 600;
 }
 
 .table tbody tr:hover {
-  background: rgba(211, 42, 42, 0.08);
+  background: rgba(0, 0, 0, 0.05);
   transition: 0.3s ease;
+}
+.btn-hotel-primary {
+  background: linear-gradient(135deg, #0F3D3E, #145858);
+  color: #fff;
+  font-weight: 600;             
+  font-size: 0.85rem;           
+  padding: 8px 18px;            
+  border-radius: 8px;           
+  transition: all 0.25s ease;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+.btn-hotel-primary:hover {
+  transform: translateY(-2px);   
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.btn-action {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: none;
+  background: #F4B400;
+  color: #000;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn-action:hover {
+  background: #ffd95c;
+  transform: scale(1.1);
 }
 
 .badge {
-  border-radius: 20px;
+  background: #0F3D3E;
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.search-wrapper {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+  max-width: 500px;
+}
+
+.search-label {
+  display: block;
+  font-weight: 800;        
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  color: #000;           
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.search-container {
+  display: flex;
+  align-items: left;
+  gap: 10px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 8px 12px;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.search-container:focus-within {
+  border-color: #F4B400;  
+  box-shadow: 0 0 0 3px rgba(244,180,0,0.2);
+}
+
+.search-icon {
+  color: #0F3D3E;
+}
+
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-weight: 700;        
+  color: #000;            
+  background: transparent;
+}
+
+.search-input::placeholder {
+  color: #666;
   font-weight: 500;
-  letter-spacing: .5px;
-}
-
-.section-title {
-  font-weight: 300;
-  letter-spacing: 2px;
-}
-.btn-elegant-primary {
-  background: linear-gradient(135deg, #7593df, #e7c944);
-  color: white;
-  padding: 10px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  border: none;
-  transition: all 0.3s ease;
-}
-
-.btn-elegant-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
-}
-
-.btn-elegant-secondary {
-  background: linear-gradient(135deg, #f1f1f1, #ece3e3);
-  color: white;
-  padding: 10px 24px;
-  border-radius: 12px;
-  font-weight: 600;
-  border: none;
-  transition: all 0.3s ease;
-}
-
-.btn-elegant-secondary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(228, 209, 209, 0.25);
 }

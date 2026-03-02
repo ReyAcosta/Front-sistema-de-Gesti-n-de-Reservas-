@@ -10,7 +10,7 @@ import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { Roles } from './constants/Roles';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], children: [
     { path: '', redirectTo: 'huespedes', pathMatch: 'full' }, 
@@ -22,10 +22,12 @@ const routes: Routes = [
       path: 'usuarios', component: UsuariosComponent,canActivate: [AuthGuard], data: { roles: [Roles.ADMIN] }
     }
   ]
+},
 
   { path: '**', redirectTo: 'dashboard' }
 
 ];
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

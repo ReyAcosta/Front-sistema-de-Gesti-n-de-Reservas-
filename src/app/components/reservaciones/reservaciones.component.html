@@ -1,16 +1,14 @@
 <div class="main-content p-4 hotel-luxury-bg">
-
-    <!-- HEADER -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h2 class="section-title text-uppercase mb-1">
+         <div class="header-section d-flex justify-content-between align-items-center mb-2 p-6">
+           <div>
+              <h2 class="section-title text-uppercase">
                 Gestión de Reservaciones
-            </h2>
-            <p class="ls-1 mb-0">
-                Administra las reservaciones entre huéspedes y habitaciones
-            </p>
-        </div>
+                </h2>
+              <p class="section-subtitle">Administra las reservaciones del Hotel DREYV
+                </p>
+             </div>
 
+    
         <button *ngIf="!areDeleted" (click)="toggleForm()" class="btn btn-hotel-primary shadow-sm">
             <i class="fa fa-plus-circle me-2"></i>
             Nueva Reservación
@@ -29,45 +27,16 @@
                 </button>
             </ng-template>
         </div>
-    </div>
-
-    <div>
-        <div>
-            <label for="buscarId">Buscar reservacion por id</label>
-            <input class="" type="text" name="" [(ngModel)]="idBusqueda"
-                (ngModelChange)="verificarCampoBusqueda($event)">
-            <button class=" btn btn-hotel-primary shadow-sm" (click)="buscarPorId()">Buscar</button>
+          <div class="search-wrapper">
+            <label for="buscarId" class="search-label"> Buscar reservación por ID </label>
+            <div class="search-container"> <i class="fa fa-search search-icon"></i>
+                <input id="buscarId" type="text" [(ngModel)]="idBusqueda" (ngModelChange)="verificarCampoBusqueda($event)" placeholder="Ingrese el ID de la reservación" class="search-input" >
+                <button class="btn btn-hotel-primary" (click)="buscarPorId()"> Buscar </button> </div> </div>
         </div>
-    </div>
 
 
     <div class="card hotel-card">
-        <!---
-                <td>{{ i + 1 }}</td>
-                <td>{{ reservacion.huesped.nombre }}</td>
-                <td>{{ reservacion.habitacion.numeroHabitacion }}</td>
-                <td>{{ reservacion.fechaReserva | date:'dd-MM-yyyy' }}</td>
-                <td>{{ reservacion.fechaInicio | date:'dd-MM-yyyy' }}</td>
-                <td>{{ reservacion.fechaFin | date:'dd-MM-yyyy' }}</td>
-                <td>{{ reservacion.estadoReserva }}</td>
-                <td>
-                    <button class="btn btn-primary btn-sm me-1" (click)="editReservacion(reservacion)">
-                        <i class="fa fa-edit"></i> Editar
-                    </button>
-                    <button class="btn btn-danger btn-sm" (click)="deleteReservacion(reservacion.id)">
-                        <i class="fa fa-trash"></i> Eliminar
-                    </button>
-                    <button class="btn btn-danger btn-sm me-1" (click)="editEstadoReserva(reservacion)">
-                        <i class="fa fa-edit"></i> Estado
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-=======
-        <div class="table-responsive">
--->
+        
 
         <table class="table table-hover align-middle mb-0 text-center">
 
@@ -237,36 +206,3 @@
 </div>
 
 
-
-<!--
-<div class="modal fade" #editarEstadoModalRef tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title">
-                    Editar estado reservacion
-                </h5>
-
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar">
-                </button>
-            </div>
-            <div class="modal-body">
-                <form [formGroup]="estadoForm" (ngSubmit)="updateEstado()">
-                    <select class="form-select" formControlName="idEstado">
-                        <option *ngFor="let estado of estadosReserva" [value]="estado[1]">
-                            {{estado[0]}}
-                        </option>
-                    </select>
-
-                    <button type="submit" class="btn btn-success btn-sm">
-                        Confirmar
-                    </button>
-                </form>
-            </div>
-
-        </div>
-    </div>
-
-</div>
--->

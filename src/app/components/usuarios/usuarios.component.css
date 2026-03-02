@@ -1,0 +1,173 @@
+:root {
+  --hotel-deep-green: #0F3D3E;
+  --hotel-green-soft: #145858;
+  --hotel-gold: #F4B400;
+  --hotel-gold-soft: #ffd95c;
+  --hotel-light: #ffffff;
+  --hotel-border: rgba(0,0,0,0.08);
+  --hotel-glass: rgba(255,255,255,0.9);
+}
+.main-content {
+  min-height: 100vh;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.45), rgba(240,255,240,0.35)),
+   url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb");
+   
+  background-size: cover;
+  background-position: center;
+}
+.container-fluid h2 {
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #000;
+  margin-bottom: 20px;
+}
+.btn-hotel-primary {
+  background: linear-gradient(135deg, var(--hotel-deep-green), var(--hotel-green-soft));
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-hotel-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+.table {
+  border-radius: 15px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.table thead {
+  background: linear-gradient(to right, var(--hotel-gold), var(--hotel-gold-soft));
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  color: #000;
+  font-weight: 700;
+}
+
+.table td, .table th {
+  padding: 14px;
+  vertical-align: middle;
+}
+
+.table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background: rgba(15, 61, 62, 0.05);
+}
+.badge-hotel {
+  background: var(--hotel-deep-green);
+  color: #fff;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+}
+.btn-delete {
+  background: transparent;
+  border: 1.5px solid #c94c4c;
+  color: #c94c4c;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  padding: 6px 12px;
+  transition: 0.3s ease;
+}
+
+.btn-delete:hover {
+  background: #c94c4c;
+  color: #fff;
+}
+.modal-content {
+  border-radius: 18px;
+  border: none;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+  background: var(--hotel-deep-green) !important;
+  color: #fff;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+}
+.form-control, .form-select {
+  border-radius: 10px;
+  border: 1px solid var(--hotel-border);
+  padding: 10px;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--hotel-gold);
+  box-shadow: 0 0 0 0.2rem rgba(244,180,0,0.15);
+}
+.hotel-panel {
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+}
+
+.section-title {
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #000;
+}
+
+.hotel-table thead {
+  background: linear-gradient(to right, #F4B400, #ffd95c);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  color: #000;
+  font-weight: 700;
+}
+
+.hotel-table tbody tr:hover {
+  background: rgba(15, 61, 62, 0.05);
+  transition: 0.2s ease;
+}
+
+.badge-hotel {
+  background: #0F3D3E;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.btn-delete {
+  background: transparent;
+  border: 1.5px solid #c94c4c;
+  color: #c94c4c;
+  font-size: 0.8rem;
+  border-radius: 8px;
+  padding: 6px 12px;
+  transition: 0.3s ease;
+}
+
+.btn-delete:hover {
+  background: #c94c4c;
+  color: #fff;
+}
+
+.hotel-modal {
+  border-radius: 18px;
+  border: none;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
+}
+
+.hotel-modal-header {
+  background: #0F3D3E;
+  color: #fff;
+}
