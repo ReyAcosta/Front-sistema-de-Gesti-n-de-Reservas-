@@ -1,17 +1,16 @@
 <div class="main-content p-4 hotel-luxury-bg">
 
-  <!-- Header -->
-  <div class="d-flex justify-content-between mb-4">
-    <div>
-      <h2 class="section-title text-uppercase">Gestión de Habitaciones</h2>
-      <p class="ls-1">Administra el inventario y estado de habitaciones</p>
-    </div>
-
-    <button (click)="toggleForm()" class="btn btn-hotel-primary shadow-sm">
-      <i class="fa fa-plus-circle me-2"></i>
-      Nueva Habitación
-    </button>
+  <div class="header-section d-flex justify-content-between align-items-center mb-4 p-4">
+  <div>
+    <h2 class="section-title text-uppercase">Gestión de Habitaciones</h2>
+    <p class="section-subtitle">Administra el inventario y estado de habitaciones</p>
   </div>
+
+  <button (click)="toggleForm()" class="btn btn-hotel-primary shadow-sm">
+    <i class="fa fa-plus-circle me-2"></i>
+    Nueva Habitación
+  </button>
+</div>
 
   <!-- Tabla -->
   <div class="card hotel-card p-3">
@@ -65,7 +64,8 @@
             <td class="text-center">
               <div class="d-flex justify-content-center gap-2">
 
-                <button class="btn-action btn-edit" title="Editar" (click)="editHabitacion(habitacion)">
+                <button class="btn-action btn-edit" *ngIf="showActions" title="Editar"
+                  (click)="editHabitacion(habitacion)">
                   <i class="fa fa-edit"></i>
                 </button>
 
@@ -73,7 +73,8 @@
                   <i class="fa fa-sync-alt"></i>
                 </button>
 
-                <button class="btn-action btn-delete" title="Eliminar" (click)="deleteHabitacion(habitacion.id)">
+                <button class="btn-action btn-delete" *ngIf="showActions" title="Eliminar"
+                  (click)="deleteHabitacion(habitacion.id)">
                   <i class="fa fa-trash"></i>
                 </button>
 

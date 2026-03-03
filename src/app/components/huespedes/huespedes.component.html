@@ -1,9 +1,10 @@
-<div class="main-content p-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <div>
-      <h2 class="section-title">Gestión de Huéspedes</h2>
-      <p class="text-muted">Administra el registro y perfiles de los clientes</p>
-    </div>
+<div class="main-content p-4 hotel-luxury-bg">
+   <div class="header-section d-flex justify-content-between align-items-center mb-4 p-4">
+  <div>
+    <h2 class="section-title text-uppercase">Gestión de Huespedes</h2>
+    <p class="section-subtitle">Administra los Huespedes.</p>
+  </div>
+
     <button *ngIf="!areDeleted" (click)=" toggleForm()" class="btn btn-hotel-primary">
       <i class="fa fa-plus-circle me-2"></i> Nuevo Registro
     </button>
@@ -21,12 +22,13 @@
       </ng-template>
     </div>
 
-
-    <label for="">Buscar por id</label>
-    <input type="text" name="" [(ngModel)]="idBusqueda" (ngModelChange)="verificarBusqueda($event)">
-    <button (click)="buscarPorId()"> Buscar</button>
-
-
+    <div class="search-wrapper">
+      <label for="buscarId" class="search-label"> Buscar Huesped  </label>
+      <div class="search-container"> <i class="fa fa-search search-icon"></i>
+      <input id="buscarId" type="text" [(ngModel)]="idBusqueda" (ngModelChange)="verificarBusqueda($event)" placeholder="Buscar por ID">
+      <button class="btn btn-hotel-primary"  (click)="buscarPorId()">Buscar</button>
+    </div>
+  </div>
   </div>
 
   <div class="card hotel-card">

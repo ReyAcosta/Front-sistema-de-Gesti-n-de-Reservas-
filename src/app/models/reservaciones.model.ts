@@ -17,5 +17,6 @@ export interface ReservacionResponse {
     fechaReserva: Date,
     fechaInicio: Date,
     fechaFin: Date,
+    total: number,
     estadoReserva: string
 }

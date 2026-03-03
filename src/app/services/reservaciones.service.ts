@@ -19,7 +19,7 @@ export class ReservacionesService {
         return this.http.get<ReservacionResponse[]>((this.apiUrl)).pipe(
             map(reservaciones => reservaciones.sort((a, b) => a.id - b.id)),
             catchError(error => {
-                console.error("Error al obtener los pacientes", error);
+                console.error("Error al obtener las reservaciones", error);
                 return of([]);
             })
         )
@@ -32,7 +32,7 @@ export class ReservacionesService {
             throw error;
         })
     );
-    }
+}
 
     postReservacion(reservacionRequest: ReservacionRequest): Observable<ReservacionResponse> {
         return this.http.post<ReservacionResponse>((this.apiUrl), reservacionRequest).pipe(

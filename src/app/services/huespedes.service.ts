@@ -21,15 +21,15 @@ export class HuespedesService {
       })
     );
   }
-
-  getHuespedesEliminados(): Observable<HuespedResponse[]> {
+  
+  getHuespedesEliminados(): Observable<HuespedResponse[]>{
     return this.http.get<HuespedResponse[]>(`${this.apiUrl}/eliminados`).pipe(
-      map(huespedes => huespedes.sort()),
-      catchError(error => {
-        console.error('Error al obtener los Huespedes: ', error);
-        return of([]);
-      })
-    );
+        map(huespedes => huespedes.sort((a, b) => a.id - b.id)),
+        catchError(error => {
+            console.error("Error al obtener huespedes eliminados", error);
+            throw error;
+        })
+      );
   }
 
   postHuesped(huesped: HuespedRequest): Observable<HuespedResponse> {
