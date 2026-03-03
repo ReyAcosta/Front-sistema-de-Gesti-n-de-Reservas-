@@ -1,9 +1,10 @@
 <div class="main-content p-4 hotel-luxury-bg">
-   <div class="header-section d-flex justify-content-between align-items-center mb-4 p-4">
-  <div>
-    <h2 class="section-title text-uppercase">Gestión de Huespedes</h2>
-    <p class="section-subtitle">Administra los Huespedes.</p>
-  </div>
+  <div
+    class="header-section d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
+    <div>
+      <h2 class="section-title text-uppercase"> Huespedes</h2>
+      <p class="section-subtitle">Administra los Huespedes.</p>
+    </div>
 
     <button *ngIf="!areDeleted" (click)=" toggleForm()" class="btn btn-hotel-primary">
       <i class="fa fa-plus-circle me-2"></i> Nuevo Registro
@@ -23,12 +24,13 @@
     </div>
 
     <div class="search-wrapper">
-      <label for="buscarId" class="search-label"> Buscar Huesped  </label>
+      <label for="buscarId" class="search-label"> Buscar Huesped </label>
       <div class="search-container"> <i class="fa fa-search search-icon"></i>
-      <input id="buscarId" type="text" [(ngModel)]="idBusqueda" (ngModelChange)="verificarBusqueda($event)" placeholder="Buscar por ID">
-      <button class="btn btn-hotel-primary"  (click)="buscarPorId()">Buscar</button>
+        <input id="buscarId" type="text" [(ngModel)]="idBusqueda" (ngModelChange)="verificarBusqueda($event)"
+          placeholder="Buscar por ID">
+        <button class="btn btn-hotel-primary" (click)="buscarPorId()">Buscar</button>
+      </div>
     </div>
-  </div>
   </div>
 
   <div class="card hotel-card">
@@ -49,7 +51,7 @@
             <td class="fw-bold text-muted">{{ i + 1 }}</td>
             <td>
               <div class="d-flex align-items-center">
-                <div class="avatar-circle me-3">{{ huesped.nombre[0] }}</div>
+
                 <div>
                   <div class="fw-bold">{{ huesped.nombre }}</div>
                   <small class="text-muted">Huesped Frecuente</small>
@@ -62,14 +64,20 @@
             </td>
             <td>{{ huesped.tipoDocumento }}</td>
             <td>{{ huesped.nacionalidad }}</td>
+
             <td *ngIf="!areDeleted" class="text-center">
-              <button class="btn btn-action btn-edit me-2" (click)="editHuesped(huesped)" title="Editar">
-                <i class="fas fa-pen"></i>
-              </button>
-              <button class="btn btn-action btn-delete" (click)="deleteHuesped(huesped.id)" title="Eliminar">
-                <i class="fas fa-trash-alt"></i>
-              </button>
+              <div class="d-flex justify-content-center gap-2">
+
+                <button class="btn btn-action btn-edit" (click)="editHuesped(huesped)" title="Editar">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-action btn-delete" *ngIf="showActions" (click)="deleteHuesped(huesped.id)"
+                  title="Eliminar">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
             </td>
+
           </tr>
         </tbody>
       </table>

@@ -1,113 +1,127 @@
-<div class="main-content p-4 hotel-luxury-bg">
-
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="section-title">Usuarios</h2>
-
-    <button (click)="toggleForm()" class="btn btn-hotel-primary">
-      <i class="fa-solid fa-plus me-2"></i>
-      Registrar Usuario
-    </button>
-  </div>
-
-  <table class="table hotel-table mt-3">
-    <thead>
-      <tr class="text-center">
-        <th>#</th>
-        <th>Username</th>
-        <th>Roles</th>
-        <th *ngIf="muestraAcciones">Acciones</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr class="text-center"
-          *ngFor="let usuario of usuarios; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td class="fw-semibold">{{ usuario.username }}</td>
-        <td>
-          <span *ngFor="let rol of usuario.roles"
-                class="badge badge-hotel me-1">
-            {{ transformarRol(rol) }}
-          </span>
-        </td>
-        <td *ngIf="muestraAcciones">
-          <button class="btn btn-delete"
-                  (click)="deleteUsuario(usuario.username)">
-            <i class="fa fa-trash me-1"></i>
-            Eliminar
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- MODAL -->
-  <div class="modal fade"
-       #usuarioModalRef
-       tabindex="-1"
-       aria-labelledby="usuarioModalLabel"
-       aria-hidden="true">
-
-    <div class="modal-dialog">
-      <div class="modal-content hotel-modal">
-
-        <div class="modal-header hotel-modal-header">
-          <h5 class="modal-title">
-            {{ textoModal }}
-          </h5>
-          <button type="button"
-                  class="btn-close btn-close-white"
-                  data-bs-dismiss="modal"></button>
+<div class="container-fluid mt-4 main-content">
+    <div class="header-section d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
+     <div>
+        <h2 class="section-title text-uppercase"> Usuarios</h2>
+        </div>
+        <button (click)="toggleForm()" class="btn btn-hotel-primary shadow-sm">
+                <i class="fa fa-plus-circle me-2"></i>
+                Registrar Usuario
+            </button>
         </div>
 
-        <div class="modal-body">
-          <form [formGroup]="usuarioForm"
-                (ngSubmit)="onSubmit()">
+        <table class="table hotel-table mt-3">
+            <thead>
+                <tr style="text-align: center;">
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Roles</th>
+                    <th scope="col" *ngIf="muestraAcciones">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="text-align: center;" *ngFor="let usuario of usuarios; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ usuario.username }}</td>
+                    <td>
+                        <span *ngFor="let rol of usuario.roles" class="badge-hotel me-1">
+                            {{ transformarRol(rol) }}
+                        </span>
+                    </td>
+                    <td *ngIf="muestraAcciones">
+                        <button class="btn btn-delete btn-sm" (click)="deleteUsuario(usuario.username)">
+                            <i class="fa fa-trash"></i> Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-            <div class="mb-3">
-              <label class="form-label-hotel">Username</label>
-              <input class="form-control hotel-input"
-                     formControlName="username"
-                     minlength="5"
-                     maxlength="20"
-                     placeholder="Ingrese el nombre de usuario" />
+        <div class="modal fade" #usuarioModalRef tabindex="-1" aria-labelledby="usuarioModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content hotel-modal">
+                    
+                    <div class="modal-header bg-hotel-dark text p-4">
+                        <h5 class="modal-title" id="usuarioModalLabel">{{ textoModal }}</h5>
+                        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"
+                            aria-label="Cerrar"></button>
+                    </div>
+
+                    <div class="modal-body p-4">
+                        <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+
+                            <div class="mb-3">
+                                <label for="username" class="form-label-hotel">Username</label>
+                                <input id="username" class="form-control hotel-input" formControlName="username"
+                                    minlength="5"
+                                    maxlength="20"
+                                    placeholder="Ingrese el nombre de usuario" />
+                                <div *ngIf="usuarioForm.get('username')?.invalid && usuarioForm.get('username')?.touched"
+                                    class="text-danger small mt-1">
+                                    <span *ngIf="usuarioForm.get('username')?.errors?.['required']">
+                                        El username es requerido
+                                    </span>
+                                    <span *ngIf="usuarioForm.get('username')?.errors?.['minlength']">
+                                        Mínimo 5 caracteres
+                                    </span>
+                                    <span *ngIf="usuarioForm.get('username')?.errors?.['maxlength']">
+                                        Máximo 20 caracteres
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label-hotel">Contraseña</label>
+                                <input id="password"
+                                    type="password"
+                                    class="form-control hotel-input"
+                                    formControlName="password"
+                                    minlength="8"
+                                    placeholder="Ingrese la contraseña" />
+                                <div *ngIf="usuarioForm.get('password')?.invalid && usuarioForm.get('password')?.touched"
+                                    class="text-danger small mt-1">
+                                    <span *ngIf="usuarioForm.get('password')?.errors?.['required']">
+                                        La contraseña es requerida
+                                    </span>
+                                    <span *ngIf="usuarioForm.get('password')?.errors?.['minlength']">
+                                        Mínimo 8 caracteres
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="roles" class="form-label-hotel">Roles</label>
+                                <select id="roles"
+                                    class="form-select hotel-input"
+                                    formControlName="roles"
+                                    multiple
+                                    size="3">
+                                    <option *ngFor="let rol of roles" [value]="rol">
+                                        {{ transformarRol(rol) }}
+                                    </option>
+                                </select>
+
+
+                                <div *ngIf="usuarioForm.get('roles')?.invalid && usuarioForm.get('roles')?.touched"
+                                    class="text-danger small mt-1">
+                                    <span *ngIf="usuarioForm.get('roles')?.errors?.['required']">
+                                        Al menos un rol es requerido
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <button type="submit"
+                                    class="btn btn-hotel-primary px-4"
+                                    [disabled]="usuarioForm.invalid">
+                                    <i class="fa fa-save"></i> Guardar
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
             </div>
-
-            <div class="mb-3">
-              <label class="form-label-hotel">Contraseña</label>
-              <input type="password"
-                     class="form-control hotel-input"
-                     formControlName="password"
-                     minlength="8"
-                     placeholder="Ingrese la contraseña" />
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label-hotel">Roles</label>
-              <select class="form-select hotel-input"
-                      formControlName="roles"
-                      multiple size="3">
-                <option *ngFor="let rol of roles"
-                        [value]="rol">
-                  {{ transformarRol(rol) }}
-                </option>
-              </select>
-            </div>
-
-            <div class="text-center mt-4">
-              <button type="submit"
-                      class="btn btn-hotel-primary px-4"
-                      [disabled]="usuarioForm.invalid">
-                <i class="fa fa-save me-1"></i>
-                Guardar
-              </button>
-            </div>
-
-          </form>
         </div>
-
-      </div>
-    </div>
-  </div>
 
 </div>
