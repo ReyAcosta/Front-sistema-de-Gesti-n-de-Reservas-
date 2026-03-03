@@ -1,0 +1,69 @@
+<section class="profile-section py-5">
+  <div class="container">
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+
+        <div class="card border-0 shadow-lg profile-card">
+
+          <div class="row g-0 align-items-center">
+
+            <!-- FOTO -->
+            <div class="col-md-4 text-center bg-light p-4">
+              
+              <div class="position-relative d-inline-block">
+                <img 
+                  [src]="previewImage || 'https://ui-avatars.com/api/?name=' + username + '&background=0D6EFD&color=fff'"
+                  class="rounded-circle profile-img shadow"
+                  alt="Foto de perfil">
+
+                <label class="change-photo-btn">
+                  <i class="fas fa-camera"></i>
+                  <input type="file" hidden (change)="onFileSelected($event)">
+                </label>
+              </div>
+
+              <h5 class="mt-3 fw-bold">{{ username }}</h5>
+              <span class="badge bg-primary">Usuario del Sistema</span>
+
+            </div>
+
+            <!-- INFORMACIÓN -->
+            <div class="col-md-8 p-4">
+
+              <h4 class="mb-4 border-bottom pb-2">
+                Información Personal
+              </h4>
+
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label class="form-label text-muted small">Usuario</label>
+                  <input type="text" class="form-control" [value]="username" disabled>
+                </div>
+
+                <div class="col-md-6">
+                  <label class="form-label text-muted small">Rol</label>
+                  <input type="text" class="form-control" 
+                         [value]="rolesUsuario"
+                         disabled>
+                </div>
+              </div>
+
+              <div class="text-end mt-4">
+                <button class="btn btn-primary px-4" (click)="guardarCambios()">
+                  <i class="fas fa-save me-2"></i>
+                  Guardar Cambios
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>

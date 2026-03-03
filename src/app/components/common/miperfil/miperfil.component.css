@@ -1,0 +1,32 @@
+.profile-section {
+  background: #f8f9fa;
+}
+
+.profile-card {
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.profile-img {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border: 5px solid #0D6EFD;
+}
+
+.change-photo-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: #0D6EFD;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.change-photo-btn:hover {
+  background: #084298;
+  transform: scale(1.05);
+}

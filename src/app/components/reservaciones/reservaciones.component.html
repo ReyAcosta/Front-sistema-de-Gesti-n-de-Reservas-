@@ -35,8 +35,6 @@
 
 
     <div class="card hotel-card">
-
-
         <table class="table table-hover align-middle mb-0 text-center">
 
             <thead>
@@ -68,10 +66,11 @@
                     <td>{{ reservacion.fechaInicio | date:'dd-MM-yyyy' }} </td>
 
                     <td>{{ reservacion.fechaFin | date:'dd-MM-yyyy' }} </td>
+                    <td>${{ reservacion.total }} </td>
 
                       <td> <span class=" px-3 py-2"> {{ reservacion.estadoReserva }} </span> </td>
 
-                    <td>${{ reservacion.total }} </td>
+                    
 
                     <td> <span class="badge px-3 py-2"> {{ reservacion.estadoReserva }} </span> </td>
 

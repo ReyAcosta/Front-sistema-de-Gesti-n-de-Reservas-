@@ -22,7 +22,13 @@ export class UsuariosService {
       })
     );
   }
+  getUsuarioByUsername(username: string) {
+  return this.http.get<UsuarioResponse>(`${this.apiUrl}/${username}`);
+  }
 
+updateUsuario(username: string, data: any) {
+  return this.http.put<UsuarioResponse>(`${this.apiUrl}/${username}`, data);
+  }
   postUsuario(usuario: UsuarioRequest): Observable<UsuarioResponse> {
     return this.http.post<UsuarioResponse>(this.apiUrl, usuario).pipe(
       catchError(error => {
