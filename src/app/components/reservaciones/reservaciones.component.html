@@ -1,13 +1,14 @@
 <div class="main-content p-4 hotel-luxury-bg">
-         <div class="header-section d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
-           <div>
-              <h2 class="section-title text-uppercase">  Reservaciones </h2>
-              <p class="section-subtitle">Administra las reservaciones del Hotel DREYV </p>
-             </div>
+    <div
+        class="header-section d-flex flex-column flex-lg-row justify-content-between align-items-start align-items-lg-center gap-3">
+        <div>
+            <h2 class="section-title text-uppercase"> Reservaciones </h2>
+            <p class="section-subtitle">Administra las reservaciones del Hotel DREYV </p>
+        </div>
 
-    
+
         <button *ngIf="!areDeleted" (click)="toggleForm()" class="btn btn-hotel-primary">
-            <i class="fa fa-plus-circle me-2"></i> Nueva Reservación  </button>
+            <i class="fa fa-plus-circle me-2"></i> Nueva Reservación </button>
 
         <div *ngIf="showActions"> <button *ngIf="!areDeleted; else botonAlterno" (click)="irAEliminadas()"
                 class="btn btn-hotel-primary ">
@@ -21,17 +22,20 @@
                 </button>
             </ng-template>
         </div>
-          <div class="search-wrapper">
+        <div class="search-wrapper">
             <label for="buscarId" class="search-label"> Buscar reservación por ID </label>
             <div class="search-container"> <i class="fa fa-search search-icon"></i>
-                <input id="buscarId" type="text" [(ngModel)]="idBusqueda" (ngModelChange)="verificarCampoBusqueda($event)" placeholder="Ingrese el ID de la reservación" class="search-input" >
-                <button class="btn btn-hotel-primary" (click)="buscarPorId()"> Buscar </button> </div> 
+                <input id="buscarId" type="text" [(ngModel)]="idBusqueda"
+                    (ngModelChange)="verificarCampoBusqueda($event)" placeholder="Ingrese el ID de la reservación"
+                    class="search-input">
+                <button class="btn btn-hotel-primary" (click)="buscarPorId()"> Buscar </button>
             </div>
         </div>
+    </div>
 
 
     <div class="card hotel-card">
-        
+
 
         <table class="table table-hover align-middle mb-0 text-center">
 
@@ -43,6 +47,7 @@
                     <th>Fecha Reserva</th>
                     <th>Fecha Inicio</th>
                     <th>Fecha Fin</th>
+                    <th>Total</th>
                     <th>Estado</th>
                     <th *ngIf="!areDeleted">Acciones</th>
                 </tr>
@@ -64,7 +69,11 @@
 
                     <td>{{ reservacion.fechaFin | date:'dd-MM-yyyy' }} </td>
 
-                    <td> <span class=" px-3 py-2"> {{ reservacion.estadoReserva }} </span> </td>
+                      <td> <span class=" px-3 py-2"> {{ reservacion.estadoReserva }} </span> </td>
+
+                    <td>${{ reservacion.total }} </td>
+
+                    <td> <span class="badge px-3 py-2"> {{ reservacion.estadoReserva }} </span> </td>
 
                     <td class="text-center" *ngIf="!areDeleted">
                         <div class="d-flex justify-content-center gap-2">
@@ -199,5 +208,3 @@
         </div>
     </div>
 </div>
-
-

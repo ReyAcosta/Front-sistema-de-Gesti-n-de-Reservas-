@@ -5,31 +5,33 @@
   --hotel-gold: #F4B400;
   --hotel-gold-soft: #ffd95c;
   --hotel-light: #ffffff;
-  --hotel-border: rgba(0,0,0,0.08);
-  --hotel-glass: rgba(255,255,255,0.85);
+  --hotel-border: rgba(0, 0, 0, 0.08);
+  --hotel-glass: rgba(255, 255, 255, 0.85);
 }
+
 .main-content {
   min-height: 100vh;
   background-image:
-    linear-gradient(rgba(255,255,255,0.45), rgba(240,255,240,0.35)),
-   url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb");
-   
+    linear-gradient(rgba(255, 255, 255, 0.45), rgba(240, 255, 240, 0.35)),
+    url("https://images.unsplash.com/photo-1542314831-068cd1dbfeeb");
+
   background-size: cover;
   background-position: center;
 }
+
 .header-section {
   background: rgba(178, 206, 237, 0);
   backdrop-filter: blur(10px);
   border-radius: 18px;
   padding: 2rem;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-  color: #000; 
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  color: #000;
 }
 
 .header-section .section-title {
   font-weight: 800;
   letter-spacing: 1px;
-  color: #000 !important; 
+  color: #000 !important;
   font-size: 2rem;
 }
 
@@ -37,6 +39,7 @@
   color: #072b8f !important;
   font-weight: 600;
 }
+
 .hotel-card {
   border-radius: 20px;
   backdrop-filter: blur(18px);
@@ -71,18 +74,19 @@
 .btn-hotel-primary {
   background: linear-gradient(135deg, #0F3D3E, #145858);
   color: #fff;
-  font-weight: 600;             
-  font-size: 0.85rem;           
-  padding: 8px 18px;            
-  border-radius: 8px;           
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 8px 18px;
+  border-radius: 8px;
   transition: all 0.25s ease;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .btn-hotel-primary:hover {
-  transform: translateY(-2px);   
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
+
 .btn-action {
   width: 38px;
   height: 38px;
@@ -98,6 +102,7 @@
   background: #ffd95c;
   transform: scale(1.1);
 }
+
 .table thead {
   background: linear-gradient(to right, var(--hotel-gold), var(--hotel-gold-soft));
   text-transform: uppercase;
@@ -112,6 +117,7 @@
   color: #000;
   font-weight: 600;
 }
+
 .badge {
   background: var(--hotel-deep-green);
   color: #fff;
@@ -120,6 +126,7 @@
   font-weight: 700;
   letter-spacing: 1px;
 }
+
 .hotel-input {
   border: 1px solid var(--hotel-border);
   padding: 12px;
@@ -132,21 +139,22 @@
   border-color: var(--hotel-gold);
   box-shadow: 0 0 0 0.2rem rgba(244, 180, 0, 0.15);
 }
+
 .search-wrapper {
   background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   padding: 15px;
   border-radius: 12px;
-  box-shadow: 0 15px 25px rgba(0,0,0,0.15);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.15);
   max-width: 500px;
 }
 
 .search-label {
   display: block;
-  font-weight: 800;        
+  font-weight: 800;
   font-size: 0.9rem;
   letter-spacing: 1px;
-  color: #000;           
+  color: #000;
   margin-bottom: 8px;
   text-transform: uppercase;
 }
@@ -163,8 +171,8 @@
 }
 
 .search-container:focus-within {
-  border-color: #F4B400;  
-  box-shadow: 0 0 0 3px rgba(244,180,0,0.2);
+  border-color: #F4B400;
+  box-shadow: 0 0 0 3px rgba(244, 180, 0, 0.2);
 }
 
 .search-icon {
@@ -175,8 +183,8 @@
   flex: 1;
   border: none;
   outline: none;
-  font-weight: 700;        
-  color: #000;            
+  font-weight: 700;
+  color: #000;
   background: transparent;
 }
 
@@ -184,6 +192,7 @@
   color: #666;
   font-weight: 500;
 }
+
 @media (max-width: 768px) {
 
   .header-section {
