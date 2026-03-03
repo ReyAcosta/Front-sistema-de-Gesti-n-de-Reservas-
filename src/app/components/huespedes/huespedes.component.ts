@@ -53,9 +53,9 @@ export class HuespedesComponent implements OnInit, AfterViewInit {
 
     this.huespedForm = this.fb.group({
       id: [null],
-      nombre: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(1), Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
-      apellidoPaterno: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(1), Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
-      apellidoMaterno: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(1), Validators.pattern(/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/)]],
+      nombre: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(1), Validators.pattern(/^[\p{L}]+(?:\s[\p{L}]+)*$/u)]],
+      apellidoPaterno: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(1), Validators.pattern(/^[\p{L}]+(?:\s[\p{L}]+)*$/u)]],
+      apellidoMaterno: ['', [Validators.required, Validators.maxLength(50), Validators.minLength(1), Validators.pattern(/^[\p{L}]+(?:\s[\p{L}]+)*$/u)]],
       email: ['', [Validators.required, Validators.email, Validators.maxLength(100), Validators.minLength(1)]],
       telefono: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[0-9]+$/)]],
       idDocumento: [null, [Validators.required, Validators.min(1), Validators.max(6)]],

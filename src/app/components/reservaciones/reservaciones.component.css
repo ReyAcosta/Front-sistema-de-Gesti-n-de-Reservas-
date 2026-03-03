@@ -22,6 +22,18 @@
   color: #000 !important; 
   font-size: 2rem;
 }
+.hotel-input {
+  border: 1px solid var(--hotel-border);
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+.hotel-input:focus {
+  border-color: var(--hotel-gold);
+  box-shadow: 0 0 0 0.2rem rgba(244, 180, 0, 0.15);
+}
 
 .header-section p {
   color: #0e027c !important;

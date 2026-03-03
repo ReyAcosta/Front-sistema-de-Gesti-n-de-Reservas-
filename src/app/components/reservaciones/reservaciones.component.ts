@@ -31,6 +31,8 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
     estadosReserva = Object.entries(EstadoReserva).
         filter(([key, value]) => isNaN(Number(key)));
     areDeleted: boolean = false;
+    minFechaInicio!: string;
+    minFechaFin!: string;
 
     isEditMode: boolean = false;
     selectedReservacion: ReservacionResponse | null = null;
@@ -61,8 +63,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
             idHuesped: [null, [Validators.required, Validators.min(1)]],
             idHabitacion: [null, [Validators.required, Validators.min(1)]],
             fechaInicio: [null, [Validators.required]],
-            fechaFin: [null, [Validators.required]],
-        }),
+           fechaFin: [{ value: null, disabled: true }, [Validators.required]], }, { validators: this.validarRangoFechas });
             this.estadoForm = this.fb.group({
                 idEstado: [null]
             })
@@ -72,6 +73,10 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         this.listarReservaciones();
         this.listarHabitaciones();
         this.listarHuespedes();
+        this.activarFechaFinInicaValida();
+        const hoy = new Date();
+        this.minFechaInicio = this.formatearFechaLocal(hoy);
+
         if (this.authService.hasRole(Roles.ADMIN)) {
             this.showActions = true;
         }
@@ -112,7 +117,7 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
         //validamos que objeto del form venga valido
         if (this.reservacionForm.invalid) return;
         //pasamos a una constante la informacion del objeto del form
-        const reservacioData: ReservacionRequest = this.reservacionForm.value;
+        const reservacioData: ReservacionRequest = this.reservacionForm.getRawValue();
         //si edit mode is true y eciste una reservacion seleccionada es actualizar si no es registrar
         if (this.isEditMode && this.selectedReservacion) {
             this.reservacionService.putReservacion(reservacioData, this.selectedReservacion.id).subscribe({
@@ -249,6 +254,49 @@ export class ReservacionesComponent implements OnInit, AfterViewInit {
             }
         }
     }
+    private activarFechaFinInicaValida(): void {
+       this.reservacionForm.get('fechaInicio')?.valueChanges.subscribe(valor => {
+
+    const fechaFinControl = this.reservacionForm.get('fechaFin');
+
+    if (valor) {
+      fechaFinControl?.enable();
+
+      const fechaInicio = new Date(valor);
+      fechaInicio.setDate(fechaInicio.getDate() + 1);
+
+      this.minFechaFin = this.formatearFechaLocal(fechaInicio);
+
+    } else {
+      fechaFinControl?.disable();
+      fechaFinControl?.setValue(null);
+      this.minFechaFin = '';
+    }
+
+    });
+    }
+    private formatearFechaLocal(fecha: Date): string {
+        const year = fecha.getFullYear();
+        const month = String(fecha.getMonth() + 1).padStart(2, '0');
+        const day = String(fecha.getDate()).padStart(2, '0');
+     return `${year}-${month}-${day}T00:00`;
+    }
+    private validarRangoFechas(group: FormGroup) {
+
+    const inicio = group.get('fechaInicio')?.value;
+    const fin = group.get('fechaFin')?.value;
+
+    if (!inicio || !fin) return null;
+
+    const fechaInicio = new Date(inicio);
+    const fechaFin = new Date(fin);
+
+    if (fechaFin <= fechaInicio) {
+        return { rangoInvalido: true };
+    }
+
+  return null;
+}
 
 }
 

@@ -64,7 +64,7 @@
 
                     <td>{{ reservacion.fechaFin | date:'dd-MM-yyyy' }} </td>
 
-                    <td> <span class="badge px-3 py-2"> {{ reservacion.estadoReserva }} </span> </td>
+                    <td> <span class=" px-3 py-2"> {{ reservacion.estadoReserva }} </span> </td>
 
                     <td class="text-center" *ngIf="!areDeleted">
                         <div class="d-flex justify-content-center gap-2">
@@ -141,12 +141,12 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold"> Fecha Inicio </label>
-                            <input type="datetime-local" class="form-control" formControlName="fechaInicio">
+                            <input type="datetime-local" class="form-control" formControlName="fechaInicio" [min]="minFechaInicio">
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-semibold"> Fecha Fin </label>
-                            <input type="datetime-local" class="form-control" formControlName="fechaFin">
+                            <input type="datetime-local" class="form-control" formControlName="fechaFin" [min]="reservacionForm.get('fechaInicio')?.value" >
                         </div>
 
                     </div>
@@ -182,7 +182,7 @@
                     <div class="mb-3">
                         <label class="form-label fw-semibold">Nuevo Estado </label>
 
-                        <select class="form-select" formControlName="idEstado">
+                        <select class="form-select hotel-input" formControlName="idEstado">
                             <option *ngFor="let estado of estadosReserva" [value]="estado[1]">
                                 {{estado[0]}}
                             </option>
